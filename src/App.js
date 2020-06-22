@@ -1,4 +1,5 @@
 import React from "react";
+import { Counter } from "./features/counter/Counter";
 import "./App.css";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <h1>Welcome to the exit game </h1>
       </header>
       <main>
+        <Counter />
         <h2>Choose character:</h2>
         <section className="characters-container">
           <div>placeholder 1</div>
