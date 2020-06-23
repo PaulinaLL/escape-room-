@@ -1,5 +1,6 @@
 import React from "react";
 import { Counter } from "./features/counter/Counter";
+import MainScreen from "./components/mainscreen";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <div>placeholder 3</div>
         </section>
         <button>Let's go!</button>
+        <MainScreen></MainScreen>
       </main>
       <footer>
         {" "}
