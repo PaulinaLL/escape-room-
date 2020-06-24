@@ -22,6 +22,7 @@ function appReducer(state = initialState, action){
             case "SELECT":{
                 console.log("ok");
             }
+            break;
             default: 
             return state;
     } 
