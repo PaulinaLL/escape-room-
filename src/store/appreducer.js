@@ -19,10 +19,8 @@ const initialState = {
 
 function appReducer(state = initialState, action){
     switch (action.type) { 
-            case "SELECT":{
-                console.log("ok");
-            }
-            break;
+            case "SELECT":
+            return state;
             default: 
             return state;
     } 

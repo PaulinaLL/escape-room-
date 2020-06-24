@@ -31,8 +31,10 @@ render(){
         <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>
-          <div onClick={() => this.props.selectCharacter("catrine")}><img src={Character2} height="200px" width="100px"/></div>
-          <div><img src={Character3} height="200px" width="100px"/></div>
+          <div onClick={() => this.props.selectCharacter("catrine")}>
+              <img src={Character2} height="200px" width="100px" alt="standard"/>
+              </div>
+          <div><img src={Character3} height="200px" width="100px" alt="standard"/></div>
      </section>
         <button>Let's go!</button>
       </main>
