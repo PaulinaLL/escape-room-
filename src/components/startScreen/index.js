@@ -7,10 +7,6 @@ import Character3 from "../../assets/characters/Character2.jpg";
 
 class StartScreen extends React.Component {
    
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount(){
 
     }
