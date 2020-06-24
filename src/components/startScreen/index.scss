@@ -1,0 +1,11 @@
+.characters-container{
+
+    div{
+        overflow: hidden;
+        :hover{
+           background-color: red;
+           border: solid green 2px; 
+        }
+    }
+
+}

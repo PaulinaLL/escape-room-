@@ -1,14 +1,22 @@
 const initialState = {
-    items: [
-        
-    ],
-    events:  [
+    
+   assets:{ 
+    items: {    
+    },
+    events:  {
+    },
+    characters: {
+        1: {name: "catrine"}
+    }
+  },
+  inventory: {
 
-    ],
-    characters: [
-        
-    ]
-}
+  },
+  selectedCharacter: {
+
+  }
+};
+
 function appReducer(state = initialState, action){
     switch (action.type) { 
             default: 
