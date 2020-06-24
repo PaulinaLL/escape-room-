@@ -2,6 +2,7 @@ const initialState = {
     
    assets:{ 
     items: {    
+        
     },
     events:  {
     },
