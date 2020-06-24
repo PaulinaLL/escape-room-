@@ -2,7 +2,7 @@ const initialState = {
     
    assets:{ 
     items: {    
-        
+
     },
     events:  {
     },
@@ -21,6 +21,8 @@ const initialState = {
 function appReducer(state = initialState, action){
     switch (action.type) { 
             case "SELECT":
+
+            
             return state;
             default: 
             return state;
