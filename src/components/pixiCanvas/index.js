@@ -10,4 +10,9 @@ function PixiCanvas() {
   });
   return <div id="pixi-container"></div>;
 }
+
+
+
+
+
 export default PixiCanvas;
