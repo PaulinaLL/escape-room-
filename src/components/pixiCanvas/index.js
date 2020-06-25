@@ -13,8 +13,6 @@ function PixiCanvas() {
   background.height = 384;
   let furnitureSheet = {};
 
-
-
 function doneLoading(e) {
 createFurnitureSheet();
 createDrawer();
@@ -59,7 +57,6 @@ furnitureSheet["open4"]=
     //Add the canvas that Pixi automatically created for you to the HTML document
     container.appendChild(app.view);    
     app.stage.addChild(background,drawer); 
- 
 
     };
 
