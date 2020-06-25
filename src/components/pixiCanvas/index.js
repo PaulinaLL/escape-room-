@@ -30,9 +30,6 @@ function PixiCanvas() {
 
   });
 
-function light() {
- background.width = 10; 
-}
   return <div id="pixi-container"></div>;
 }
 
