@@ -3,7 +3,7 @@ import "./index.scss";
 import {connect} from "react-redux";
 import PixiCanvas from "../pixiCanvas";
 import Character2 from "../../assets/characters/Character3.jpg";
-import Character3 from "../../assets/characters/Character2.jpg";
+import Character3 from "../../assets/characters/Character2.png";
 
 class StartScreen extends React.Component {
    
@@ -30,7 +30,7 @@ render(){
           <div onClick={() => this.props.selectCharacter("catrine")}>
               <img src={Character2} height="200px" width="100px" alt="standard"/>
               </div>
-          <div><img src={Character3} height="200px" width="100px" alt="standard"/></div>
+          <div><img src={Character3} height="300px" width="150px" alt="standard"/></div>
      </section>
         <button>Let's go!</button>
       </main>
