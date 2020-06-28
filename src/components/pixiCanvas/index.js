@@ -47,7 +47,7 @@ furnitureSheet["open4"]=
   });
 
   function createDrawer() {
-    const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
+    const drawer = new PIXI.AnimatedSprite(furnitureSheet.open1);
     drawer.width = 200;
     drawer.height = 200;
    
