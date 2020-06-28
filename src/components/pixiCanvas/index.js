@@ -1,5 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
+import {createDrawer} from "../../helper/objectCreate";
 import ROOM from "../../assets/rooms/Corner.jpg";
 import SPRITES from "../../assets/objects/Spritesheet.png";
 
@@ -15,7 +16,7 @@ function PixiCanvas() {
 
 function doneLoading(e) {
 createFurnitureSheet();
-createDrawer();
+createDrawer(furnitureSheet,background,app);
 }
 
 function createFurnitureSheet(){
@@ -45,20 +46,6 @@ furnitureSheet["open4"]=
     app.loader.load(doneLoading);
     
   });
-
-  function createDrawer() {
-    const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
-    drawer.width = 200;
-    drawer.height = 200;
-   
-// Might be turned back to normal. Lets see.
-    const container = document.querySelector("#pixi-container");
-    //Create a Pixi Application
-    //Add the canvas that Pixi automatically created for you to the HTML document
-    container.appendChild(app.view);    
-    app.stage.addChild(background,drawer); 
-
-    };
 
   return <div id="pixi-container"></div>;
 }
