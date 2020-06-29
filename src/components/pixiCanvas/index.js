@@ -1,8 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-import ROOM from "../../assets/rooms/Corner.jpg";
-import SPRITES from "../../assets/objects/Drawer2.png";
-import {createDrawer} from "../../helper/createObjects";
+import ROOM from "../../assets/rooms/Corner.png";
+import {createDrawer,createUserInterface} from "../../helper/createObjects";
  
 function PixiCanvas() {
 
@@ -10,7 +9,9 @@ function PixiCanvas() {
 
     const container = document.querySelector("#pixi-container");
     container.appendChild(app.view);    
-    app.loader.add("furniture", SPRITES) 
+    app.loader
+    .add("furniture",require("../../assets/objects/Drawer2.png"))
+    .add("arrows",require("../../assets/objects/usertools.png"))
     app.loader.load(doneLoading);
   
   });
@@ -23,17 +24,29 @@ function PixiCanvas() {
   background.width = 768;
   background.height = 612;
   app.stage.addChild(background); 
-
-  let drawerSheet = {};
+  let drawerSheet = {}; 
+  let arrowSheet = {}; 
 
 function doneLoading() {
-  createdrawerSheet(app);
-createDrawer(drawerSheet,app);
+  
+  createdrawerSheet();
+  createArrowSheet();
+  createDrawer(drawerSheet,app);
+  createUserInterface(arrowSheet,app);
+  
+}
+
+// Working on Sheets
+function createArrowSheet(){
+  let asheet = new PIXI.BaseTexture.from(app.loader.resources["arrows"].url);
+  let height = 200;
+  arrowSheet["left"] =
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 200, 200, height))];
 }
 
 function createdrawerSheet(){
   let fsheet = new PIXI.BaseTexture.from(app.loader.resources["furniture"].url);
-  let w = 320;
+  let w = 258;
   let h = 400;  
 
 drawerSheet["closed"]=

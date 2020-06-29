@@ -2,18 +2,18 @@ import React from "react";
 import "./index.scss";
 import {connect} from "react-redux";
 import PixiCanvas from "../pixiCanvas";
-import Character2 from "../../assets/characters/Character3.jpg";
-import Character3 from "../../assets/characters/Character2.png";
+// import Character2 from "../../assets/characters/Character3.jpg";
+// import Character3 from "../../assets/characters/Character2.png";
 
 class StartScreen extends React.Component {
    
-    componentDidMount(){
+    // componentDidMount(){
 
-    }
+    // }
 
-    componentWillUnmount(){
+    // componentWillUnmount(){
 
-    }
+    // }
 
 render(){
    return (
