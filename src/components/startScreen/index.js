@@ -23,8 +23,10 @@ render(){
         <h1>Welcome to the exit game </h1>
       </header>
       <main>
+          <div className="canvasContainer">
     <PixiCanvas/>
-        <h2>Choose character:</h2>
+          </div>
+        {/* <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>
           <div onClick={() => this.props.selectCharacter("catrine")}>
@@ -32,7 +34,7 @@ render(){
               </div>
           <div><img src={Character3} height="300px" width="150px" alt="standard"/></div>
      </section>
-        <button>Let's go!</button>
+        <button>Let's go!</button> */}
       </main>
       <footer>
         {" "}
