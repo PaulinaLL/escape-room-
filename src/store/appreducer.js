@@ -1,22 +1,6 @@
-const initialState = {
-    
-   assets:{ 
-    items: {    
+import data from "./exitGame.json";
 
-    },
-    events:  {
-    },
-    characters: {
-        1: {name: "catrine"}
-    }
-  },
-  inventory: {
-
-  },
-  selectedCharacter: {
- 
-  }
-};
+const initialState = data;
 
 function appReducer(state = initialState, action){
     switch (action.type) { 

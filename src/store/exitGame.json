@@ -1,0 +1,12 @@
+ {    
+    "roomParts":{
+        "corner":{
+                "view": "../../assets/rooms/Corner.png"
+
+        }
+        
+    },
+   "inventory": {
+ 
+   }
+ }

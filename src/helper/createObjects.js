@@ -3,9 +3,6 @@ import * as PIXI from "pixi.js";
 export function createUserInterface(arrowSheet, app){
 // app.stage.addChild(arrowSheet.left[0]); 
 console.log(arrowSheet.left[0]);
-
-
-
 }
 
 export function createDrawer(furnitureSheet, app) {
