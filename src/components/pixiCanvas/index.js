@@ -44,7 +44,7 @@ function PixiCanvas() {
     let fsheet = new PIXI.BaseTexture.from(
       app.loader.resources["furniture"].url
     );
-    let w = 258;
+    let w = 256;
     let h = 400;
 
     drawerSheet["closed"] = [
