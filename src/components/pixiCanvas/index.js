@@ -3,61 +3,67 @@ import * as PIXI from "pixi.js";
 import {createDrawer,createUserInterface} from "../../helper/createObjects";
 import {connect} from "react-redux";
 // import { tsConstructorType } from "@babel/types";
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
  
 function PixiCanvas({rooms}) {
 
-  const assets = useSelector(state => state)
+  // const assets = useSelector(state => state)
   // console.log(assets);
-  console.log(rooms);
   
   useLayoutEffect(() => {
 
-    console.log(rooms.corner.view === "../../assets/rooms/Corner.png");
-  
-    console.log(assets);
-
     const container = document.querySelector("#pixi-container");
     container.appendChild(app.view);    
-
-    // console.log(this.state);
 
     app.loader
     .add("furniture",require("../../assets/objects/Drawer2.png"))
     .add("arrows",require("../../assets/objects/usertools.png"))
     .load(doneLoading);
-  });
+  }); 
  
   let app = new PIXI.Application({ width: 768, height: 612 });
    
   // SetFirstBackground
-  
   // Result is true
   console.log(rooms.corner.view === "../../assets/rooms/Corner.png");
 
   // String works but rooms.corner.view does not work.
-  const background = PIXI.Sprite.from(require(rooms.corner.view));
+  const corner = PIXI.Sprite.from(require("../../assets/rooms/Corner.png"));
+  // const backRoom = PIXI.Sprite.from(require("../../assets/rooms/Roomback.png"));
+  
+
+  console.log(corner);
 
 
-  background.width = 768;
-  background.height = 612;
-  app.stage.addChild(background); 
+  corner.width = 768;
+  corner.height = 612;
+  app.stage.addChild(corner); 
   let drawerSheet = {};
   let arrowSheet = {};
 
 function doneLoading() {
+
   createDrawerSheet();
   createArrowSheet();
-  createDrawer(drawerSheet,app);
-  createUserInterface(arrowSheet,app);
+  let ui = createUserInterface(arrowSheet,app);
+  let left = ui[0];
+  let right = ui[1];
+  app.stage.addChild(left,right);  
+  let drawer = createDrawer(drawerSheet,app);
+
+  // Add default Items
+  app.stage.addChild(drawer); 
+  // app.stage.removeChild(background); 
 }
 
 // Working on Sheets
 function createArrowSheet(){
   let asheet = new PIXI.BaseTexture.from(app.loader.resources["arrows"].url);
-  let height = 200;
+  let height = 100;
   arrowSheet["left"] =
-  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 200, 200, height))];
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 110, height))];
+  arrowSheet["right"] =
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(130, 0, 110, height))];
 }
 
 function createDrawerSheet(){
@@ -83,17 +89,12 @@ drawerSheet["open4"]=
 
 // End Sheets
 // Test for input field. 
-
 return <div id="pixi-container"></div>;
+
 }
-
-
-
 const mapStateToProps = (state) => {
   return {
       rooms: state.assetReducer.roomParts
-      // productList: state.cartReducer.normalizedProducts,
-      // productCount: state.cartReducer.cart.sum,       
   }
 }
 

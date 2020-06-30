@@ -1,8 +1,23 @@
 import * as PIXI from "pixi.js";
+import {leftOver} from "./buttons.js";
 
 export function createUserInterface(arrowSheet, app){
-// app.stage.addChild(arrowSheet.left[0]); 
-console.log(arrowSheet.left[0]);
+
+const left = new PIXI.Sprite(arrowSheet.left[0]);
+const right = new PIXI.Sprite(arrowSheet.right[0]);
+
+left.interactive = true;
+left.buttonMode = true;
+ 
+left
+    .on("pointerover", leftOver);
+
+right.x = 500;
+right.y = 500;
+left.x = 200;
+left.y = 500;
+
+return [left,right];
 }
 
 export function createDrawer(furnitureSheet, app) {
@@ -27,8 +42,7 @@ function onPointerOut() {
     }
     this.texture = furnitureSheet.closed[0];
 }
-//    It would be good if we get the relationship between the values. Please do something about it.
-   
+//    It would be good if we get the relationship between the values. Please do something about it.   
 // Width and Height
     drawer.width = 200;
     drawer.height = 260;
@@ -38,6 +52,6 @@ function onPointerOut() {
 // Might be turned back to normal. Lets see.
     //Create a Pixi Application
     //Add the canvas that Pixi automatically created for you to the HTML document
-        app.stage.addChild(drawer);  
+        return drawer;
 };
 
