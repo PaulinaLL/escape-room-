@@ -11,37 +11,22 @@ export function createDrawer(furnitureSheet, app) {
   drawer.interactive = true;
   drawer.on("pointerover", onPointerOver1).on("pointerout", onPointerOut);
 
-  function onPointerOver1() {
-    this.isOver = true;
-    if (this.isDown) {
-      return;
-    }
-    this.texture = furnitureSheet.open1[0];
+  function onPointerOver1(event) {
+    event.stopPropagation();
+
+    // const valueX = Object.values(event.data.global)[0];
+    const valueY = Object.values(event.data.global)[1];
+
+    if (valueY >= 327 && valueY <= 400) {
+      this.texture = furnitureSheet.open1[0];
+    } else if (valueY >= 401 && valueY <= 435) {
+      this.texture = furnitureSheet.open2[0];
+    } else if (valueY >= 436 && valueY <= 485) {
+      this.texture = furnitureSheet.open3[0];
+    } else if (valueY >= 486 && valueY <= 550) {
+      this.texture = furnitureSheet.open4[0];
+    } else return;
   }
-
-  //   function onPointerOver2() {
-  //     this.isOver = true;
-  //     if (this.isDown) {
-  //       return;
-  //     }
-  //     this.texture = furnitureSheet.open2[0];
-  //   }
-
-  //   function onPointerOver3() {
-  //     this.isOver = true;
-  //     if (this.isDown) {
-  //       return;
-  //     }
-  //     this.texture = furnitureSheet.open3[0];
-  //   }
-
-  //   function onPointerOver4() {
-  //     this.isOver = true;
-  //     if (this.isDown) {
-  //       return;
-  //     }
-  //     this.texture = furnitureSheet.open4[0];
-  //   }
 
   function onPointerOut() {
     this.isOver = false;
@@ -57,11 +42,8 @@ export function createDrawer(furnitureSheet, app) {
   //    Position
   drawer.x = 530;
   drawer.y = 295;
+
   //    It would be good if we get the relationship between the values. Please do something about it.
-
-  //HITAREAS
-
-  //   drawer.hitArea = new PIXI.Rectangle([530, 295, 100, 100]);
 
   // Might be turned back to normal. Lets see.
   //Create a Pixi Application
