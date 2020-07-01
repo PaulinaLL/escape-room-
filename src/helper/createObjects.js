@@ -9,9 +9,14 @@ const right = new PIXI.Sprite(arrowSheet.right[0]);
 
 left.interactive = true;
 left.buttonMode = true;
- 
+
 left
     .on("pointerover", leftOver);
+
+right.interactive = true;
+right.buttonMode = true;
+    
+
 
 right.x = 500;
 right.y = 500;
