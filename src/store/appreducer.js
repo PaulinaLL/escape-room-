@@ -17,11 +17,6 @@ import produce from "immer"
 //     } 
 // }
 
-const cart = {
-  "products": {},
-  "sum": 0,
-  "price" : 0,
-}
 
 const appReducer = produce((draft = data, action) =>{
   switch (action.type) { 
