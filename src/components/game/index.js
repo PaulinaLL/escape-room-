@@ -75,9 +75,13 @@ function createArrowSheet(){
   let asheet = new PIXI.BaseTexture.from(props.app.loader.resources["arrows"].url);
   let height = 100;
   arrowSheet["left"] =
-  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 110, height))];
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height))];
   arrowSheet["right"] =
-  [ new PIXI.Texture(asheet, new PIXI.Rectangle(130, 0, 110, height))];
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height))];
+
+  console.log(arrowSheet["right"]);
+  // arrowSheet["right"].Texture.scale(-1);
+
 }
 
 function createDrawerSheet(){
