@@ -7,6 +7,9 @@ import PixiCanvas from "../pixiCanvas";
 
 class StartScreen extends React.Component {
    
+
+
+
     // componentDidMount(){
 
     // }
@@ -16,6 +19,7 @@ class StartScreen extends React.Component {
     // }
 
 render(){
+    console.log(this.props.rooms);
    return (
     <div className="App">
       <header>
@@ -46,7 +50,7 @@ render(){
 
 const mapStateToProps = (state) => {
     return {
-        character: state.assetReducer.characters
+        // character: state.assetReducer.characters
         // productList: state.cartReducer.normalizedProducts,
         // productCount: state.cartReducer.cart.sum,       
     }

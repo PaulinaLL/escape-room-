@@ -1,21 +1,39 @@
 import * as PIXI from "pixi.js";
+import {leftOver} from "./buttons.js";
 
-export function createUserInterface(arrowSheet, app) {
-  // app.stage.addChild(arrowSheet.left[0]);
-  console.log(arrowSheet.left[0]);
+
+export function createUserInterface(arrowSheet, app){
+
+const left = new PIXI.Sprite(arrowSheet.left[0]);
+const right = new PIXI.Sprite(arrowSheet.right[0]);
+
+left.interactive = true;
+left.buttonMode = true;
+ 
+left
+    .on("pointerover", leftOver);
+
+right.x = 500;
+right.y = 500;
+left.x = 200;
+left.y = 500;
+
+return [left,right];
 }
+
 
 export function createDrawer(furnitureSheet, app) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
   drawer.buttonMode = true;
   drawer.interactive = true;
-  drawer.on("pointerover", onPointerOver1).on("pointerout", onPointerOut);
+  drawer.on("pointerover", onPointerOver).on("pointerout", onPointerOut);
 
-  function onPointerOver1(event) {
+  function onPointerOver(event) {
     event.stopPropagation();
 
     // const valueX = Object.values(event.data.global)[0];
     const valueY = Object.values(event.data.global)[1];
+
 
     if (valueY >= 327 && valueY <= 400) {
       this.texture = furnitureSheet.open1[0];
@@ -34,19 +52,18 @@ export function createDrawer(furnitureSheet, app) {
       return;
     }
     this.texture = furnitureSheet.closed[0];
-  }
-
-  // Width and Height
-  drawer.width = 200;
-  drawer.height = 260;
-  //    Position
-  drawer.x = 530;
-  drawer.y = 295;
-
-  //    It would be good if we get the relationship between the values. Please do something about it.
-
-  // Might be turned back to normal. Lets see.
-  //Create a Pixi Application
-  //Add the canvas that Pixi automatically created for you to the HTML document
-  app.stage.addChild(drawer);
 }
+//    It would be good if we get the relationship between the values. Please do something about it.   
+// Width and Height
+    drawer.width = 200;
+    drawer.height = 260;
+//    Position
+    drawer.x = 530;
+    drawer.y = 295;
+// Might be turned back to normal. Lets see.
+    //Create a Pixi Application
+    //Add the canvas that Pixi automatically created for you to the HTML document
+        return drawer;
+};
+
+
