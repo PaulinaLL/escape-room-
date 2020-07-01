@@ -7,11 +7,9 @@ import PixiCanvas from "../pixiCanvas";
 
 class StartScreen extends React.Component {
   // componentDidMount(){
-
   // }
 
   // componentWillUnmount(){
-
   // }
 
   render() {

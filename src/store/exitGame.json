@@ -9,5 +9,6 @@
    "inventory": {
  
    },
-   "partNumber": 0
+   "partNumber": 0,
+   "numberOfParts": 2
  }

@@ -22,7 +22,7 @@ export default function Game(props) {
   
   });
   // loaded= true;
-   
+  
   const roomParts = [PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
                      PIXI.Sprite.from(require("../../assets/rooms/Roomback.png"))
   ];
@@ -33,15 +33,19 @@ export default function Game(props) {
     return part;
   })
 
-  function onButtonDown(){
+  function turnLeft(){
     dispatch(
-      {type: "SwitchRoom"}
+      {type: "SWITCHLEFT"}
     );
   }
 
-  console.log(assetReducer.partNumber)
-  props.app.stage.addChild(roomParts[assetReducer.partNumber]); 
-   
+  function turnRight(){
+    dispatch(
+      {type: "SWITCHRIGHT"}
+    );
+  }
+
+  props.app.stage.addChild(roomParts[assetReducer.partNumber]);    
   let drawerSheet = {};
   let arrowSheet = {};
 
@@ -50,16 +54,20 @@ function doneLoading() {
   createDrawerSheet();
   createArrowSheet();
   let ui = createUserInterface(arrowSheet,props.app);
+  let drawer = createDrawer(drawerSheet,props.app);
+
   let left = ui[0];
   let right = ui[1];
   left
-    .on("pointerdown", onButtonDown);
+    .on("pointerdown", turnLeft);
+  right
+    .on("pointerdown", turnRight);
+    
     props.app.stage.addChild(left,right);  
-    let drawer = createDrawer(drawerSheet,props.app);
+
 
   // Add default Items
   props.app.stage.addChild(drawer); 
-
 }
 
 // Working on Sheets
@@ -77,27 +85,12 @@ function createDrawerSheet(){
   let w = 258;
   let h = 400;  
   
-    drawerSheet["closed"] = [
-      new PIXI.Texture(fsheet, new PIXI.Rectangle(0 * w, 0, w, h)),
-    ];
-
-    drawerSheet["open1"] = [
-      new PIXI.Texture(fsheet, new PIXI.Rectangle(1 * w, 0, w, h)),
-    ];
-
-    drawerSheet["open2"] = [
-      new PIXI.Texture(fsheet, new PIXI.Rectangle(2 * w, 0, w, h)),
-    ];
-
-    drawerSheet["open3"] = [
-      new PIXI.Texture(fsheet, new PIXI.Rectangle(3 * w, 0, w, h)),
-    ];
- 
-    drawerSheet["open4"] = [
-      new PIXI.Texture(fsheet, new PIXI.Rectangle(4 * w, 0, w, h)),
-    ];
+    drawerSheet["closed"] = [ new PIXI.Texture(fsheet, new PIXI.Rectangle(0 * w, 0, w, h)),];
+    drawerSheet["open1"] = [new PIXI.Texture(fsheet, new PIXI.Rectangle(1 * w, 0, w, h)),];
+    drawerSheet["open2"] = [new PIXI.Texture(fsheet, new PIXI.Rectangle(2 * w, 0, w, h)),];
+    drawerSheet["open3"] = [new PIXI.Texture(fsheet, new PIXI.Rectangle(3 * w, 0, w, h)),];
+    drawerSheet["open4"] = [new PIXI.Texture(fsheet, new PIXI.Rectangle(4 * w, 0, w, h)),];
   }
-
 
 return <div id="pixi-container"></div>;
 }
