@@ -22,7 +22,7 @@ return [left,right];
 }
 
 
-export function createDrawer(furnitureSheet, app) {
+export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
   drawer.buttonMode = true;
   drawer.interactive = true;
