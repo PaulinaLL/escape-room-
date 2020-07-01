@@ -1,14 +1,15 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
 import {createDrawer,createUserInterface} from "../../helper/createObjects";
-import {connect} from "react-redux";
 // import { tsConstructorType } from "@babel/types";
-// import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
  
-function PixiCanvas({rooms}) {
+export default function PixiCanvas(props) {
 
-  // const assets = useSelector(state => state)
-  // console.log(assets);
+  const {assetReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  console.log(assetReducer.partNumber);
   
   useLayoutEffect(() => {
 
@@ -23,21 +24,23 @@ function PixiCanvas({rooms}) {
  
   let app = new PIXI.Application({ width: 768, height: 612 });
    
-  // SetFirstBackground
-  // Result is true
-  console.log(rooms.corner.view === "../../assets/rooms/Corner.png");
+  const roomParts = [PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
+                     PIXI.Sprite.from(require("../../assets/rooms/Corner.png"))
+  ];
 
-  // String works but rooms.corner.view does not work.
-  const corner = PIXI.Sprite.from(require("../../assets/rooms/Corner.png"));
-  // const backRoom = PIXI.Sprite.from(require("../../assets/rooms/Roomback.png"));
-  
+  roomParts.map((part) => {
+    part.width = 768
+    part.height = 612
+    return part;
+  })
 
-  console.log(corner);
+  function onButtonDown(){
+    dispatch(
+      {type: "SwitchRoom"}
+    );
+  }
 
-
-  corner.width = 768;
-  corner.height = 612;
-  app.stage.addChild(corner); 
+  app.stage.addChild(roomParts[assetReducer.partNumber]); 
   let drawerSheet = {};
   let arrowSheet = {};
 
@@ -48,6 +51,8 @@ function doneLoading() {
   let ui = createUserInterface(arrowSheet,app);
   let left = ui[0];
   let right = ui[1];
+  left
+    .on("pointerdown", onButtonDown);
   app.stage.addChild(left,right);  
   let drawer = createDrawer(drawerSheet,app);
 
@@ -88,31 +93,7 @@ drawerSheet["open4"]=
 }
 
 // End Sheets
-// Test for input field. 
+
 return <div id="pixi-container"></div>;
 
 }
-const mapStateToProps = (state) => {
-  return {
-      rooms: state.assetReducer.roomParts
-  }
-}
-
-// const mapActionsToProps = (dispatch) => {
-//   return{
-//       selectCharacter: (characterName) => {
-//            dispatch({
-//               type: "SELECT",
-//               payload: {
-//                   characterName
-//               }
-//            });
-//       },
-//   }
-// }
-
-export default connect(
-  mapStateToProps,
-  // mapActionsToProps
-)(PixiCanvas);
-
