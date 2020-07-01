@@ -22,7 +22,6 @@ export default function Game(props) {
   
   });
   // loaded= true;
-  
   const roomParts = [PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
                      PIXI.Sprite.from(require("../../assets/rooms/Roomback.png"))
   ];
@@ -45,7 +44,9 @@ export default function Game(props) {
     );
   }
 
+  props.app.stage.removeChild();
   props.app.stage.addChild(roomParts[assetReducer.partNumber]);    
+ 
   let drawerSheet = {};
   let arrowSheet = {};
 
@@ -64,9 +65,8 @@ function doneLoading() {
     .on("pointerdown", turnRight);
     
     props.app.stage.addChild(left,right);  
-
-
   // Add default Items
+  if(assetReducer.partNumber ===0)
   props.app.stage.addChild(drawer); 
 }
 
@@ -75,9 +75,10 @@ function createArrowSheet(){
   let asheet = new PIXI.BaseTexture.from(props.app.loader.resources["arrows"].url);
   let height = 100;
   arrowSheet["left"] =
-  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 110, height))];
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height))];
   arrowSheet["right"] =
-  [ new PIXI.Texture(asheet, new PIXI.Rectangle(130, 0, 110, height))];
+  [ new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height))];
+
 }
 
 function createDrawerSheet(){

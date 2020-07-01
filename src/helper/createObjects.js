@@ -17,9 +17,10 @@ right.interactive = true;
 right.buttonMode = true;
     
 
+right.scale.set(-1);
 
-right.x = 500;
-right.y = 500;
+right.x = 550;
+right.y = 625;
 left.x = 200;
 left.y = 500;
 
@@ -35,10 +36,7 @@ export function createDrawer(furnitureSheet) {
 
   function onPointerOver(event) {
     event.stopPropagation();
-
-    // const valueX = Object.values(event.data.global)[0];
     const valueY = Object.values(event.data.global)[1];
-
 
     if (valueY >= 327 && valueY <= 400) {
       this.texture = furnitureSheet.open1[0];
