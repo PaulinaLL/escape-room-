@@ -37,7 +37,6 @@ export default function Game(props) {
     dispatch(
       {type: "SwitchRoom"}
     );
-
   }
 
   console.log(assetReducer.partNumber)

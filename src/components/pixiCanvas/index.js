@@ -2,10 +2,10 @@ import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
 import Game from "../game";
 
-import {createDrawer,createUserInterface} from "../../helper/createObjects";
+// import {createDrawer,createUserInterface} from "../../helper/createObjects";
 // import { tsConstructorType } from "@babel/types";
-import { useSelector,useDispatch } from 'react-redux'
-import { render } from "@testing-library/react";
+// import { useSelector,useDispatch } from 'react-redux'
+// import { render } from "@testing-library/react";
 
 export default function PixiCanvas(props) {
 
