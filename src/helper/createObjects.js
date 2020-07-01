@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import {leftOver} from "./buttons.js";
 
+
 export function createUserInterface(arrowSheet, app){
 
 const left = new PIXI.Sprite(arrowSheet.left[0]);
@@ -20,25 +21,35 @@ left.y = 500;
 return [left,right];
 }
 
+
 export function createDrawer(furnitureSheet, app) {
- 
-    const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);    
-    drawer.buttonMode = true;
-    drawer.interactive = true;  
-    drawer.on('pointerover', onPointerOver)
-    .on('pointerout', onPointerOut);
-    
-function onPointerOver() {
-    this.isOver = true;
-    if (this.isdown) {
-        return;
-    }
-    this.texture = furnitureSheet.open1[0];
-}
-function onPointerOut() {
+  const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
+  drawer.buttonMode = true;
+  drawer.interactive = true;
+  drawer.on("pointerover", onPointerOver).on("pointerout", onPointerOut);
+
+  function onPointerOver(event) {
+    event.stopPropagation();
+
+    // const valueX = Object.values(event.data.global)[0];
+    const valueY = Object.values(event.data.global)[1];
+
+
+    if (valueY >= 327 && valueY <= 400) {
+      this.texture = furnitureSheet.open1[0];
+    } else if (valueY >= 401 && valueY <= 435) {
+      this.texture = furnitureSheet.open2[0];
+    } else if (valueY >= 436 && valueY <= 485) {
+      this.texture = furnitureSheet.open3[0];
+    } else if (valueY >= 486 && valueY <= 550) {
+      this.texture = furnitureSheet.open4[0];
+    } else return;
+  }
+
+  function onPointerOut() {
     this.isOver = false;
-    if (this.isdown) {
-        return;
+    if (this.isDown) {
+      return;
     }
     this.texture = furnitureSheet.closed[0];
 }
@@ -55,3 +66,4 @@ function onPointerOut() {
         return drawer;
 };
 
+}
