@@ -2,6 +2,9 @@ import React from "react";
 import "./index.scss";
 import { connect } from "react-redux";
 import PixiCanvas from "../pixiCanvas";
+import DescriptionField from "../descriptionField";
+import UserInput from "../userInput";
+import ObjectCollection from "../objectsCollection";
 // import Character2 from "../../assets/characters/Character3.jpg";
 // import Character3 from "../../assets/characters/Character2.png";
 
@@ -21,9 +24,16 @@ class StartScreen extends React.Component {
           <h1>Welcome to the exit game </h1>
         </header>
         <main>
-          <div className="canvasContainer">
-            <PixiCanvas />
+          <div className="canvasDescriptionWrapper">
+            <div className="canvasContainer">
+              <PixiCanvas />
+            </div>
+            <div className="fieldsWrapper">
+              <DescriptionField />
+              <UserInput />
+            </div>
           </div>
+          <ObjectCollection />
           {/* <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>
@@ -33,10 +43,6 @@ class StartScreen extends React.Component {
           <div><img src={Character3} height="300px" width="150px" alt="standard"/></div>
      </section>
         <button>Let's go!</button> */}
-          <form action="#">
-            <label for="userInput">Write your code here:</label>
-            <input type="text" id="userInput" name="userInput" size="150" />
-          </form>
         </main>
         <footer>
           {" "}
