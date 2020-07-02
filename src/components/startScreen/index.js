@@ -5,8 +5,7 @@ import PixiCanvas from "../pixiCanvas";
 import DescriptionField from "../descriptionField";
 import UserInput from "../userInput";
 import ObjectCollection from "../objectsCollection";
-// import Character2 from "../../assets/characters/Character3.jpg";
-// import Character3 from "../../assets/characters/Character2.png";
+
 
 class StartScreen extends React.Component {
   // componentDidMount(){

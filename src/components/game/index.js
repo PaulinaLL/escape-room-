@@ -11,17 +11,18 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
-  let loaded = false;
 
+console.log(assetReducer.loaded)
   useLayoutEffect(() => {
-    if (!loaded) {
+    if (!assetReducer.loaded) {
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"));
-      props.app.loader.load(doneLoading);
     }
+    props.app.loader.load(doneLoading);
+     dispatch({ type: "LOADED" });
   });
   // loaded= true;
   const roomParts = [
@@ -117,6 +118,9 @@ export default function Game(props) {
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
   }
+   
+    // dispatch({ type: "LOADED" });
+  
 
   return <div id="pixi-container"></div>;
 }

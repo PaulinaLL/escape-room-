@@ -2,7 +2,6 @@
     "roomParts":{
         "corner":{
                 "view": "../../assets/rooms/Corner.png"
-
         }
         
     },
@@ -10,5 +9,6 @@
  
    },
    "partNumber": 0,
-   "numberOfParts": 2
+   "numberOfParts": 2,
+   "loaded": false
  }
