@@ -28,6 +28,7 @@ console.log(assetReducer.loaded)
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
+    PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png"))
   ];
 
   roomParts.map((part) => {

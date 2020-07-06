@@ -12,7 +12,7 @@ const appReducer = produce((draft = data, action) =>{
           return draft;
           case "SWITCHRIGHT":
             console.log(draft.numberOfParts);
-          draft.partNumber = draft.partNumber - 1 === -1 ? 1: draft.partNumber - 1;
+          draft.partNumber = draft.partNumber - 1 === -1 ? 2: draft.partNumber - 1;
 
           return draft;
           case "LOADED": 
