@@ -1,14 +1,18 @@
- {    
-    "roomParts":{
-        "corner":{
-                "view": "../../assets/rooms/Corner.png"
-        }
-        
-    },
-   "inventory": {
- 
-   },
-   "partNumber": 0,
-   "numberOfParts": 3,
-   "loaded": false
- }
+
+{
+  "roomParts": {
+    "corner": {
+      "view": "../../assets/rooms/Corner.png"
+    }
+  },
+  "inventory": {},
+  "partNumber": 0,
+  "numberOfParts": 3,
+  "riddleDescription": {
+    "first": "dummy description 1",
+    "second": "dummy description 2",
+    "third": "dummy description 3"
+  },
+  "currentRiddle": "",
+  "loaded": false
+}

@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
+  console.log("asset", assetReducer);
   const dispatch = useDispatch();
 
 console.log(assetReducer.loaded)
@@ -19,17 +20,36 @@ console.log(assetReducer.loaded)
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
-        .add("pc", require("../../assets/objects/pc2.png"));
+        .add("pc", require("../../assets/objects/pc2.png")); 
     }
     props.app.loader.load(doneLoading);
      dispatch({ type: "LOADED" });
   });
   // loaded= true;
+
+
+  let scene1 = new PIXI.Container();
+  let scene2 = new PIXI.Container();
+  let scene3 = new PIXI.Container();
+
+
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png"))
   ];
+
+  // roomParts.map((part) => {
+  //   console.log(part);
+  //   // part[0].width = 768;
+  //   // part[0].height = 612;
+
+  //   // return part;
+  // });
+
+  scene1.addChild(roomParts[0]);
+  scene2.addChild(roomParts[1]); 
+  scene3.addChild(roomParts[2]);
 
   roomParts.map((part) => {
     part.width = 768;
@@ -45,8 +65,16 @@ console.log(assetReducer.loaded)
     dispatch({ type: "SWITCHRIGHT" });
   }
 
-  props.app.stage.removeChild();
-  props.app.stage.addChild(roomParts[assetReducer.partNumber]);
+  function displayFirstRiddle() {
+    dispatch({ type: "SELECTPC" });
+  }
+
+  function displaySecondRiddle() {
+    dispatch({ type: "SELECTDRAWER" });
+  }
+
+  // props.app.stage.removeChild();
+  // props.app.stage.addChild(roomParts[assetReducer.partNumber]);
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -64,11 +92,63 @@ console.log(assetReducer.loaded)
     let right = ui[1];
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
+    pc.on("pointerdown", displayFirstRiddle);
+    drawer.on("pointerdown", displaySecondRiddle);
 
-    props.app.stage.addChild(left, right);
+    // props.app.stage.addChild(left, right);
+    if(props.app.stage.children.length < 5)
+    {
+      scene1.addChild(drawer, pc)
+
+      scene1.visible = true;
+      scene2.visible = false;
+      scene3.visible = false;
+
+    props.app.stage.addChild(
+      scene1,
+      scene2,
+      scene3,
+      left,
+      right);
+    }
     // Add default Items
-    if (assetReducer.partNumber === 0) props.app.stage.addChild(drawer, pc);
+    // props.app.stage.removeChild();
+    // if (assetReducer.partNumber === 0){ 
+    // };
   }
+
+  
+
+  console.log(props.app.stage.children);
+  // props.app.stage.map((part) => {
+  //   console.log(part);
+  //   // part[0].width = 768;
+  //   // part[0].height = 612;
+  //   // return part;
+  // });
+
+
+  if(props.app.stage.children.length){
+    props.app.stage.children[0].visible = false;
+    props.app.stage.children[1].visible = false;
+    props.app.stage.children[2].visible = false;
+ 
+    switch(assetReducer.partNumber){
+      case 1:
+          props.app.stage.children[1].visible = true;
+          break;
+        case 2:
+          props.app.stage.children[2].visible = true;
+        break;
+      case 0:
+        default: 
+        props.app.stage.children[0].visible = true;
+        break;
+      }
+  }
+  
+  
+
 
   // Working on Sheets
   function createArrowSheet() {
