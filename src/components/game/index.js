@@ -108,7 +108,6 @@ console.log(assetReducer.loaded)
     }
   }
 
-
   if(props.app.stage.children.length){
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
@@ -128,7 +127,6 @@ console.log(assetReducer.loaded)
       }
   }
   
-
   // Working on Sheets
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
