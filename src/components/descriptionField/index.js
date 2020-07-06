@@ -11,7 +11,7 @@ const DescriptionField = () => {
 
   return (
     <div className="description">
-      <p>description will appear here</p>
+      <p>{assetReducer.currentRiddle}</p>
     </div>
   );
 };
