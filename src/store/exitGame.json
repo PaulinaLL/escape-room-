@@ -12,5 +12,6 @@
     "second": "dummy description 2",
     "third": "dummy description 3"
   },
-  "currentRiddle": ""
+  "currentRiddle": "",
+  "loaded": false
 }
