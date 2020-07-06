@@ -106,7 +106,7 @@ console.log(assetReducer.loaded)
       left,
       right);
     }
-  }
+  } 
 
   if(props.app.stage.children.length){
     props.app.stage.children[0].visible = false;
