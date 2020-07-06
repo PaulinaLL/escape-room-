@@ -25,12 +25,10 @@ console.log(assetReducer.loaded)
     props.app.loader.load(doneLoading);
      dispatch({ type: "LOADED" });
   });
-  // loaded= true;
 
-
-  let scene1 = new PIXI.Container();
-  let scene2 = new PIXI.Container();
-  let scene3 = new PIXI.Container();
+  let corner = new PIXI.Container();
+  let roomBack = new PIXI.Container();
+  let frontDoor = new PIXI.Container();
 
 
   const roomParts = [
@@ -47,10 +45,9 @@ console.log(assetReducer.loaded)
   //   // return part;
   // });
 
-
-  scene1.addChild(roomParts[0]);
-  scene2.addChild(roomParts[1]); 
-  scene3.addChild(roomParts[2]);
+  corner.addChild(roomParts[0]);
+  roomBack.addChild(roomParts[1]); 
+  frontDoor.addChild(roomParts[2]);
  
   roomParts.map((part) => {
     part.width = 768;
@@ -74,9 +71,6 @@ console.log(assetReducer.loaded)
     dispatch({ type: "SELECTDRAWER" });
   }
 
-  // props.app.stage.removeChild();
-  // props.app.stage.addChild(roomParts[assetReducer.partNumber]);
-
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -99,34 +93,20 @@ console.log(assetReducer.loaded)
     // props.app.stage.addChild(left, right);
     if(props.app.stage.children.length < 5)
     {
-      scene1.addChild(drawer, pc)
+      corner.addChild(drawer, pc)
 
-      scene1.visible = true;
-      scene2.visible = false;
-      scene3.visible = false;
+      corner.visible = true;
+      roomBack.visible = false;
+      frontDoor.visible = false;
 
     props.app.stage.addChild(
-      scene1,
-      scene2,
-      scene3,
+      corner,
+      roomBack,
+      frontDoor,
       left,
       right);
     }
-    // Add default Items
-    // props.app.stage.removeChild();
-    // if (assetReducer.partNumber === 0){ 
-    // };
   }
-
-  
-
-  console.log(props.app.stage.children);
-  // props.app.stage.map((part) => {
-  //   console.log(part);
-  //   // part[0].width = 768;
-  //   // part[0].height = 612;
-  //   // return part;
-  // });
 
 
   if(props.app.stage.children.length){
