@@ -19,7 +19,7 @@ console.log(assetReducer.loaded)
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
-        .add("pc", require("../../assets/objects/pc2.png"));
+        .add("pc", require("../../assets/objects/pc2.png")); 
     }
     props.app.loader.load(doneLoading);
      dispatch({ type: "LOADED" });
