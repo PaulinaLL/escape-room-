@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
+  console.log("asset", assetReducer);
   const dispatch = useDispatch();
 
 console.log(assetReducer.loaded)
@@ -44,6 +45,14 @@ console.log(assetReducer.loaded)
     dispatch({ type: "SWITCHRIGHT" });
   }
 
+  function displayFirstRiddle() {
+    dispatch({ type: "SELECTPC" });
+  }
+
+  function displaySecondRiddle() {
+    dispatch({ type: "SELECTDRAWER" });
+  }
+
   props.app.stage.removeChild();
   props.app.stage.addChild(roomParts[assetReducer.partNumber]);
 
@@ -63,6 +72,8 @@ console.log(assetReducer.loaded)
     let right = ui[1];
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
+    pc.on("pointerdown", displayFirstRiddle);
+    drawer.on("pointerdown", displaySecondRiddle);
 
     props.app.stage.addChild(left, right);
     // Add default Items
