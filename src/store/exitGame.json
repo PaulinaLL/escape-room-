@@ -1,4 +1,3 @@
-
 {
   "roomParts": {
     "corner": {
@@ -9,10 +8,33 @@
   "partNumber": 0,
   "numberOfParts": 3,
   "riddleDescription": {
-    "first": "dummy description 1",
-    "second": "dummy description 2",
-    "third": "dummy description 3"
+    "first": {
+      "id": 1,
+      "text": "dummy description 1 - PC riddle",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "second": {
+      "id": 2,
+      "text": "dummy description 2 - drawer",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "third": {
+      "id": 3,
+      "text": "dummy description 3",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "fourth": {
+      "id": 4,
+      "text": "dummy description 4 ",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    }
   },
-  "currentRiddle": "",
+  "currentRiddle": {
+    "text": "it seems like the computer is on... check if there is some info to find"
+  },
   "loaded": false
 }
