@@ -9,6 +9,8 @@
   "numberOfParts": 2,
   "riddleDescription": {
     "first": "dummy description 1",
-    "second": "dummy description 2"
-  }
+    "second": "dummy description 2",
+    "third": "dummy description 3"
+  },
+  "currentRiddle": ""
 }
