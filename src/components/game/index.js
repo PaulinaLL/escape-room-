@@ -47,10 +47,11 @@ console.log(assetReducer.loaded)
   //   // return part;
   // });
 
+
   scene1.addChild(roomParts[0]);
   scene2.addChild(roomParts[1]); 
   scene3.addChild(roomParts[2]);
-
+ 
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
