@@ -15,7 +15,7 @@ const appReducer = produce((draft = data, action) =>{
           draft.partNumber = draft.partNumber - 1 === -1 ? 1: draft.partNumber - 1;
 
           return draft;
-          case "LOADED":
+          case "LOADED": 
             draft.loaded = true;
             break;
           default: 
