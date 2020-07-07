@@ -13,30 +13,37 @@ export default function Game(props) {
   console.log("asset", assetReducer);
   const dispatch = useDispatch();
 
-console.log(assetReducer.loaded)
+  console.log(assetReducer.loaded);
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
-        .add("pc", require("../../assets/objects/pc2.png")); 
+        .add("pc", require("../../assets/objects/pc2.png"));
     }
     props.app.loader.load(doneLoading);
-     dispatch({ type: "LOADED" });
+    dispatch({ type: "LOADED" });
   });
+<<<<<<< HEAD
   // loaded= true;
 
 
   let scene1 = new PIXI.Container();
   let scene2 = new PIXI.Container();
   let scene3 = new PIXI.Container();
+=======
+
+  let corner = new PIXI.Container();
+  let roomBack = new PIXI.Container();
+  let frontDoor = new PIXI.Container();
+>>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
 
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
-    PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png"))
+    PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
   ];
 
   // roomParts.map((part) => {
@@ -47,10 +54,17 @@ console.log(assetReducer.loaded)
   //   // return part;
   // });
 
+<<<<<<< HEAD
   scene1.addChild(roomParts[0]);
   scene2.addChild(roomParts[1]); 
   scene3.addChild(roomParts[2]);
 
+=======
+  corner.addChild(roomParts[0]);
+  roomBack.addChild(roomParts[1]); 
+  frontDoor.addChild(roomParts[2]);
+ 
+>>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -58,24 +72,27 @@ console.log(assetReducer.loaded)
   });
 
   function turnLeft() {
-    dispatch({ type: "SWITCHLEFT" });
+    dispatch({ type: "SWITCH_LEFT" });
   }
 
   function turnRight() {
-    dispatch({ type: "SWITCHRIGHT" });
+    dispatch({ type: "SWITCH_RIGHT" });
   }
 
   function displayFirstRiddle() {
-    dispatch({ type: "SELECTPC" });
+    dispatch({ type: "SELECT_PC" });
   }
 
   function displaySecondRiddle() {
-    dispatch({ type: "SELECTDRAWER" });
+    dispatch({ type: "SELECT_DRAWER" });
   }
 
+<<<<<<< HEAD
   // props.app.stage.removeChild();
   // props.app.stage.addChild(roomParts[assetReducer.partNumber]);
 
+=======
+>>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -98,6 +115,7 @@ console.log(assetReducer.loaded)
     // props.app.stage.addChild(left, right);
     if(props.app.stage.children.length < 5)
     {
+<<<<<<< HEAD
       scene1.addChild(drawer, pc)
 
       scene1.visible = true;
@@ -150,6 +168,42 @@ console.log(assetReducer.loaded)
   
 
 
+=======
+      corner.addChild(drawer, pc)
+
+      corner.visible = true;
+      roomBack.visible = false;
+      frontDoor.visible = false;
+
+    props.app.stage.addChild(
+      corner,
+      roomBack,
+      frontDoor,
+      left, 
+      right);
+    }
+  } 
+
+  if(props.app.stage.children.length){
+    props.app.stage.children[0].visible = false;
+    props.app.stage.children[1].visible = false;
+    props.app.stage.children[2].visible = false;
+ 
+    switch(assetReducer.partNumber){
+      case 1:
+          props.app.stage.children[1].visible = true;
+          break;
+        case 2:
+          props.app.stage.children[2].visible = true;
+        break;
+      case 0:
+        default: 
+        props.app.stage.children[0].visible = true;
+        break;
+      }
+  }
+  
+>>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   // Working on Sheets
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
@@ -199,9 +253,8 @@ console.log(assetReducer.loaded)
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
   }
-   
-    // dispatch({ type: "LOADED" });
-  
+
+  // dispatch({ type: "LOADED" });
 
   return <div id="pixi-container"></div>;
 }
