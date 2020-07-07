@@ -40,10 +40,9 @@ console.log(assetReducer.loaded)
   ];
 
   // roomParts.map((part) => {
-  //   console.log(part);
+  //   console.log(part); 
   //   // part[0].width = 768;
   //   // part[0].height = 612;
-
   //   // return part;
   // });
 
