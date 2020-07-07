@@ -13,17 +13,17 @@ export default function Game(props) {
   console.log("asset", assetReducer);
   const dispatch = useDispatch();
 
-console.log(assetReducer.loaded)
+  console.log(assetReducer.loaded);
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
-        .add("pc", require("../../assets/objects/pc2.png")); 
+        .add("pc", require("../../assets/objects/pc2.png"));
     }
     props.app.loader.load(doneLoading);
-     dispatch({ type: "LOADED" });
+    dispatch({ type: "LOADED" });
   });
 
   let corner = new PIXI.Container();
@@ -34,7 +34,7 @@ console.log(assetReducer.loaded)
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
-    PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png"))
+    PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
   ];
 
   // roomParts.map((part) => {
@@ -56,19 +56,19 @@ console.log(assetReducer.loaded)
   });
 
   function turnLeft() {
-    dispatch({ type: "SWITCHLEFT" });
+    dispatch({ type: "SWITCH_LEFT" });
   }
 
   function turnRight() {
-    dispatch({ type: "SWITCHRIGHT" });
+    dispatch({ type: "SWITCH_RIGHT" });
   }
 
   function displayFirstRiddle() {
-    dispatch({ type: "SELECTPC" });
+    dispatch({ type: "SELECT_PC" });
   }
 
   function displaySecondRiddle() {
-    dispatch({ type: "SELECTDRAWER" });
+    dispatch({ type: "SELECT_DRAWER" });
   }
 
   let drawerSheet = {};
@@ -176,9 +176,8 @@ console.log(assetReducer.loaded)
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
   }
-   
-    // dispatch({ type: "LOADED" });
-  
+
+  // dispatch({ type: "LOADED" });
 
   return <div id="pixi-container"></div>;
 }
