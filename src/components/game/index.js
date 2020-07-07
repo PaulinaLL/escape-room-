@@ -25,13 +25,30 @@ export default function Game(props) {
     props.app.loader.load(doneLoading);
     dispatch({ type: "LOADED" });
   });
-  // loaded= true;
+
+  let corner = new PIXI.Container();
+  let roomBack = new PIXI.Container();
+  let frontDoor = new PIXI.Container();
+
+
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
   ];
 
+  // roomParts.map((part) => {
+  //   console.log(part);
+  //   // part[0].width = 768;
+  //   // part[0].height = 612;
+
+  //   // return part;
+  // });
+
+  corner.addChild(roomParts[0]);
+  roomBack.addChild(roomParts[1]); 
+  frontDoor.addChild(roomParts[2]);
+ 
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -54,9 +71,6 @@ export default function Game(props) {
     dispatch({ type: "SELECT_DRAWER" });
   }
 
-  props.app.stage.removeChild();
-  props.app.stage.addChild(roomParts[assetReducer.partNumber]);
-
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -76,11 +90,43 @@ export default function Game(props) {
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
 
-    props.app.stage.addChild(left, right);
-    // Add default Items
-    if (assetReducer.partNumber === 0) props.app.stage.addChild(drawer, pc);
-  }
+    // props.app.stage.addChild(left, right);
+    if(props.app.stage.children.length < 5)
+    {
+      corner.addChild(drawer, pc)
 
+      corner.visible = true;
+      roomBack.visible = false;
+      frontDoor.visible = false;
+
+    props.app.stage.addChild(
+      corner,
+      roomBack,
+      frontDoor,
+      left, 
+      right);
+    }
+  } 
+
+  if(props.app.stage.children.length){
+    props.app.stage.children[0].visible = false;
+    props.app.stage.children[1].visible = false;
+    props.app.stage.children[2].visible = false;
+ 
+    switch(assetReducer.partNumber){
+      case 1:
+          props.app.stage.children[1].visible = true;
+          break;
+        case 2:
+          props.app.stage.children[2].visible = true;
+        break;
+      case 0:
+        default: 
+        props.app.stage.children[0].visible = true;
+        break;
+      }
+  }
+  
   // Working on Sheets
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
