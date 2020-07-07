@@ -5,7 +5,7 @@ import PixiCanvas from "../pixiCanvas";
 import DescriptionField from "../descriptionField";
 import UserInput from "../userInput";
 import ObjectCollection from "../objectsCollection";
-
+import GetUserName from "../promptWindow";
 
 class StartScreen extends React.Component {
   // componentDidMount(){
@@ -23,6 +23,7 @@ class StartScreen extends React.Component {
           <h1>Welcome to the exit game </h1>
         </header>
         <main>
+          <GetUserName />
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
               <PixiCanvas />

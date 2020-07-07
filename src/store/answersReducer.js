@@ -1,9 +1,14 @@
 const initialState = {
+  userName: null,
   userAnswers: [],
 };
 
 function answersReducer(state = initialState, action) {
   switch (action.type) {
+    case "ADD_USER_NAME":
+      return {
+        userName: action.payload.name,
+      };
     case "ADD_USER_ANSWER":
       return {
         ...state,
