@@ -103,7 +103,7 @@ console.log(assetReducer.loaded)
       corner,
       roomBack,
       frontDoor,
-      left,
+      left, 
       right);
     }
   } 
