@@ -24,6 +24,22 @@ export function createUserInterface(arrowSheet, app) {
 
   return [left, right];
 }
+export function setItems(items, app){
+  const idCard1 = new PIXI.Sprite(items.idCard[0]);
+
+  idCard1.interactive = true;
+  idCard1.buttonMode = true;
+
+  idCard1.on("pointerclick", leftOver);
+
+  idCard1.x = 570;
+  idCard1.y = 350;
+  idCard1.height = 30;
+  idCard1.width = 40;
+
+
+  return idCard1;
+}
 
 export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);

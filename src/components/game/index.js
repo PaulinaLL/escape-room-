@@ -5,22 +5,22 @@ import {
   createDrawer,
   createUserInterface,
   createPC,
+  setItems
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
-  console.log("asset", assetReducer);
   const dispatch = useDispatch();
 
-  console.log(assetReducer.loaded);
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
-        .add("pc", require("../../assets/objects/pc2.png"));
+        .add("pc", require("../../assets/objects/pc2.png"))
+        .add("itemList", require("../../assets/objects/itemsGimp.png"));
     }
     props.app.loader.load(doneLoading);
     dispatch({ type: "LOADED" });
@@ -29,7 +29,6 @@ export default function Game(props) {
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container(); 
-
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -58,47 +57,65 @@ export default function Game(props) {
   function turnLeft() {
     dispatch({ type: "SWITCH_LEFT" });
   }
-
   function turnRight() {
     dispatch({ type: "SWITCH_RIGHT" });
   }
-
   function displayFirstRiddle() {
     dispatch({ type: "SELECT_PC" });
   }
-
   function displaySecondRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
+  }
+  function takeItem(idCard){
+
+
+ roomBack.children[1].visible = false;
+//  roomBack.children[0].removeChild();
+ 
+console.log(roomBack);
+    dispatch({type: "TAKE_ITEM"});
   }
 
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
+  let items = {};
 
   function doneLoading() {
+    // Preparing Sheets
     createDrawerSheet();
     createArrowSheet();
     createPCSheet();
+    createItemSheet();
+    
+
+    // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
+    let idCard = setItems(items, props.app);
 
     let left = ui[0];
     let right = ui[1];
+
+    // Preparing Functionality for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
+    idCard.on("pointerdown", takeItem);
 
-    // props.app.stage.addChild(left, right);
-    if(props.app.stage.children.length < 5)
+    // Setting Visibility of Screens
+    if(!props.app.stage.children.length)
     { 
     corner.addChild(drawer, pc)
+    roomBack.addChild(idCard);
 
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
 
+      // Adding Screens and Interface to Stage
     props.app.stage.addChild(
       corner,
       roomBack,
@@ -126,8 +143,23 @@ export default function Game(props) {
         break;
       }
   }
-  
-  // Working on Sheets
+
+    // Working on Sheets
+    // Sheets for diverse items which have just one state inside screen or inventory
+
+function createItemSheet(){
+  let itemSheet = new PIXI.BaseTexture.from(props.app.loader.resources["itemList"].url);
+
+  items["idCard"] = [
+    new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100))
+  ]
+}
+
+
+
+
+// Sheets with items which have more than one state. 
+
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["arrows"].url
@@ -176,8 +208,6 @@ export default function Game(props) {
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
   }
-
-  // dispatch({ type: "LOADED" });
 
   return <div id="pixi-container"></div>;
 }
