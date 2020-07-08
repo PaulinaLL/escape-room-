@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { useDispatch } from "react-redux";
+import store from "../../store/store";
 
 export default function UserInput() {
   const [userAnswer, setUserAnswer] = useState();
@@ -14,10 +15,19 @@ export default function UserInput() {
         answer: userAnswer,
       },
     });
-
-    // setUserAnswer("");
-    //save  data in redux-store
   };
+
+  const storeState = store.getState();
+  // console.log("here", storeState.answersReducer.currentRiddleDescription);
+
+  const preInput = `function greet(person) {
+    if (person == { name: ${storeState.answersReducer.userName} }) {
+    return "hey " +  ${storeState.answersReducer.userName};
+    } else {
+    return "hey stranger";
+    }
+    }
+    console.log(greet({ name: ${storeState.answersReducer.userName} }))`;
 
   return (
     <div className="userInput">
@@ -29,7 +39,12 @@ export default function UserInput() {
           name="userInput"
           rows="15"
           cols="70"
-          value={userAnswer}
+          value={preInput}
+          // value={
+          //   storeState.answerReducer.currentRiddleDescription.id === 1
+          //     ? preInput
+          //     : userAnswer
+          // }
           onChange={(e) => setUserAnswer(e.target.value)}
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
