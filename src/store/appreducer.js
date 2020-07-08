@@ -6,7 +6,7 @@ const appReducer = produce((draft = data, action) => {
     case "SELECT":
       return draft;
 
-    case "SWITCH_LEFT":
+    case "SWITCH_LEFT": 
       draft.partNumber =
         draft.numberOfParts === draft.partNumber + 1 ? 0 : draft.partNumber + 1;
       return draft;

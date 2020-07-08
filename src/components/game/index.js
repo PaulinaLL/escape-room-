@@ -25,19 +25,10 @@ export default function Game(props) {
     props.app.loader.load(doneLoading);
     dispatch({ type: "LOADED" });
   });
-<<<<<<< HEAD
-  // loaded= true;
-
-
-  let scene1 = new PIXI.Container();
-  let scene2 = new PIXI.Container();
-  let scene3 = new PIXI.Container();
-=======
 
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
-  let frontDoor = new PIXI.Container();
->>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
+  let frontDoor = new PIXI.Container(); 
 
 
   const roomParts = [
@@ -54,17 +45,10 @@ export default function Game(props) {
   //   // return part;
   // });
 
-<<<<<<< HEAD
-  scene1.addChild(roomParts[0]);
-  scene2.addChild(roomParts[1]); 
-  scene3.addChild(roomParts[2]);
-
-=======
   corner.addChild(roomParts[0]);
   roomBack.addChild(roomParts[1]); 
   frontDoor.addChild(roomParts[2]);
  
->>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -87,12 +71,6 @@ export default function Game(props) {
     dispatch({ type: "SELECT_DRAWER" });
   }
 
-<<<<<<< HEAD
-  // props.app.stage.removeChild();
-  // props.app.stage.addChild(roomParts[assetReducer.partNumber]);
-
-=======
->>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -114,62 +92,8 @@ export default function Game(props) {
 
     // props.app.stage.addChild(left, right);
     if(props.app.stage.children.length < 5)
-    {
-<<<<<<< HEAD
-      scene1.addChild(drawer, pc)
-
-      scene1.visible = true;
-      scene2.visible = false;
-      scene3.visible = false;
-
-    props.app.stage.addChild(
-      scene1,
-      scene2,
-      scene3,
-      left,
-      right);
-    }
-    // Add default Items
-    // props.app.stage.removeChild();
-    // if (assetReducer.partNumber === 0){ 
-    // };
-  }
-
-  
-
-  console.log(props.app.stage.children);
-  // props.app.stage.map((part) => {
-  //   console.log(part);
-  //   // part[0].width = 768;
-  //   // part[0].height = 612;
-  //   // return part;
-  // });
-
-
-  if(props.app.stage.children.length){
-    props.app.stage.children[0].visible = false;
-    props.app.stage.children[1].visible = false;
-    props.app.stage.children[2].visible = false;
- 
-    switch(assetReducer.partNumber){
-      case 1:
-          props.app.stage.children[1].visible = true;
-          break;
-        case 2:
-          props.app.stage.children[2].visible = true;
-        break;
-      case 0:
-        default: 
-        props.app.stage.children[0].visible = true;
-        break;
-      }
-  }
-  
-  
-
-
-=======
-      corner.addChild(drawer, pc)
+    { 
+    corner.addChild(drawer, pc)
 
       corner.visible = true;
       roomBack.visible = false;
@@ -182,7 +106,7 @@ export default function Game(props) {
       left, 
       right);
     }
-  } 
+  }  
 
   if(props.app.stage.children.length){
     props.app.stage.children[0].visible = false;
@@ -203,7 +127,6 @@ export default function Game(props) {
       }
   }
   
->>>>>>> f706c00e7dbcd9086dc395a565e52eba5a14db12
   // Working on Sheets
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
