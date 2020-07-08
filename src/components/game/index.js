@@ -27,8 +27,9 @@ export default function Game(props) {
   });
 
   let corner = new PIXI.Container();
-  let roomBack = new PIXI.Container(); 
-  let frontDoor = new PIXI.Container(); 
+  let roomBack = new PIXI.Container();
+  let frontDoor = new PIXI.Container();
+
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -36,18 +37,10 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
   ];
 
-  // roomParts.map((part) => {
-  //   console.log(part);
-  //   // part[0].width = 768;
-  //   // part[0].height = 612;
-
-  //   // return part;
-  // });
-
   corner.addChild(roomParts[0]);
-  roomBack.addChild(roomParts[1]); 
+  roomBack.addChild(roomParts[1]);
   frontDoor.addChild(roomParts[2]);
- 
+
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -111,10 +104,10 @@ console.log(roomBack);
     corner.addChild(drawer, pc)
     roomBack.addChild(idCard);
 
+
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
-
       // Adding Screens and Interface to Stage
     props.app.stage.addChild(
       corner,
@@ -125,23 +118,24 @@ console.log(roomBack);
     }
   }  
 
-  if(props.app.stage.children.length){
+
+  if (props.app.stage.children.length) {
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
- 
-    switch(assetReducer.partNumber){
+
+    switch (assetReducer.partNumber) {
       case 1:
-          props.app.stage.children[1].visible = true;
-          break;
-        case 2:
-          props.app.stage.children[2].visible = true;
+        props.app.stage.children[1].visible = true;
+        break;
+      case 2:
+        props.app.stage.children[2].visible = true;
         break;
       case 0:
-        default: 
+      default:
         props.app.stage.children[0].visible = true;
         break;
-      }
+    }
   }
 
     // Working on Sheets
@@ -154,9 +148,6 @@ function createItemSheet(){
     new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100))
   ]
 }
-
-
-
 
 // Sheets with items which have more than one state. 
 

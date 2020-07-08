@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
-import { leftOver } from "./buttons.js";
+// import { leftOver } from "./buttons.js";
 import { pcRiddleDisplay } from "./pc.js";
-import { drawerRiddleDisplay } from "./drawer.js";
+// import { drawerRiddleDisplay } from "./drawer.js";
 
 export function createUserInterface(arrowSheet, app) {
   const left = new PIXI.Sprite(arrowSheet.left[0]);
@@ -10,7 +10,7 @@ export function createUserInterface(arrowSheet, app) {
   left.interactive = true;
   left.buttonMode = true;
 
-  left.on("pointerover", leftOver);
+  // left.on("pointerover", leftOver);
 
   right.interactive = true;
   right.buttonMode = true;
@@ -45,10 +45,8 @@ export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
   drawer.buttonMode = true;
   drawer.interactive = true;
-  drawer
-    .on("pointerover", onPointerOver)
-    .on("pointerout", onPointerOut)
-    .on("pointerdown", drawerRiddleDisplay);
+  drawer.on("pointerover", onPointerOver).on("pointerout", onPointerOut);
+  // .on("pointerdown", drawerRiddleDisplay);
 
   function onPointerOver(event) {
     event.stopPropagation();
