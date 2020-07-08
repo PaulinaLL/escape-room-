@@ -1,19 +1,33 @@
-.characters-container{
-
-    div{
-        overflow: hidden;
-        :hover{
-           background-color: red;
-           border: solid green 2px; 
-        }
-        position: relative;
-        img{
-            width: 150px;
-            height: 300px;
-            position: absolute;
-            top: -60px;
-            left: -20px;
-        }
+.characters-container {
+  div { 
+    overflow: hidden;
+    :hover {
+      background-color: red;
+      border: solid green 2px;
     }
+    position: relative;
+    img {
+      width: 150px;
+      height: 300px;
+      position: absolute;
+      top: -60px;
+      left: -20px;
+    }
+  }
+}
 
+.canvasContainer {
+  padding-top: 3%;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvasDescriptionWrapper {
+  display: flex;
+  justify-content: center;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }

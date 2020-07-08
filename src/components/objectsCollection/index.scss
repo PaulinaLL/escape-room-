@@ -1,0 +1,21 @@
+.objects {
+  height: 80px;
+  width: 768px;
+  background-color: rgb(206, 206, 206);
+  margin: 20px;
+  border-radius: 8px;
+  // flex-basis: 80%;
+  align-self: center;
+  display: flex;
+  // position: absolute;
+  // left: 300px;
+  // top: 700px;
+}
+
+#image{
+  height: 128px;
+  width: 128px;
+background: 
+  url('../../assets/objects/itemsGimp.png') 0px 0px;
+  
+}
