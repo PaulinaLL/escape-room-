@@ -18,7 +18,7 @@ export default function UserInput() {
   };
 
   const storeState = store.getState();
-  // console.log("here", storeState.answersReducer.currentRiddleDescription);
+  console.log("here2", storeState.answersReducer.currentRiddleDescription);
 
   const preInput = `function greet(person) {
     if (person == { name: ${storeState.answersReducer.userName} }) {
@@ -39,12 +39,10 @@ export default function UserInput() {
           name="userInput"
           rows="15"
           cols="70"
-          value={preInput}
-          // value={
-          //   storeState.answerReducer.currentRiddleDescription.id === 1
-          //     ? preInput
-          //     : userAnswer
-          // }
+          // value={preInput}
+          dafaultValue={
+            storeState.answerReducer.currentRiddleDescription ? preInput : null
+          }
           onChange={(e) => setUserAnswer(e.target.value)}
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
