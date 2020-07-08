@@ -30,7 +30,7 @@ export function setItems(items, app){
   idCard1.interactive = true;
   idCard1.buttonMode = true;
 
-  idCard1.on("pointerclick", leftOver);
+  // idCard1.on("pointerclick", leftOver);
 
   idCard1.x = 570;
   idCard1.y = 350;
