@@ -26,14 +26,15 @@ class StartScreen extends React.Component {
           <GetUserName />
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
-              <PixiCanvas />
-            </div>
+              <PixiCanvas />  
+              <ObjectCollection />
+            </div> 
             <div className="fieldsWrapper">
               <DescriptionField />
               <UserInput />
             </div>
           </div>
-          <ObjectCollection />
+ 
           {/* <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>

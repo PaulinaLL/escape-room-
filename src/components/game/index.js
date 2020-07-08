@@ -30,6 +30,7 @@ export default function Game(props) {
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container(); 
 
+
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
@@ -85,7 +86,6 @@ export default function Game(props) {
     createPCSheet();
     createItemSheet();
     
- 
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
@@ -103,18 +103,15 @@ export default function Game(props) {
     idCard.on("pointerdown", takeItem);
 
     // Setting Visibility of Screens
-    if(props.app.stage.children.length < 5)
+    if(!props.app.stage.children.length)
     { 
-    
-      corner.addChild(drawer, pc)
+    corner.addChild(drawer, pc)
     roomBack.addChild(idCard);
-
 
 
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
-
       // Adding Screens and Interface to Stage
     props.app.stage.addChild(
       corner,
@@ -154,9 +151,6 @@ function createItemSheet(){
     new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100))
   ]
 }
-
-
-
 
 // Sheets with items which have more than one state. 
 
