@@ -28,7 +28,7 @@ export default function Game(props) {
 
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
-  let frontDoor = new PIXI.Container();
+  let frontDoor = new PIXI.Container(); 
 
 
   const roomParts = [
@@ -37,10 +37,18 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
   ];
 
-  corner.addChild(roomParts[0]);
-  roomBack.addChild(roomParts[1]);
-  frontDoor.addChild(roomParts[2]);
+  // roomParts.map((part) => {
+  //   console.log(part);
+  //   // part[0].width = 768;
+  //   // part[0].height = 612;
 
+  //   // return part;
+  // });
+
+  corner.addChild(roomParts[0]);
+  roomBack.addChild(roomParts[1]); 
+  frontDoor.addChild(roomParts[2]);
+ 
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -59,14 +67,11 @@ export default function Game(props) {
   function displaySecondRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
-  function takeItem(idCard){
+  function takeItem(){
 
 
- roomBack.children[1].visible = false;
-//  roomBack.children[0].removeChild();
- 
-console.log(roomBack);
     dispatch({type: "TAKE_ITEM"});
+  
   }
 
   let drawerSheet = {};
@@ -81,7 +86,6 @@ console.log(roomBack);
     createPCSheet();
     createItemSheet();
     
-
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
@@ -118,24 +122,23 @@ console.log(roomBack);
     }
   }  
 
-
-  if (props.app.stage.children.length) {
+  if(props.app.stage.children.length){
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
-
-    switch (assetReducer.partNumber) {
+ 
+    switch(assetReducer.partNumber){
       case 1:
-        props.app.stage.children[1].visible = true;
-        break;
-      case 2:
-        props.app.stage.children[2].visible = true;
+          props.app.stage.children[1].visible = true;
+          break;
+        case 2:
+          props.app.stage.children[2].visible = true;
         break;
       case 0:
-      default:
+        default: 
         props.app.stage.children[0].visible = true;
         break;
-    }
+      }
   }
 
     // Working on Sheets
