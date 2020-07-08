@@ -1,26 +1,25 @@
 import React from "react";
 import "./index.scss";
-// import store from "../../store/store.js";
-// import { connect } from "react-redux";
 import { useSelector } from "react-redux";
+import store from "../../store/store";
 
 const DescriptionField = () => {
-  const { assetReducer } = useSelector((state) => state);
+  const { answersReducer } = useSelector((state) => state);
 
-  // console.log("store.getState:", store.getState());
+  const storeState = store.getState();
 
   return (
     <div className="description">
-      <p>{assetReducer.currentRiddle.text}</p>
+      <p>
+        {storeState.answersReducer.wantsToPlay
+          ? answersReducer.currentRiddleDescription.text
+          : null}
+      </p>
+      {storeState.answersReducer.wantsToPlay ? (
+        <button className="buttonHint">get a hint</button>
+      ) : null}
     </div>
   );
 };
-
-// function mapStateToProps(state) {
-//   const { description } = state;
-//   console.log(store.getState())
-//   return {};
-// }
-// export default connect(mapStateToProps)(DescriptionField)
 
 export default DescriptionField;

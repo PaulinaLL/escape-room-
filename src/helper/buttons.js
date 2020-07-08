@@ -2,12 +2,12 @@
 // import {connect} from "react-redux";
 // import { tsConstructorType } from "@babel/types";
 // import { useSelector } from 'react-redux'
-import store from '../store/store';
 
-const someVar = store.getState();
+// import store from "../store/store";
 
-export function leftOver(){
+// // const someVar = store.getState();
 
-// PIXI.stage.remove();
-console.log(someVar);
-}
+// export function leftOver() {
+//   // PIXI.stage.remove();
+//   // console.log(someVar);
+// }
