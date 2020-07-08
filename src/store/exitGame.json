@@ -32,9 +32,5 @@
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }
-  },
-  "currentRiddle": {
-    "text": "it seems like the computer is on... check if there is some info to find"
-  },
-  "loaded": false
+  }
 }
