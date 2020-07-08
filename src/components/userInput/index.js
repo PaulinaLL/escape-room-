@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./index.scss";
-import { useDispatch } from "react-redux";
-import store from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UserInput() {
   const [userAnswer, setUserAnswer] = useState();
   const dispatch = useDispatch();
+  const { answersReducer } = useSelector((state) => state);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,17 +17,17 @@ export default function UserInput() {
     });
   };
 
-  const storeState = store.getState();
-  console.log("here2", storeState.answersReducer.currentRiddleDescription);
+  // const storeState = store.getState();
+  console.log("here2", answersReducer.currentRiddleDescription.id);
 
   const preInput = `function greet(person) {
-    if (person == { name: ${storeState.answersReducer.userName} }) {
-    return "hey " +  ${storeState.answersReducer.userName};
+    if (person == { name: ${answersReducer.userName} }) {
+    return "hey " +  ${answersReducer.userName};
     } else {
     return "hey stranger";
     }
     }
-    console.log(greet({ name: ${storeState.answersReducer.userName} }))`;
+    console.log(greet({ name: ${answersReducer.userName} }))`;
 
   return (
     <div className="userInput">
@@ -39,9 +39,8 @@ export default function UserInput() {
           name="userInput"
           rows="15"
           cols="70"
-          // value={preInput}
-          dafaultValue={
-            storeState.answerReducer.currentRiddleDescription ? preInput : null
+          value={
+            answersReducer?.currentRiddleDescription.id === 1 ? preInput : ""
           }
           onChange={(e) => setUserAnswer(e.target.value)}
         />
