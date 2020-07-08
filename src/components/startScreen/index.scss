@@ -1,5 +1,5 @@
 .characters-container {
-  div {
+  div { 
     overflow: hidden;
     :hover {
       background-color: red;
@@ -18,6 +18,8 @@
 
 .canvasContainer {
   padding-top: 3%;
+  display: flex;
+  flex-direction: column;
 }
 
 .canvasDescriptionWrapper {

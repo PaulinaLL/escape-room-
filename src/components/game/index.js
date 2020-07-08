@@ -27,7 +27,7 @@ export default function Game(props) {
   });
 
   let corner = new PIXI.Container();
-  let roomBack = new PIXI.Container();
+  let roomBack = new PIXI.Container(); 
   let frontDoor = new PIXI.Container(); 
 
   const roomParts = [

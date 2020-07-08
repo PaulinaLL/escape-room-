@@ -1,7 +1,13 @@
 import data from "./exitGame.json";
 import produce from "immer";
 
-const appReducer = produce((draft = data, action) => {
+let inventory = {
+  idCard: false
+};  
+
+let wholeData = Object.assign(data,inventory);
+
+const appReducer = produce((draft = wholeData, action) => {
   switch (action.type) {
     case "SELECT":
       return draft;
@@ -24,7 +30,9 @@ const appReducer = produce((draft = data, action) => {
       // console.log(draft.riddleDescription);
       draft.currentRiddle.text = draft.riddleDescription.second.text;
       return draft;
-
+    case "TAKE_ITEM":
+      draft.inventory.idCard = true;
+      return draft;
     case "LOADED":
       draft.loaded = true;
       break;
