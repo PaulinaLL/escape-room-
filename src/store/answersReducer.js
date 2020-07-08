@@ -6,8 +6,8 @@ const initialState = {
   userAnswers: [],
   currentRiddleDescription: {
     id: null,
-    text: "WELCOME DESCRIPTION - GAME INTRODUCTION",
-    img: null,
+    text:
+      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in write moment and solve 10 riddles in less then 1 hour. Lets get started!",
   },
 };
 
@@ -29,6 +29,7 @@ function answersReducer(state = initialState, action) {
         userAnswers: [...state.userAnswers, action.payload.answer],
       };
     case "SELECT_PC":
+      // console.log("SELECT PC", state.currentRiddleDescription.id);
       return {
         ...state,
         currentRiddleDescription: {
