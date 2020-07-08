@@ -15,6 +15,9 @@ const DescriptionField = () => {
           ? answersReducer.currentRiddleDescription.text
           : null}
       </p>
+      {storeState.answersReducer.wantsToPlay ? (
+        <button className="buttonHint">get a hint</button>
+      ) : null}
     </div>
   );
 };
