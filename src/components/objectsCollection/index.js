@@ -16,7 +16,7 @@ export default function ObjectCollection() {
         return(<p id="image"></p>
         )
       }
-      return ("<div></div>")
+      return ("")
     })}
     </div>
   );
