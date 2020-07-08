@@ -16,6 +16,9 @@ const GetUserName = () => {
           name: person,
         },
       });
+      dispatch({
+        type: "WANTS_TO_PLAY",
+      });
       setModalWindow(false);
     }
   }

@@ -30,9 +30,11 @@ const appReducer = produce((draft = wholeData, action) => {
       // console.log(draft.riddleDescription);
       draft.currentRiddle.text = draft.riddleDescription.second.text;
       return draft;
+ 
     case "TAKE_ITEM":
       draft.inventory.idCard = true;
       return draft;
+      
     case "LOADED":
       draft.loaded = true;
       break;
