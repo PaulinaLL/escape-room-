@@ -6,7 +6,16 @@
   border-radius: 8px;
   // flex-basis: 80%;
   align-self: center;
-  position: absolute;
-  left: 300px;
-  top: 700px;
+  display: flex;
+  // position: absolute;
+  // left: 300px;
+  // top: 700px;
+}
+
+#image{
+  height: 128px;
+  width: 128px;
+background: 
+  url('../../assets/objects/itemsGimp.png') 0px 0px;
+  
 }
