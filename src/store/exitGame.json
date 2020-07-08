@@ -10,7 +10,7 @@
   "riddleDescription": {
     "first": {
       "id": 1,
-      "text": "dummy description 1 - PC riddle",
+      "text": "If you run the current code you will receive 'hey stranger', correct the code to display your name in the greeting.",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
