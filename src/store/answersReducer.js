@@ -1,18 +1,23 @@
 import data from "./exitGame.json";
 
 const initialState = {
+  wantsToPlay: false,
   userName: null,
   userAnswers: [],
   currentRiddleDescription: {
     id: null,
-    text:
-      "it seems like the computer is on... check if there is some info to find",
+    text: "WELCOME DESCRIPTION - GAME INTRODUCTION",
     img: null,
   },
 };
 
 function answersReducer(state = initialState, action) {
   switch (action.type) {
+    case "WANTS_TO_PLAY":
+      return {
+        ...state,
+        wantsToPlay: true,
+      };
     case "ADD_USER_NAME":
       return {
         ...state,
