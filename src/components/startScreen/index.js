@@ -15,7 +15,7 @@ class StartScreen extends React.Component {
   // }
 
   render() {
-    console.log(this.props.rooms);
+    // console.log(this.props.rooms);
     return (
       <div className="App">
         <header>
