@@ -6,8 +6,21 @@
 
 import store from "../store/store";
 
-const testVar = store.getState();
-
 export function pcRiddleDisplay() {
-  console.log(testVar);
+  const storeState = store.getState();
+
+  function greet(person) {
+    // if (person.name === storeState.answersReducer.userName)
+    if (person === { name: storeState.answersReducer.userName }) {
+      return "hey" + storeState.answersReducer.userName;
+    } else {
+      return "hey stranger";
+    }
+  }
+
+  console.log(greet({ name: storeState.answersReducer.userName }));
+
+  // console.log(storeState.answersReducer.userName);
+
+  // console.log("pc riddle", storeState);
 }
