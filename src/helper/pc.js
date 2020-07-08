@@ -20,7 +20,7 @@ export function pcRiddleDisplay() {
 
   console.log(greet({ name: storeState.answersReducer.userName }));
 
-  console.log(storeState.answersReducer.userName);
+  // console.log(storeState.answersReducer.userName);
 
-  console.log("pc riddle", storeState);
+  // console.log("pc riddle", storeState);
 }
