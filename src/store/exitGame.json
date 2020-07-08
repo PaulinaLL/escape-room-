@@ -12,7 +12,7 @@
       "id": 1,
       "text": "If you run the current code you will receive 'hey stranger', correct the code to display your name in the greeting.",
       "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "hints": ["think about how the objects are saved"]
     },
     "second": {
       "id": 2,
