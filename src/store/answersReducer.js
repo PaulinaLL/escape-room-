@@ -3,11 +3,11 @@ import data from "./exitGame.json";
 const initialState = {
   wantsToPlay: false,
   userName: null,
-  userAnswers: [],
+  userAnswers: {},
   currentRiddleDescription: {
     id: null,
     text:
-      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in write moment and solve 10 riddles in less then 1 hour. Lets get started!",
+      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in right moment and solve 10 riddles in less then 1 hour. Lets get started!",
   },
 };
 
@@ -26,7 +26,10 @@ function answersReducer(state = initialState, action) {
     case "ADD_USER_ANSWER":
       return {
         ...state,
-        userAnswers: [...state.userAnswers, action.payload.answer],
+        userAnswers: {
+          ...state.userAnswers,
+          [action.payload.id]: action.payload.answer,
+        },
       };
     case "SELECT_PC":
       // console.log("SELECT PC", state.currentRiddleDescription.id);
