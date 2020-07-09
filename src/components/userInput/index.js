@@ -34,13 +34,12 @@ export default function UserInput() {
     dispatch({
       type: "ADD_USER_ANSWER",
       payload: {
+        id: currentRiddleDescription.id,
         answer: userAnswer,
       },
     });
+    // setUserAnswer("");
   };
-
-  // const storeState = store.getState();
-  console.log("here from userInput", currentRiddleDescription.id);
 
   return (
     <div className="userInput">
@@ -53,7 +52,7 @@ export default function UserInput() {
           rows="15"
           cols="70"
           defaultValue={preInputs(currentRiddleDescription.id)}
-          value={userAnswer}
+          // value={userAnswer}
           onChange={(e) => setUserAnswer(e.target.value)}
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
