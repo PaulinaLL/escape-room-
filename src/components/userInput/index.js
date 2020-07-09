@@ -34,13 +34,12 @@ export default function UserInput() {
     dispatch({
       type: "ADD_USER_ANSWER",
       payload: {
+        id: currentRiddleDescription.id,
         answer: userAnswer,
       },
     });
+    // setUserAnswer("");
   };
-
-  // const storeState = store.getState();
-  console.log("here from userInput", currentRiddleDescription.id);
 
   return (
     <div className="userInput">
