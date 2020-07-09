@@ -52,7 +52,7 @@ export default function UserInput() {
           rows="15"
           cols="70"
           defaultValue={preInputs(currentRiddleDescription.id)}
-          value={userAnswer}
+          // value={userAnswer}
           onChange={(e) => setUserAnswer(e.target.value)}
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
