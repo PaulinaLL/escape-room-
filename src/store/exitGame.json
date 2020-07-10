@@ -17,7 +17,7 @@
     "second": {
       "id": 2,
       "text": "dummy description 2 - drawer",
-      "correctAnswer": "answer",
+      "correctAnswer": "5",
       "hints": ["some", "another"]
     },
     "third": {
