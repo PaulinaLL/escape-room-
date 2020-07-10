@@ -20,7 +20,7 @@ export default function Game(props) {
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
-        .add("itemList", require("../../assets/objects/itemsGimp.png"));
+        .add("itemList", require("../../assets/objects/items.png"));
     }
     props.app.loader.load(doneLoading);
     dispatch({ type: "LOADED" });
@@ -29,7 +29,6 @@ export default function Game(props) {
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container(); 
-
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -64,12 +63,16 @@ export default function Game(props) {
   function displayFirstRiddle() {
     dispatch({ type: "SELECT_PC" });
   }
-  function displaySecondRiddle() {
+  function displaySecondRiddle() { 
     dispatch({ type: "SELECT_DRAWER" });
   }
-  function takeItem(){
+  function takeIDCard(){
   roomBack.children[1].visible = false;
-    dispatch({type: "TAKE_ITEM"});
+    dispatch({type: "TAKE_IDCARD1"}); 
+  }
+  function takeKey(){  
+  frontDoor.children[1].visible = false;
+      dispatch({type: "TAKE_KEY"});
   }
 
   let drawerSheet = {};
@@ -88,7 +91,7 @@ export default function Game(props) {
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
-    let idCard = setItems(items, props.app);
+    let objects = setItems(items, props.app);
 
     let left = ui[0];
     let right = ui[1];
@@ -98,13 +101,15 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
-    idCard.on("pointerdown", takeItem);
+    objects.idCard1.on("pointerdown", takeIDCard);
+    objects.key.on("pointerdown", takeKey);
 
     // Setting Visibility of Screens
     if(!props.app.stage.children.length)
     { 
     corner.addChild(drawer, pc)
-    roomBack.addChild(idCard);
+    roomBack.addChild(objects.idCard1);
+    frontDoor.addChild(objects.key);  
 
       corner.visible = true;
       roomBack.visible = false;
@@ -146,6 +151,9 @@ function createItemSheet(){
 
   items["idCard"] = [
     new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100))
+  ]
+  items["key"] = [
+    new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0 , 130, 100))
   ]
 }
 

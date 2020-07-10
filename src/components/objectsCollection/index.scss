@@ -12,10 +12,16 @@
   // top: 700px;
 }
 
-#image{
-  height: 128px;
-  width: 128px;
-background: 
-  url('../../assets/objects/itemsGimp.png') 0px 0px;
-  
+.object{
+  height: 80px;
+  width: 108px;
 }
+
+#idCard{
+  background: 
+  url('../../assets/objects/items.png') -10px -30px;
+}
+#key{
+  background: 
+  url('../../assets/objects/items.png') -130px -30px;
+} 
