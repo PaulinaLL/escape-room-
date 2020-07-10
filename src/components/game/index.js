@@ -68,10 +68,8 @@ export default function Game(props) {
     dispatch({ type: "SELECT_DRAWER" });
   }
   function takeItem(){
-
-
+  roomBack.children[1].visible = false;
     dispatch({type: "TAKE_ITEM"});
-  
   }
 
   let drawerSheet = {};
@@ -107,7 +105,6 @@ export default function Game(props) {
     { 
     corner.addChild(drawer, pc)
     roomBack.addChild(idCard);
-
 
       corner.visible = true;
       roomBack.visible = false;
