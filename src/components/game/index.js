@@ -72,12 +72,21 @@ export default function Game(props) {
   }
   function takeKey(){  
   frontDoor.children[1].visible = false;
-      dispatch({type: "TAKE_KEY"});
+    dispatch({type: "TAKE_KEY"});
   }
 
   function openDoor()
   {
-    console.log("opened");
+    console.log(assetReducer.key)
+    if(assetReducer.key.collected === true)
+    {
+      dispatch({type: "OPEN_DOOR"});
+      console.log("open_Door");
+    }
+    else{
+      dispatch({type: "NO_KEY"});
+      console.log("No Key");
+    }
   }
   let drawerSheet = {};
   let arrowSheet = {};
