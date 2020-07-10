@@ -25,7 +25,7 @@ export default function UserInput() {
 
   const preInputs = preInputSetup(userName);
 
-  const [userAnswer, setUserAnswer] = useState();
+  const [userAnswer, setUserAnswer] = useState({});
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ export default function UserInput() {
         answer: userAnswer,
       },
     });
-    // setUserAnswer("");
+    // setUserAnswer({ [currentRiddleDescription.id]: "" });
   };
 
   return (
@@ -51,9 +51,13 @@ export default function UserInput() {
           name="userInput"
           rows="15"
           cols="70"
-          defaultValue={preInputs(currentRiddleDescription.id)}
-          // value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
+          value={
+            userAnswer[currentRiddleDescription.id] ||
+            preInputs(currentRiddleDescription.id)
+          }
+          onChange={(e) =>
+            setUserAnswer({ [currentRiddleDescription.id]: e.target.value })
+          }
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
       </form>
