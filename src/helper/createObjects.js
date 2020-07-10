@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 // import { leftOver } from "./buttons.js";
-import { pcRiddleDisplay } from "./pc.js";
+// import { pcRiddleDisplay } from "./pc.js";
 // import { drawerRiddleDisplay } from "./drawer.js";
 
 export function createUserInterface(arrowSheet, app) {
@@ -24,7 +24,7 @@ export function createUserInterface(arrowSheet, app) {
 
   return [left, right];
 }
-export function setItems(items, app){
+export function setItems(items, app) {
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
 
   idCard1.interactive = true;
@@ -36,7 +36,6 @@ export function setItems(items, app){
   idCard1.y = 350;
   idCard1.height = 30;
   idCard1.width = 40;
-
 
   return idCard1;
 }
@@ -90,7 +89,7 @@ export function createPC(pcSheet) {
   pcoff.interactive = true;
   pcoff.buttonMode = true;
 
-  pcoff.on("pointerdown", pcRiddleDisplay);
+  // pcoff.on("pointerdown", pcRiddleDisplay);
 
   pcoff.x = 50;
   pcoff.y = 110;
