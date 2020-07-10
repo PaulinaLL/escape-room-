@@ -75,6 +75,10 @@ export default function Game(props) {
       dispatch({type: "TAKE_KEY"});
   }
 
+  function openDoor()
+  {
+    console.log("opened");
+  }
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -101,14 +105,16 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
+    //Objects
     objects.idCard1.on("pointerdown", takeIDCard);
     objects.key.on("pointerdown", takeKey);
+    objects.door.on("pointerdown", openDoor);
 
     // Setting Visibility of Screens
     if(!props.app.stage.children.length)
     { 
     corner.addChild(drawer, pc)
-    roomBack.addChild(objects.idCard1);
+    roomBack.addChild(objects.idCard1,objects.door);
     frontDoor.addChild(objects.key);  
 
       corner.visible = true;
