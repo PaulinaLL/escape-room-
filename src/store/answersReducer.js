@@ -48,7 +48,25 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[2].text,
         },
       };
-
+    case "OPEN_DOOR":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 3,
+          text: data.riddleDescription.third.text,
+          img: null,
+        },
+      };
+      case "NO_KEY":
+        return {
+          ...state,
+          currentRiddleDescription: {
+            id: 4,
+            text: data.riddleDescription.fourth.text,
+            img: null,
+          },
+        };
+     
     default:
       return state;
   }

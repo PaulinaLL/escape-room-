@@ -1,6 +1,5 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-
 import {
   createDrawer,
   createUserInterface,
@@ -20,7 +19,8 @@ export default function Game(props) {
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
-        .add("itemList", require("../../assets/objects/itemsGimp.png"));
+        .add("itemList", require("../../assets/objects/items.png"));
+
       props.app.loader.load(doneLoading);
       dispatch({ type: "LOADED" });
     }
@@ -34,6 +34,7 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
+    PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
   ];
 
   // roomParts.map((part) => {
@@ -45,7 +46,7 @@ export default function Game(props) {
   // });
 
   corner.addChild(roomParts[0]);
-  roomBack.addChild(roomParts[1]);
+  roomBack.addChild(roomParts[3], roomParts[1]);
   frontDoor.addChild(roomParts[2]);
 
   roomParts.map((part) => {
@@ -66,11 +67,28 @@ export default function Game(props) {
   function displaySecondRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
-  function takeItem() {
-    roomBack.children[1].visible = false;
-    dispatch({ type: "TAKE_ITEM" });
+
+  function takeIDCard() {
+    roomBack.children[2].visible = false;
+    dispatch({ type: "TAKE_IDCARD1" });
+  }
+  function takeKey() {
+    frontDoor.children[1].visible = false;
+    dispatch({ type: "TAKE_KEY" });
+    roomBack.children[3].off("pointerdown", closedDoor);
+    roomBack.children[3].on("pointerdown", openDoor);
   }
 
+  let closedDoor = () => {
+    dispatch({ type: "NO_KEY" });
+    console.log("No Key");
+  };
+
+  let openDoor = () => {
+    dispatch({ type: "OPEN_DOOR" });
+    console.log("open_Door");
+    roomBack.children[1].visible = false;
+  };
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -87,23 +105,29 @@ export default function Game(props) {
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
-    let idCard = setItems(items, props.app);
+    let objects = setItems(items, props.app);
 
     let left = ui[0];
     let right = ui[1];
 
-    // Preparing Functionality for Items, Objects and Interface
+    // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
-    idCard.on("pointerdown", takeItem);
+    //Objects
+    objects.idCard1.on("pointerdown", takeIDCard);
+    objects.key.on("pointerdown", takeKey);
+    objects.door.on("pointerdown", closedDoor);
 
     // Setting Visibility of Screens
+
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
-      roomBack.addChild(idCard);
+      roomBack.addChild(objects.idCard1, objects.door);
+      frontDoor.addChild(objects.key);
 
+      console.log(roomBack);
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
@@ -142,6 +166,9 @@ export default function Game(props) {
     items["idCard"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100)),
     ];
+    items["key"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
+    ];
   }
 
   // Sheets with items which have more than one state.
@@ -163,8 +190,8 @@ export default function Game(props) {
     let fsheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["furniture"].url
     );
-    let w = 256;
-    let h = 400;
+    let w = 200;
+    let h = 361;
 
     drawerSheet["closed"] = [
       new PIXI.Texture(fsheet, new PIXI.Rectangle(0 * w, 0, w, h)),

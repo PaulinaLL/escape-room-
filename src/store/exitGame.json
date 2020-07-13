@@ -19,13 +19,13 @@
     },
     "third": {
       "id": 3,
-      "text": "dummy description 3",
+      "text": "dummy description 3 DOOR OPENED",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
     "fourth": {
       "id": 4,
-      "text": "dummy description 4 ",
+      "text": "dummy description 4 NO KEY",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }
