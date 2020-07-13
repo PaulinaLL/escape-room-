@@ -65,7 +65,7 @@ const appReducer = produce((draft = wholeData, action) => {
     return draft;
     case "LOADED":
       draft.loaded = true;
-      break;     
+    return draft;
     default:
       return draft;
   }

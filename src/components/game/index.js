@@ -35,6 +35,7 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
+    PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),    
   ];
 
   // roomParts.map((part) => {
@@ -46,7 +47,7 @@ export default function Game(props) {
   // });
 
   corner.addChild(roomParts[0]);
-  roomBack.addChild(roomParts[1]); 
+  roomBack.addChild(roomParts[3],roomParts[1]); 
   frontDoor.addChild(roomParts[2]);
  
   roomParts.map((part) => {
@@ -68,26 +69,26 @@ export default function Game(props) {
     dispatch({ type: "SELECT_DRAWER" });
   }
   function takeIDCard(){
-  roomBack.children[1].visible = false;
+  roomBack.children[2].visible = false;
     dispatch({type: "TAKE_IDCARD1"}); 
   }
   function takeKey(){  
   frontDoor.children[1].visible = false;
-    dispatch({type: "TAKE_KEY"});
+    dispatch({type: "TAKE_KEY"}); 
+    roomBack.children[3].off("pointerdown",closedDoor);
+    roomBack.children[3].on("pointerdown", openDoor);
   }
 
-  function openDoor()
+  let closedDoor = () => {
+    dispatch({type: "NO_KEY"});
+    console.log("No Key"); 
+  }
+
+  let openDoor = () =>
   {
-    console.log(assetReducer.key)
-    if(assetReducer.key.collected === true)
-    {
       dispatch({type: "OPEN_DOOR"});
       console.log("open_Door");
-    }
-    else{
-      dispatch({type: "NO_KEY"});
-      console.log("No Key");
-    }
+      roomBack.children[1].visible = false;
   }
   let drawerSheet = {};
   let arrowSheet = {};
@@ -110,7 +111,7 @@ export default function Game(props) {
     let left = ui[0];
     let right = ui[1];
 
-    // Preparing Functionality for Items, Objects and Interface
+    // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
@@ -118,7 +119,7 @@ export default function Game(props) {
     //Objects
     objects.idCard1.on("pointerdown", takeIDCard);
     objects.key.on("pointerdown", takeKey);
-    objects.door.on("pointerdown", openDoor);
+    objects.door.on("pointerdown", closedDoor);
 
     // Setting Visibility of Screens
     if(!props.app.stage.children.length)
@@ -127,6 +128,8 @@ export default function Game(props) {
     roomBack.addChild(objects.idCard1,objects.door);
     frontDoor.addChild(objects.key);  
 
+
+    console.log(roomBack);
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
@@ -223,6 +226,8 @@ function createItemSheet(){
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
   }
+
+  
 
   return <div id="pixi-container"></div>;
 }

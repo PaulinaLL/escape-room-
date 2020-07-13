@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 export default function ObjectCollection() {  
 
-
   const { assetReducer } = useSelector((state) => state);
+  console.log(assetReducer);
 
   return (
     <div className="objects">
