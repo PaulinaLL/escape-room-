@@ -13,4 +13,4 @@ export default function PixiCanvas(props) {
 return <div id="pixi-container">
   <Game app={app}></Game>
 </div>;  
-}
+} 
