@@ -11,8 +11,7 @@ const preInputSetup = (userName) => (id) => {
     } else {
     return "hey stranger";
     }
-    }
-    console.log(greet({ name: ${userName} }))`,
+    }`,
     2: `test for the second function`,
   };
 
@@ -43,7 +42,7 @@ export default function UserInput() {
     // setUserAnswer({ [currentRiddleDescription.id]: "" });
     setSubmitStatus({ [currentRiddleDescription.id]: true });
   };
-  console.log(userAnswer);
+  // console.log(userAnswer);
 
   const handleOnChange = (e) => {
     setUserAnswer({ [currentRiddleDescription.id]: e.target.value });
