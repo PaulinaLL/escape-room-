@@ -1,6 +1,5 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-
 import {
   createDrawer,
   createUserInterface,
@@ -9,9 +8,11 @@ import {
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
+
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
+
 
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
@@ -23,7 +24,7 @@ export default function Game(props) {
         .add("itemList", require("../../assets/objects/items.png"));
     }
     props.app.loader.load(doneLoading);
-    dispatch({ type: "LOADED" });
+    dispatch({type: "LOADED"});
   });
 
   let corner = new PIXI.Container();
@@ -190,9 +191,9 @@ function createItemSheet(){
   function createDrawerSheet() {
     let fsheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["furniture"].url
-    );
-    let w = 256;
-    let h = 400;
+    ); 
+    let w = 200;
+    let h = 361;
 
     drawerSheet["closed"] = [
       new PIXI.Texture(fsheet, new PIXI.Rectangle(0 * w, 0, w, h)),

@@ -9,7 +9,6 @@ export default function ObjectCollection() {
 
   return (
     <div className="objects">
-      <p>objects collection</p>
      {/* {assetReducer.inventory.idCard===true} &&  <h1>Hello </h1> */}
     {Object.values(assetReducer).map((element) => {
       if(element.collected===true){

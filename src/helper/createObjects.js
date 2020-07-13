@@ -89,11 +89,11 @@ export function createDrawer(furnitureSheet) {
   }
   //    It would be good if we get the relationship between the values. Please do something about it.
   // Width and Height
-  drawer.width = 200;
-  drawer.height = 260;
+  drawer.width = 220;
+  drawer.height = 320;
   //    Position
-  drawer.x = 530;
-  drawer.y = 295;
+  drawer.x = 525;
+  drawer.y = 265;
   // Might be turned back to normal. Lets see.
   //Create a Pixi Application
   //Add the canvas that Pixi automatically created for you to the HTML document
