@@ -16,7 +16,6 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case "SELECT":
       return state;
-
     case "SWITCH_LEFT":
       return {
         ...state,
@@ -43,11 +42,17 @@ function appReducer(state = initialState, action) {
     case "TAKE_KEY":
       return {
         ...state,
+        key: { collected: true,
+               pictureID: "key"
+        },
+      };
+      case "OPEN_DOOR":
+      return {
+        ...state,
         key: { collected: false,
                pictureID: "key"
         },
       };
-
     case "LOADED":
       return {
         ...state,
