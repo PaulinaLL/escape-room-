@@ -25,20 +25,38 @@ export function createUserInterface(arrowSheet, app) {
   return [left, right];
 }
 export function setItems(items, app) {
+
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
+  const key = new PIXI.Sprite(items.key[0]);
+  const door = new PIXI.Graphics();
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
-
-  // idCard1.on("pointerclick", leftOver);
-
   idCard1.x = 570;
   idCard1.y = 350;
   idCard1.height = 30;
   idCard1.width = 40;
 
-  return idCard1;
-}
+  key.interactive = true;
+  key.buttonMode = true;
+  key.x = 670;
+  key.y = 450;
+  key.height = 30;
+  key.width = 40;
+
+  door.interactive = true;
+  door.buttonMode = true;
+  door.beginFill(0xffffff,0.001);
+  door.drawRect(100, 250, 100, 200);
+  door.endFill();
+  door.lineStyle(0);
+
+    return {
+      idCard1,
+      key,
+      door
+    };
+  }
 
 export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
@@ -71,11 +89,11 @@ export function createDrawer(furnitureSheet) {
   }
   //    It would be good if we get the relationship between the values. Please do something about it.
   // Width and Height
-  drawer.width = 200;
-  drawer.height = 260;
+  drawer.width = 220;
+  drawer.height = 320;
   //    Position
-  drawer.x = 530;
-  drawer.y = 295;
+  drawer.x = 525;
+  drawer.y = 265;
   // Might be turned back to normal. Lets see.
   //Create a Pixi Application
   //Add the canvas that Pixi automatically created for you to the HTML document

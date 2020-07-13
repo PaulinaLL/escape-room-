@@ -5,7 +5,7 @@ const initialState = {
   userName: null,
   userAnswers: {},
   currentRiddleDescription: {
-    id: null,
+    id: "",
     text:
       "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in right moment and solve 10 riddles in less then 1 hour. Lets get started!",
   },
@@ -37,8 +37,7 @@ function answersReducer(state = initialState, action) {
         ...state,
         currentRiddleDescription: {
           id: 1,
-          text: data.riddleDescription.first.text,
-          img: data.riddleDescription.first.img,
+          text: data.riddleDescription[1].text,
         },
       };
     case "SELECT_DRAWER":
@@ -46,11 +45,28 @@ function answersReducer(state = initialState, action) {
         ...state,
         currentRiddleDescription: {
           id: 2,
-          text: data.riddleDescription.second.text,
+          text: data.riddleDescription[2].text,
+        },
+      };
+    case "OPEN_DOOR":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 3,
+          text: data.riddleDescription.third.text,
           img: null,
         },
       };
-
+      case "NO_KEY":
+        return {
+          ...state,
+          currentRiddleDescription: {
+            id: 4,
+            text: data.riddleDescription.fourth.text,
+            img: null,
+          },
+        };
+     
     default:
       return state;
   }

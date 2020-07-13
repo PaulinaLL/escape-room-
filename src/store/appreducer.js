@@ -1,37 +1,58 @@
-import data from "./exitGame.json";
-import produce from "immer";
+const initialState = {
+  partNumber: 0,
+  numberOfParts: 3,
+  idCard: {
+    collected: false,
+    pictureID: "idCard",
+  },
+  key: {
+    collected: false,
+    pictureID: "key",
+  },
+  loaded: false,
+};
 
-let inventory = {
-  idCard: false
-};  
-
-let wholeData = Object.assign(data,inventory);
-
-const appReducer = produce((draft = wholeData, action) => {
+function appReducer(state = initialState, action) {
   switch (action.type) {
     case "SELECT":
-      return draft;
+      return state;
 
-    case "SWITCH_LEFT": 
-      draft.partNumber =
-        draft.numberOfParts === draft.partNumber + 1 ? 0 : draft.partNumber + 1;
-      return draft;
+    case "SWITCH_LEFT":
+      return {
+        ...state,
+        partNumber:
+          state.numberOfParts === state.partNumber + 1
+            ? 0
+            : state.partNumber + 1,
+      };
+    case "SWITCH_RIGHT":
+      console.log(state.numberOfParts);
+      return {
+        ...state,
+        partNumber: state.partNumber - 1 === -1 ? 2 : state.partNumber - 1,
+      };
 
-    case "SWITCH_RIGHT": 
-      console.log(draft.numberOfParts);
-      draft.partNumber = draft.partNumber - 1 === -1 ? 2 : draft.partNumber - 1;
-      return draft;
- 
-    case "TAKE_ITEM":
-      draft.inventory.idCard = true;
-      return draft;
-      
+    case "TAKE_IDCARD1":
+      return {
+        ...state,
+        idCard: { collected: true },
+      };
+
+    case "TAKE_KEY":
+      return {
+        ...state,
+        key: { collected: false },
+      };
+
     case "LOADED":
-      draft.loaded = true;
-      break;
+      return {
+        ...state,
+        loaded: true,
+      };
+
     default:
-      return draft;
+      return state;
   }
-});
+}
 
 export default appReducer;

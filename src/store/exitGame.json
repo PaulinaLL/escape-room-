@@ -4,31 +4,28 @@
       "view": "../../assets/rooms/Corner.png"
     }
   },
-  "inventory": {},
-  "partNumber": 0,
-  "numberOfParts": 3,
   "riddleDescription": {
-    "first": {
+    "1": {
       "id": 1,
       "text": "If you run the current code you will receive 'hey stranger', correct the code to display your name in the greeting.",
       "correctAnswer": "answer",
       "hints": ["think about how the objects are saved"]
     },
-    "second": {
+    "2": {
       "id": 2,
       "text": "dummy description 2 - drawer",
-      "correctAnswer": "answer",
+      "correctAnswer": "5",
       "hints": ["some", "another"]
     },
     "third": {
       "id": 3,
-      "text": "dummy description 3",
+      "text": "dummy description 3 DOOR OPENED",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
     "fourth": {
       "id": 4,
-      "text": "dummy description 4 ",
+      "text": "dummy description 4 NO KEY",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }
