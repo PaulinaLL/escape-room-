@@ -70,13 +70,13 @@ export function createDrawer(furnitureSheet) {
     const valueY = Object.values(event.data.global)[1];
 
     if (valueY >= 327 && valueY <= 400) {
-      this.texture = furnitureSheet.open1[0];
-    } else if (valueY >= 401 && valueY <= 435) {
-      this.texture = furnitureSheet.open2[0];
-    } else if (valueY >= 436 && valueY <= 485) {
-      this.texture = furnitureSheet.open3[0];
-    } else if (valueY >= 486 && valueY <= 550) {
       this.texture = furnitureSheet.open4[0];
+    } else if (valueY >= 401 && valueY <= 435) {
+      this.texture = furnitureSheet.open3[0];
+    } else if (valueY >= 436 && valueY <= 485) {
+      this.texture = furnitureSheet.open2[0];
+    } else if (valueY >= 486 && valueY <= 550) {
+      this.texture = furnitureSheet.open1[0];
     } else return;
   }
 
@@ -89,10 +89,10 @@ export function createDrawer(furnitureSheet) {
   }
   //    It would be good if we get the relationship between the values. Please do something about it.
   // Width and Height
-  drawer.width = 220;
+  drawer.width = 200;
   drawer.height = 320;
   //    Position
-  drawer.x = 525;
+  drawer.x = 520;
   drawer.y = 265;
   // Might be turned back to normal. Lets see.
   //Create a Pixi Application
