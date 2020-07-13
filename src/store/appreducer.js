@@ -9,42 +9,6 @@ let inventory = {
 
 let wholeData = Object.assign(data,inventory);
 
-// const appReducer = (state = wholeData, action) => {
-//   let partNumber = 0;    
-//   switch (action.type) {
-//     case "SELECT":
-//       return state;
-//     case "SWITCH_LEFT":
-//       console.log(state); 
-//   partNumber = 
-//         state.numberOfParts === state.partNumber +1 ? 0 : state.partNumber +1;
-//         return {...state,
-//                 partNumber};
-//     case "SWITCH_RIGHT": 
-//       partNumber = state.partNumber - 1 === -1 ? 2 : state.partNumber - 1;
-//       return {...state,
-//               partNumber};
-//     case "TAKE_IDCARD1":
-//       console.log(state);
-//       return {...state,
-//             idCard: {collected : true,
-//                   pictureID: "idCard"},
-//           };
-//     case "TAKE_KEY":
-//       return {...state,
-//         key: {collected : true,
-//               pictureID: "keys"},
-//       };
-//     case "LOADED":
-//       return {...state,
-//        loaded: true,
-//       };
-//     default:
-//       return state;
-//   }
-// };
-
-// export default appReducer;
 
 const appReducer = produce((draft = wholeData, action) => {
   switch (action.type) {

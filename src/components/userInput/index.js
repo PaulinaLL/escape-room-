@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
+import EvalInput from "../evalInput";
 
 const preInputSetup = (userName) => (id) => {
   const inputs = {
@@ -26,6 +27,7 @@ export default function UserInput() {
   const preInputs = preInputSetup(userName);
 
   const [userAnswer, setUserAnswer] = useState({});
+  const [submitStatus, setSubmitStatus] = useState({});
 
   const dispatch = useDispatch();
 
@@ -39,6 +41,13 @@ export default function UserInput() {
       },
     });
     // setUserAnswer({ [currentRiddleDescription.id]: "" });
+    setSubmitStatus({ [currentRiddleDescription.id]: true });
+  };
+  console.log(userAnswer);
+
+  const handleOnChange = (e) => {
+    setUserAnswer({ [currentRiddleDescription.id]: e.target.value });
+    setSubmitStatus({ [currentRiddleDescription.id]: false });
   };
 
   return (
@@ -55,11 +64,10 @@ export default function UserInput() {
             userAnswer[currentRiddleDescription.id] ||
             preInputs(currentRiddleDescription.id)
           }
-          onChange={(e) =>
-            setUserAnswer({ [currentRiddleDescription.id]: e.target.value })
-          }
+          onChange={handleOnChange}
         />
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
+        {submitStatus[currentRiddleDescription.id] ? <EvalInput /> : null}
       </form>
     </div>
   );

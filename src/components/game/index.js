@@ -128,7 +128,6 @@ export default function Game(props) {
     roomBack.addChild(objects.idCard1,objects.door);
     frontDoor.addChild(objects.key);  
 
-
     console.log(roomBack);
       corner.visible = true;
       roomBack.visible = false;
