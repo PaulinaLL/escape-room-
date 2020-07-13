@@ -5,7 +5,7 @@ import {
   createDrawer,
   createUserInterface,
   createPC,
-  setItems
+  setItems,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,15 +21,14 @@ export default function Game(props) {
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
         .add("itemList", require("../../assets/objects/itemsGimp.png"));
+      props.app.loader.load(doneLoading);
+      dispatch({ type: "LOADED" });
     }
-    props.app.loader.load(doneLoading);
-    dispatch({ type: "LOADED" });
   });
 
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
-  let frontDoor = new PIXI.Container(); 
-
+  let frontDoor = new PIXI.Container();
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -46,9 +45,9 @@ export default function Game(props) {
   // });
 
   corner.addChild(roomParts[0]);
-  roomBack.addChild(roomParts[1]); 
+  roomBack.addChild(roomParts[1]);
   frontDoor.addChild(roomParts[2]);
- 
+
   roomParts.map((part) => {
     part.width = 768;
     part.height = 612;
@@ -67,9 +66,9 @@ export default function Game(props) {
   function displaySecondRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
-  function takeItem(){
-  roomBack.children[1].visible = false;
-    dispatch({type: "TAKE_ITEM"});
+  function takeItem() {
+    roomBack.children[1].visible = false;
+    dispatch({ type: "TAKE_ITEM" });
   }
 
   let drawerSheet = {};
@@ -83,7 +82,7 @@ export default function Game(props) {
     createArrowSheet();
     createPCSheet();
     createItemSheet();
-    
+
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
@@ -101,55 +100,51 @@ export default function Game(props) {
     idCard.on("pointerdown", takeItem);
 
     // Setting Visibility of Screens
-    if(!props.app.stage.children.length)
-    { 
-    corner.addChild(drawer, pc)
-    roomBack.addChild(idCard);
+    if (!props.app.stage.children.length) {
+      corner.addChild(drawer, pc);
+      roomBack.addChild(idCard);
 
       corner.visible = true;
       roomBack.visible = false;
       frontDoor.visible = false;
       // Adding Screens and Interface to Stage
-    props.app.stage.addChild(
-      corner,
-      roomBack,
-      frontDoor,
-      left, 
-      right);
+      props.app.stage.addChild(corner, roomBack, frontDoor, left, right);
     }
-  }  
+  }
 
-  if(props.app.stage.children.length){
+  if (props.app.stage.children.length) {
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
- 
-    switch(assetReducer.partNumber){
+
+    switch (assetReducer.partNumber) {
       case 1:
-          props.app.stage.children[1].visible = true;
-          break;
-        case 2:
-          props.app.stage.children[2].visible = true;
+        props.app.stage.children[1].visible = true;
+        break;
+      case 2:
+        props.app.stage.children[2].visible = true;
         break;
       case 0:
-        default: 
+      default:
         props.app.stage.children[0].visible = true;
         break;
-      }
+    }
   }
 
-    // Working on Sheets
-    // Sheets for diverse items which have just one state inside screen or inventory
+  // Working on Sheets
+  // Sheets for diverse items which have just one state inside screen or inventory
 
-function createItemSheet(){
-  let itemSheet = new PIXI.BaseTexture.from(props.app.loader.resources["itemList"].url);
+  function createItemSheet() {
+    let itemSheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["itemList"].url
+    );
 
-  items["idCard"] = [
-    new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100))
-  ]
-}
+    items["idCard"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100)),
+    ];
+  }
 
-// Sheets with items which have more than one state. 
+  // Sheets with items which have more than one state.
 
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
