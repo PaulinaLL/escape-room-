@@ -8,11 +8,31 @@ export default function EvalInput() {
   const { userAnswers, currentRiddleDescription } = useSelector(
     (state) => state.answersReducer
   );
-  // console.log(
-  //   Object.values(userAnswers[currentRiddleDescription.id]).toString()
-  // );
+  console.log(
+    typeof Object.values(userAnswers[currentRiddleDescription.id]).toString()
+  );
+  let answer = Object.values(userAnswers[currentRiddleDescription.id]);
 
-  // const evaluation = new Function()
+  console.log(answer[0]);
+  console.log(typeof answer[0]);
+  console.log(answer);
+  console.log(typeof answer);
+
+  const firstIndexOfOpenBracets = answer[0].indexOf("{");
+  const lastIndexOfOpenBracets = answer[0].lastIndexOf("}");
+  const answerBody = answer[0].slice(
+    firstIndexOfOpenBracets + 1,
+    lastIndexOfOpenBracets - 1
+  );
+
+  const userFunc = () => {
+    answerBody;
+  };
+
+  console.log(userFunc());
+
+  // console.log(eval(answer));
+  // const evaluation = new Function("a", "b", "return a === b");
 
   return Object.values(userAnswers[currentRiddleDescription.id]).toString() ===
     data.riddleDescription[currentRiddleDescription.id].correctAnswer ? (
@@ -20,8 +40,13 @@ export default function EvalInput() {
   ) : (
     <p>failure</p>
   );
-}
 
-// new Function('a', 'b', 'return a + b'); // basic syntax
-// new Function('a,b', 'return a + b'); // comma-separated
-// new Function('a , b', 'return a + b'); // comma-separated with spaces
+  // return evaluation(
+  //   Object.values(userAnswers[currentRiddleDescription.id]).toString(),
+  //   data.riddleDescription[currentRiddleDescription.id].correctAnswer
+  // ) ? (
+  //   <p>success</p>
+  // ) : (
+  //   <p>failure</p>
+  // );
+}
