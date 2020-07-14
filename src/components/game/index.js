@@ -190,8 +190,8 @@ export default function Game(props) {
     let fsheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["furniture"].url
     );
-    let w = 200;
-    let h = 361;
+    let w = 256;
+    let h = 490;
 
     drawerSheet["closed"] = [
       new PIXI.Texture(fsheet, new PIXI.Rectangle(0 * w, 0, w, h)),
