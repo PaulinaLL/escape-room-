@@ -5,18 +5,28 @@ import data from "../../store/exitGame.json";
 
 export default function EvalInput() {
   console.log(store);
-  const { userAnswers, currentRiddleDescription } = useSelector(
+  const { userAnswers, currentRiddleDescription, userName } = useSelector(
     (state) => state.answersReducer
   );
+  console.log(typeof userName);
   console.log(
     typeof Object.values(userAnswers[currentRiddleDescription.id]).toString()
   );
   let answer = Object.values(userAnswers[currentRiddleDescription.id]);
 
-  console.log(answer[0]);
-  console.log(typeof answer[0]);
-  console.log(answer);
-  console.log(typeof answer);
+  const rightFunction = function greet(person) {
+    if (person.name === userName) {
+      return "hey " + userName;
+    } else {
+      return "hey stranger";
+    }
+  };
+  console.log("right answer", rightFunction({ name: userName }));
+
+  // console.log(answer[0]);
+  // console.log(typeof answer[0]);
+  // console.log(answer);
+  // console.log(typeof answer);
 
   const firstIndexOfOpenBracets = answer[0].indexOf("{");
   const lastIndexOfOpenBracets = answer[0].lastIndexOf("}");
@@ -25,14 +35,19 @@ export default function EvalInput() {
     lastIndexOfOpenBracets - 1
   );
 
-  const userFunc = () => {
-    answerBody;
-  };
+  // const functionFromUser = Object.values(
+  //   userAnswers[currentRiddleDescription.id]
+  // ).toString();
 
-  console.log(userFunc());
-
-  // console.log(eval(answer));
+  const userFunc = new Function("person", answerBody);
+  console.log(userFunc({ name: userName }));
   // const evaluation = new Function("a", "b", "return a === b");
+
+  // userNewFunction(userName);
+  // console.log("user function:", functionFromUser);
+  // let comparision = new Function("a", "b", "return a === b");
+
+  // console.log("HERE", comparision(rightFunction, functionFromUser));
 
   return Object.values(userAnswers[currentRiddleDescription.id]).toString() ===
     data.riddleDescription[currentRiddleDescription.id].correctAnswer ? (
