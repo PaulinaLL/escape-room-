@@ -39,7 +39,7 @@ export default function EvalInput() {
   //   userAnswers[currentRiddleDescription.id]
   // ).toString();
 
-  const userFunc = new Function("person", answerBody);
+  const userFunc = new Function(userName, answerBody);
   console.log(userFunc({ name: userName }));
   // const evaluation = new Function("a", "b", "return a === b");
 
