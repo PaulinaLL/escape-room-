@@ -21,7 +21,10 @@ export default function Game(props) {
         .add("pc", require("../../assets/objects/pc2.png"))
         .add("itemList", require("../../assets/objects/items.png"));
 
-      props.app.loader.load(doneLoading);
+
+
+
+      props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
   });
@@ -38,14 +41,6 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
     PIXI.Sprite.from(require("../../assets/rooms/innercell.png"))
   ];
-
-  // roomParts.map((part) => {
-  //   console.log(part);
-  //   // part[0].width = 768;
-  //   // part[0].height = 612;
-
-  //   // return part;
-  // });
 
   corner.addChild(roomParts[0]);
   roomBack.addChild(roomParts[3], roomParts[1]);
@@ -99,14 +94,12 @@ export default function Game(props) {
     dispatch({type: "GO_IN_CELLDOOR"});
   };
 
-
-
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
   let items = {};
 
-  function doneLoading() {
+  function setup() {
     // Preparing Sheets
     createDrawerSheet();
     createArrowSheet();
@@ -145,9 +138,51 @@ export default function Game(props) {
       frontDoor.visible = false;
       // Adding Screens and Interface to Stage
       props.app.stage.addChild(corner, roomBack, frontDoor,innerCell);
+      // Adding Arrows
       props.app.stage.addChild(left, right);
+
+    
+      //Preparing FlashLight
+
+    // Inner radius of the circle
+const radius = 100;
+// The blur amount
+const blurSize = 32;
+
+frontDoor.width = props.app.screen.width;
+frontDoor.height = props.app.screen.height;
+
+
+    const circle = new PIXI.Graphics()
+    .beginFill(0xFF0000)
+    .drawCircle(radius + blurSize, radius + 
+      blurSize, radius)
+    .endFill();
+    circle.filters = [
+      new PIXI.filters.BlurFilter(blurSize)
+    ];
+
+    const bounds = new PIXI.Rectangle(0,0, (radius + 
+      blurSize) * 2, (radius + blurSize) * 2);
+    
+      const blackTexture = props.app.renderer.generateTexture(circle,
+        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+        const focus = new PIXI.Sprite(blackTexture);
+
+        props.app.stage.addChild(focus);
+        frontDoor.mask = focus;
+
+        props.app.stage.interactive = true;
+        props.app.stage.on('mousemove', pointerMove);
+
+        function pointerMove(event) {
+            focus.position.x = event.data.global.x - focus.width / 2;
+            focus.position.y = event.data.global.y - focus.height / 2;
+        }
+ 
     }
-  }
+
+     }
 
   if (props.app.stage.children.length) {
     props.app.stage.children[0].visible = false;
@@ -164,10 +199,10 @@ export default function Game(props) {
         props.app.stage.children[2].visible = true;
         break;
       case 3: 
-      props.app.stage.children[3].visible = true;
+        props.app.stage.children[3].visible = true;
         break;
       case 0:
-      default:
+        default:
         props.app.stage.children[0].visible = true;
         break;
     }
