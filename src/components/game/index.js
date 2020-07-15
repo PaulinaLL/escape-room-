@@ -95,12 +95,23 @@ frontDoor.height = props.app.screen.height;
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
   }
+
+
+
   function takeKey() {
     frontDoor.children[1].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", openDoor);
   }
+
+  function takeFlashLight() {
+    dispatch({type: "TAKE_FLASHLIGHT"})
+
+    frontDoor.children[2].off("pointerdown", lightOn);
+    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
+  
+  };
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
@@ -119,21 +130,43 @@ frontDoor.height = props.app.screen.height;
     dispatch({type: "GO_IN_CELLDOOR"});
   };
 
-
-
   let lightOn = () => {
-
-    if(frontDoor.mask === focus1)
-{
-  frontDoor.mask = false;
-  props.app.stage.children[6].visible = false;
-}
-else{
-  frontDoor.mask = focus1;
-  props.app.stage.children[6].visible = true;
-} 
-  
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
   }
+  else
+  {frontDoor.mask = focus1;
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  } 
+  
+}
+
+let lightOnWithFlashLight = () => {
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
+  }
+  else
+  {frontDoor.mask = focus1; 
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  props.app.stage.children[6].visible = true;
+  }
+}
+
+
+
+
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -169,12 +202,14 @@ else{
     //Interactions
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
+    objects.flashLight.on("pointerdown", takeFlashLight);
+
 
     // Setting Visibility of Screens
 
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
-      roomBack.addChild(objects.idCard1, objects.door);
+      roomBack.addChild(objects.idCard1, objects.door, objects.flashLight);
       frontDoor.addChild(objects.key,objects.lightSwitch);
 
       corner.visible = true;
@@ -188,8 +223,6 @@ else{
 
     
       //Preparing FlashLight
-
-
         props.app.stage.addChild(focus1);
         frontDoor.mask = focus1;
 
@@ -247,6 +280,7 @@ else{
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
     ];
   }
+
 
   // Sheets with items which have more than one state.
 

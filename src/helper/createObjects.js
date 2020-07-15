@@ -47,7 +47,6 @@ export function setItems(items, app) {
   //Interactions Only
   const door = new PIXI.Graphics();
 
-
   door.interactive = true;
   door.buttonMode = true;
   door.beginFill(0xffffff,0.001);
@@ -59,17 +58,27 @@ export function setItems(items, app) {
 
   lightSwitch.interactive = true;
   lightSwitch.buttonMode = true;
-  lightSwitch.beginFill(0xffffff);
-  lightSwitch.drawRect(530, 300, 50, 70);
+  lightSwitch.beginFill(0xffffff, 0.001);
+  lightSwitch.drawRect(540, 410, 30, 30);
   lightSwitch.endFill();
   lightSwitch.lineStyle(0);
+
+  const flashLight = new PIXI.Graphics();
+
+  flashLight.interactive = true;
+  flashLight.buttonMode = true;
+  flashLight.beginFill(0xffffff, 1);
+  flashLight.drawRect(640, 470, 50, 50);
+  flashLight.endFill();
+  flashLight.lineStyle(0);
 
   //SendBack
     return {
       idCard1,
       key,
       door,
-      lightSwitch
+      lightSwitch,
+      flashLight
     };
   }
 

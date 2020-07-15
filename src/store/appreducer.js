@@ -9,6 +9,10 @@ const initialState = {
     collected: false,
     pictureID: "key",
   },
+  flashLight: {
+    collected: false,
+    pictureID: "idCard"
+  },
   loaded: false,
 };
 
@@ -46,6 +50,14 @@ function appReducer(state = initialState, action) {
                pictureID: "key"
         },
       };
+    case "TAKE_FLASHLIGHT":
+      return{
+        ...state,
+        flashLight: {
+          collected: true,
+          pictureID: "idCard"
+        }
+      }
       case "OPEN_DOOR":
       return {
         ...state,
