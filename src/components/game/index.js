@@ -29,12 +29,14 @@ export default function Game(props) {
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container();
+  let innerCell = new PIXI.Container();
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
+    PIXI.Sprite.from(require("../../assets/rooms/innercell.png"))
   ];
 
   // roomParts.map((part) => {
@@ -48,6 +50,7 @@ export default function Game(props) {
   corner.addChild(roomParts[0]);
   roomBack.addChild(roomParts[3], roomParts[1]);
   frontDoor.addChild(roomParts[2]);
+  innerCell.addChild(roomParts[4]);
 
   roomParts.map((part) => {
     part.width = 768;
@@ -88,7 +91,16 @@ export default function Game(props) {
     dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
     roomBack.children[1].visible = false;
+    roomBack.children[3].off("pointerdown", closedDoor);
+    roomBack.children[3].on("pointerdown", goToInner);
   };
+
+  let goToInner = () => {
+    dispatch({type: "GO_IN_CELLDOOR"});
+  };
+
+
+
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -127,12 +139,13 @@ export default function Game(props) {
       roomBack.addChild(objects.idCard1, objects.door);
       frontDoor.addChild(objects.key);
 
-      console.log(roomBack);
       corner.visible = true;
+      innerCell.visible = false;
       roomBack.visible = false;
       frontDoor.visible = false;
       // Adding Screens and Interface to Stage
-      props.app.stage.addChild(corner, roomBack, frontDoor, left, right);
+      props.app.stage.addChild(corner, roomBack, frontDoor,innerCell);
+      props.app.stage.addChild(left, right);
     }
   }
 
@@ -140,6 +153,8 @@ export default function Game(props) {
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
+    props.app.stage.children[3].visible = false;
+
 
     switch (assetReducer.partNumber) {
       case 1:
@@ -147,6 +162,9 @@ export default function Game(props) {
         break;
       case 2:
         props.app.stage.children[2].visible = true;
+        break;
+      case 3: 
+      props.app.stage.children[3].visible = true;
         break;
       case 0:
       default:
