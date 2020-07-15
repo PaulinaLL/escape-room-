@@ -21,9 +21,6 @@ export default function Game(props) {
         .add("pc", require("../../assets/objects/pc2.png"))
         .add("itemList", require("../../assets/objects/items.png"));
 
-
-
-
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
@@ -33,6 +30,34 @@ export default function Game(props) {
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
+
+
+      // Inner radius of the circle
+const radius = 100;
+// The blur amount
+const blurSize = 32;
+
+frontDoor.width = props.app.screen.width;
+frontDoor.height = props.app.screen.height;
+
+
+    const circle = new PIXI.Graphics()
+    .beginFill(0xFF0000)
+    .drawCircle(radius + blurSize, radius + 
+      blurSize, radius)
+    .endFill();
+    circle.filters = [
+      new PIXI.filters.BlurFilter(blurSize)
+    ];
+
+    const bounds = new PIXI.Rectangle(0,0, (radius + 
+      blurSize) * 2, (radius + blurSize) * 2);
+    
+      const blackTexture = props.app.renderer.generateTexture(circle,
+        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+        const focus1 = new PIXI.Sprite(blackTexture);
+
+  
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -94,6 +119,21 @@ export default function Game(props) {
     dispatch({type: "GO_IN_CELLDOOR"});
   };
 
+
+
+  let lightOn = () => {
+
+    if(frontDoor.mask === focus1)
+{
+  frontDoor.mask = false;
+
+}
+else{
+  frontDoor.mask = focus1;
+} 
+  
+  }
+
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -121,16 +161,20 @@ export default function Game(props) {
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
     //Objects
+    //Visible
     objects.idCard1.on("pointerdown", takeIDCard);
     objects.key.on("pointerdown", takeKey);
+    
+    //Interactions
     objects.door.on("pointerdown", closedDoor);
+    objects.lightSwitch.on("pointerdown", lightOn);
 
     // Setting Visibility of Screens
 
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
       roomBack.addChild(objects.idCard1, objects.door);
-      frontDoor.addChild(objects.key);
+      frontDoor.addChild(objects.key,objects.lightSwitch);
 
       corner.visible = true;
       innerCell.visible = false;
@@ -144,40 +188,16 @@ export default function Game(props) {
     
       //Preparing FlashLight
 
-    // Inner radius of the circle
-const radius = 100;
-// The blur amount
-const blurSize = 32;
 
-frontDoor.width = props.app.screen.width;
-frontDoor.height = props.app.screen.height;
-
-
-    const circle = new PIXI.Graphics()
-    .beginFill(0xFF0000)
-    .drawCircle(radius + blurSize, radius + 
-      blurSize, radius)
-    .endFill();
-    circle.filters = [
-      new PIXI.filters.BlurFilter(blurSize)
-    ];
-
-    const bounds = new PIXI.Rectangle(0,0, (radius + 
-      blurSize) * 2, (radius + blurSize) * 2);
-    
-      const blackTexture = props.app.renderer.generateTexture(circle,
-        PIXI.SCALE_MODES.NEAREST, 1, bounds);
-        const focus = new PIXI.Sprite(blackTexture);
-
-        props.app.stage.addChild(focus);
-        frontDoor.mask = focus;
+        props.app.stage.addChild(focus1);
+        frontDoor.mask = focus1;
 
         props.app.stage.interactive = true;
         props.app.stage.on('mousemove', pointerMove);
 
         function pointerMove(event) {
-            focus.position.x = event.data.global.x - focus.width / 2;
-            focus.position.y = event.data.global.y - focus.height / 2;
+            focus1.position.x = event.data.global.x - focus1.width / 2;
+            focus1.position.y = event.data.global.y - focus1.height / 2;
         }
  
     }

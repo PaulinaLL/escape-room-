@@ -26,9 +26,11 @@ export function createUserInterface(arrowSheet, app) {
 }
 export function setItems(items, app) {
 
+  //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
   const key = new PIXI.Sprite(items.key[0]);
-  const door = new PIXI.Graphics();
+
+  
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
@@ -44,6 +46,10 @@ export function setItems(items, app) {
   key.height = 30;
   key.width = 40;
 
+  //Interactions Only
+  const door = new PIXI.Graphics();
+
+
   door.interactive = true;
   door.buttonMode = true;
   door.beginFill(0xffffff,0.001);
@@ -51,10 +57,21 @@ export function setItems(items, app) {
   door.endFill();
   door.lineStyle(0);
 
+  const lightSwitch = new PIXI.Graphics();
+
+  lightSwitch.interactive = true;
+  lightSwitch.buttonMode = true;
+  lightSwitch.beginFill(0xffffff);
+  lightSwitch.drawRect(530, 300, 50, 70);
+  lightSwitch.endFill();
+  lightSwitch.lineStyle(0);
+
+  //SendBack
     return {
       idCard1,
       key,
-      door
+      door,
+      lightSwitch
     };
   }
 
