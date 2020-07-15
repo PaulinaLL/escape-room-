@@ -73,8 +73,8 @@ frontDoor.height = props.app.screen.height;
   innerCell.addChild(roomParts[4]);
 
   roomParts.map((part) => {
-    part.width = 768;
-    part.height = 612;
+    part.width = 800;
+    part.height = 800;
     return part;
   });
 
@@ -126,10 +126,11 @@ frontDoor.height = props.app.screen.height;
     if(frontDoor.mask === focus1)
 {
   frontDoor.mask = false;
-
+  props.app.stage.children[6].visible = false;
 }
 else{
   frontDoor.mask = focus1;
+  props.app.stage.children[6].visible = true;
 } 
   
   }
@@ -200,6 +201,7 @@ else{
             focus1.position.y = event.data.global.y - focus1.height / 2;
         }
  
+
     }
 
      }
@@ -209,7 +211,9 @@ else{
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-
+    
+    //pointer for dark
+    
 
     switch (assetReducer.partNumber) {
       case 1:
