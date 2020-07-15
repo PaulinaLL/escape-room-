@@ -132,7 +132,7 @@ frontDoor.height = props.app.screen.height;
     dispatch({type: "GO_IN_CELLDOOR"});
   };
 
-  let lightOn = () => {
+ let lightOn = () => {
   if(frontDoor.mask === focus1)
   { frontDoor.mask = false;
     roomBack.mask = false;

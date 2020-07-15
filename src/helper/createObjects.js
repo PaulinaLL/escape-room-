@@ -29,7 +29,7 @@ export function setItems(items, app) {
   //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
   const key = new PIXI.Sprite(items.key[0]);
-  const flashLight = new PIXI.Sprite(items.flashLight[0]);
+const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
@@ -54,6 +54,10 @@ export function setItems(items, app) {
   flashLight.width = 90;
   //Interactions Only
   const door = new PIXI.Graphics();
+
+  //Interactions Only
+  const door = new PIXI.Graphics();
+
 
   door.interactive = true;
   door.buttonMode = true;
