@@ -73,8 +73,8 @@ frontDoor.height = props.app.screen.height;
   innerCell.addChild(roomParts[4]);
 
   roomParts.map((part) => {
-    part.width = 768;
-    part.height = 612;
+    part.width = 800;
+    part.height = 800;
     return part;
   });
 
@@ -95,12 +95,25 @@ frontDoor.height = props.app.screen.height;
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
   }
+
+
+
   function takeKey() {
     frontDoor.children[1].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", openDoor);
   }
+
+  function takeFlashLight() {
+    dispatch({type: "TAKE_FLASHLIGHT"})
+   //4 is FlashLightObject 
+    roomBack.children[4].visible = false;
+
+    frontDoor.children[2].off("pointerdown", lightOn);
+    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
+  
+  };
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
@@ -119,20 +132,39 @@ frontDoor.height = props.app.screen.height;
     dispatch({type: "GO_IN_CELLDOOR"});
   };
 
-
-
-  let lightOn = () => {
-
-    if(frontDoor.mask === focus1)
-{
-  frontDoor.mask = false;
-
-}
-else{
-  frontDoor.mask = focus1;
-} 
-  
+ let lightOn = () => {
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
   }
+  else
+  {frontDoor.mask = focus1;
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  } 
+  
+}
+
+let lightOnWithFlashLight = () => {
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
+  }
+  else
+  {frontDoor.mask = focus1; 
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  props.app.stage.children[6].visible = true;
+  }
+}
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -168,12 +200,14 @@ else{
     //Interactions
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
+    objects.flashLight.on("pointerdown", takeFlashLight);
+
 
     // Setting Visibility of Screens
 
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
-      roomBack.addChild(objects.idCard1, objects.door);
+      roomBack.addChild(objects.idCard1, objects.door, objects.flashLight);
       frontDoor.addChild(objects.key,objects.lightSwitch);
 
       corner.visible = true;
@@ -186,11 +220,10 @@ else{
       props.app.stage.addChild(left, right);
 
     
-      //Preparing FlashLight
-
-
+      //Preparing FlashLight and DarkRoom
         props.app.stage.addChild(focus1);
-        frontDoor.mask = focus1;
+      //  props.app.stage.children[6].visible = false;
+       frontDoor.mask = focus1;
 
         props.app.stage.interactive = true;
         props.app.stage.on('mousemove', pointerMove);
@@ -200,6 +233,7 @@ else{
             focus1.position.y = event.data.global.y - focus1.height / 2;
         }
  
+
     }
 
      }
@@ -209,7 +243,9 @@ else{
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-
+    
+    //pointer for dark
+    
 
     switch (assetReducer.partNumber) {
       case 1:
@@ -242,7 +278,11 @@ else{
     items["key"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
     ];
+    items["flashLight"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
+    ];
   }
+
 
   // Sheets with items which have more than one state.
 

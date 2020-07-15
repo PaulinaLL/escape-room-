@@ -17,10 +17,10 @@ export function createUserInterface(arrowSheet, app) {
 
   right.scale.set(-1);
 
-  right.x = 550;
-  right.y = 625;
-  left.x = 200;
-  left.y = 500;
+  right.x = 730;
+  right.y = 785;
+  left.x = 70;
+  left.y = 660;
 
   return [left, right];
 }
@@ -29,22 +29,31 @@ export function setItems(items, app) {
   //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
   const key = new PIXI.Sprite(items.key[0]);
-
-  
+const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
   idCard1.x = 570;
-  idCard1.y = 350;
-  idCard1.height = 30;
-  idCard1.width = 40;
+  idCard1.y = 440;
+  idCard1.height = 70;
+  idCard1.width = 70;
 
   key.interactive = true;
   key.buttonMode = true;
   key.x = 670;
-  key.y = 450;
-  key.height = 30;
-  key.width = 40;
+  key.y = 530;
+  key.height = 90;
+  key.width = 90;
+
+
+  flashLight.interactive = true;
+  flashLight.buttonMode = true;
+  flashLight.x = 670;
+  flashLight.y = 530;
+  flashLight.height = 90;
+  flashLight.width = 90;
+  //Interactions Only
+  const door = new PIXI.Graphics();
 
   //Interactions Only
   const door = new PIXI.Graphics();
@@ -61,17 +70,20 @@ export function setItems(items, app) {
 
   lightSwitch.interactive = true;
   lightSwitch.buttonMode = true;
-  lightSwitch.beginFill(0xffffff);
-  lightSwitch.drawRect(530, 300, 50, 70);
+  lightSwitch.beginFill(0xffffff, 0.001);
+  lightSwitch.drawRect(540, 410, 30, 30);
   lightSwitch.endFill();
   lightSwitch.lineStyle(0);
+
+ 
 
   //SendBack
     return {
       idCard1,
       key,
       door,
-      lightSwitch
+      lightSwitch,
+      flashLight
     };
   }
 
@@ -86,13 +98,13 @@ export function createDrawer(furnitureSheet) {
     event.stopPropagation();
     const valueY = Object.values(event.data.global)[1];
 
-    if (valueY >= 327 && valueY <= 400) {
+    if (valueY >= 440 && valueY <= 499) {
       this.texture = furnitureSheet.open4[0];
-    } else if (valueY >= 401 && valueY <= 435) {
+    } else if (valueY >= 500 && valueY <= 569) {
       this.texture = furnitureSheet.open3[0];
-    } else if (valueY >= 436 && valueY <= 485) {
+    } else if (valueY >= 570 && valueY <= 639) {
       this.texture = furnitureSheet.open2[0];
-    } else if (valueY >= 486 && valueY <= 550) {
+    } else if (valueY >= 640 && valueY <= 699) {
       this.texture = furnitureSheet.open1[0];
     } else return;
   }
@@ -106,11 +118,11 @@ export function createDrawer(furnitureSheet) {
   }
   //    It would be good if we get the relationship between the values. Please do something about it.
   // Width and Height
-  drawer.width = 200;
-  drawer.height = 320;
+  drawer.width = 230;
+  drawer.height = 390;
   //    Position
-  drawer.x = 520;
-  drawer.y = 265;
+  drawer.x = 530;
+  drawer.y = 355;
   // Might be turned back to normal. Lets see.
   //Create a Pixi Application
   //Add the canvas that Pixi automatically created for you to the HTML document
@@ -119,7 +131,13 @@ export function createDrawer(furnitureSheet) {
 
 // add event listener to PC version 1
 export function createPC(pcSheet) {
-  const pcoff = new PIXI.Sprite(pcSheet.off[0]);
+  //const pcoff = new PIXI.Sprite(pcSheet.off[0]);
+const pcoff = new PIXI.Graphics();
+
+pcoff.beginFill(0xffffff,0.01);
+pcoff.drawRect(20, 80, 200, 180);
+pcoff.endFill();
+pcoff.lineStyle(0);
 
   pcoff.interactive = true;
   pcoff.buttonMode = true;
