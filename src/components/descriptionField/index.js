@@ -10,14 +10,19 @@ const DescriptionField = () => {
 
   return (
     <div className="description">
+      {storeState.answersReducer.wantsToPlay &&
+      answersReducer.currentRiddleDescription.id === "" ? (
+        <h3> Welcome {answersReducer.userName} </h3>
+      ) : null}
+
       <p>
         {storeState.answersReducer.wantsToPlay
           ? answersReducer.currentRiddleDescription.text
           : null}
       </p>
-      {storeState.answersReducer.wantsToPlay ? (
+      {/* {storeState.answersReducer.wantsToPlay ? (
         <button className="buttonHint">get a hint</button>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

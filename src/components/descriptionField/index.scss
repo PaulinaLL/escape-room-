@@ -1,7 +1,7 @@
 .description {
   display: flex;
   justify-content: center;
-
+  flex-direction: column;
   height: 350px;
   width: 600px;
   background-color: black;
@@ -12,7 +12,7 @@
   border-radius: 8px;
 }
 
-.buttonHint {
-  margin: 20px;
-  align-self: flex-end;
-}
+// .buttonHint {
+//   margin: 20px;
+//   align-self: flex-end;
+// }
