@@ -53,6 +53,11 @@ function appReducer(state = initialState, action) {
                pictureID: "key"
         },
       };
+      case "GO_IN_CELLDOOR":
+        return {
+          ...state,
+          partNumber: 3
+        };
     case "LOADED":
       return {
         ...state,
