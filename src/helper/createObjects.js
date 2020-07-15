@@ -29,21 +29,29 @@ export function setItems(items, app) {
   //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
   const key = new PIXI.Sprite(items.key[0]);
+  const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
   idCard1.x = 570;
-  idCard1.y = 350;
-  idCard1.height = 30;
-  idCard1.width = 40;
+  idCard1.y = 440;
+  idCard1.height = 70;
+  idCard1.width = 70;
 
   key.interactive = true;
   key.buttonMode = true;
   key.x = 670;
-  key.y = 450;
-  key.height = 30;
-  key.width = 40;
+  key.y = 530;
+  key.height = 90;
+  key.width = 90;
 
+
+  flashLight.interactive = true;
+  flashLight.buttonMode = true;
+  flashLight.x = 670;
+  flashLight.y = 530;
+  flashLight.height = 90;
+  flashLight.width = 90;
   //Interactions Only
   const door = new PIXI.Graphics();
 
@@ -63,14 +71,7 @@ export function setItems(items, app) {
   lightSwitch.endFill();
   lightSwitch.lineStyle(0);
 
-  const flashLight = new PIXI.Graphics();
-
-  flashLight.interactive = true;
-  flashLight.buttonMode = true;
-  flashLight.beginFill(0xffffff, 1);
-  flashLight.drawRect(640, 470, 50, 50);
-  flashLight.endFill();
-  flashLight.lineStyle(0);
+ 
 
   //SendBack
     return {

@@ -107,6 +107,8 @@ frontDoor.height = props.app.screen.height;
 
   function takeFlashLight() {
     dispatch({type: "TAKE_FLASHLIGHT"})
+   //4 is FlashLightObject 
+    roomBack.children[4].visible = false;
 
     frontDoor.children[2].off("pointerdown", lightOn);
     frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
@@ -164,10 +166,6 @@ let lightOnWithFlashLight = () => {
   }
 }
 
-
-
-
-
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -222,9 +220,10 @@ let lightOnWithFlashLight = () => {
       props.app.stage.addChild(left, right);
 
     
-      //Preparing FlashLight
+      //Preparing FlashLight and DarkRoom
         props.app.stage.addChild(focus1);
-        frontDoor.mask = focus1;
+      //  props.app.stage.children[6].visible = false;
+       frontDoor.mask = focus1;
 
         props.app.stage.interactive = true;
         props.app.stage.on('mousemove', pointerMove);
@@ -278,6 +277,9 @@ let lightOnWithFlashLight = () => {
     ];
     items["key"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
+    ];
+    items["flashLight"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
   }
 

@@ -11,7 +11,7 @@ const initialState = {
   },
   flashLight: {
     collected: false,
-    pictureID: "idCard"
+    pictureID: "flashLight"
   },
   loaded: false,
 };
@@ -55,7 +55,7 @@ function appReducer(state = initialState, action) {
         ...state,
         flashLight: {
           collected: true,
-          pictureID: "idCard"
+          pictureID: "flashLight"
         }
       }
       case "OPEN_DOOR":
