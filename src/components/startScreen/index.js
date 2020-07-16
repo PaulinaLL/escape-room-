@@ -16,6 +16,8 @@ class StartScreen extends React.Component {
 
   render() {
     // console.log(this.props.rooms);
+    const userName = this.props.userName;
+    const wantsToPlay = this.props.wantsToPlay;
     return (
       <div className="App">
         <header>
@@ -23,18 +25,18 @@ class StartScreen extends React.Component {
           <h1>Welcome to the exit game </h1>
         </header>
         <main>
-          <GetUserName />
+          {!userName && !wantsToPlay && <GetUserName />}
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
-              <PixiCanvas />  
+              <PixiCanvas />
               <ObjectCollection />
-            </div> 
+            </div>
             <div className="fieldsWrapper">
               <DescriptionField />
               <UserInput />
             </div>
           </div>
- 
+
           {/* <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>
@@ -56,6 +58,8 @@ class StartScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    userName: state.answersReducer.userName,
+    wantsToPlay: state.answersReducer.wantsToPlay,
     // character: state.assetReducer.characters
     // productList: state.cartReducer.normalizedProducts,
     // productCount: state.cartReducer.cart.sum,
