@@ -7,26 +7,32 @@
   // flex-basis: 80%;
   align-self: center;
   display: flex;
-  // position: absolute;
+  overflow: hidden;
+  // position:o absolute;
   // left: 300px;
   // top: 700px;
 }
 
-.object{
+.object {
   height: 80px;
   width: 108px;
 }
 
-#idCard{
-  background: 
-  url('../../assets/objects/items.png') -10px -30px;
+#idCard {
+  background: url("../../assets/objects/items.png") -10px -30px;
 }
-#key{
-  background: 
-  url('../../assets/objects/items.png') -130px -30px;
-} 
+#key {
+  background: url("../../assets/objects/items.png") -130px -30px;
+}
 
-#flashLight{
-  background: 
-  url('../../assets/objects/items.png') -260px -30px;
+#flashLight {
+  background: url("../../assets/objects/items.png") -260px -30px;
+}
+
+#idCard2 {
+  background: url("../../assets/objects/items.png") -10px -130px;
+}
+
+#idCard3 {
+  background: url("../../assets/objects/items.png") -10px -230px;
 }
