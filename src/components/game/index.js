@@ -59,7 +59,9 @@ frontDoor.height = props.app.screen.height;
         focus1.anchor.set(0.9);
         focus1.x = 100;
         focus1.y = 660;
-         
+      
+     
+        
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
@@ -97,8 +99,6 @@ frontDoor.height = props.app.screen.height;
     dispatch({ type: "TAKE_IDCARD1" });
   }
 
-
-
   function takeKey() {
     frontDoor.children[1].visible = false;
     dispatch({ type: "TAKE_KEY" });
@@ -110,18 +110,18 @@ frontDoor.height = props.app.screen.height;
     dispatch({type: "TAKE_FLASHLIGHT"})
    //4 is FlashLightObject 
     
-   focus1.anchor.set(0);
+       focus1.anchor.set(0.1);
     
    roomBack.children[4].visible = false;
-    props.app.stage.children[6].visible = true;
+    props.app.stage.children[7].visible = true;
       
-    frontDoor.children[2].off("pointerdown", lightOn);
-    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);  
+    props.app.stage.children[6].off("pointerdown", lightOn);
+    props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);  
   };
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
-    console.log("No Key"); 
+    console.log("No Key");
   };
 
   let openDoor = () => {
@@ -142,7 +142,9 @@ frontDoor.height = props.app.screen.height;
     roomBack.mask = false;
     innerCell.mask = false;
     corner.mask = false;
-    props.app.stage.children[6].visible = false;
+    props.app.stage.children[7].visible = false;
+   // props.app.stage.children[6].visible = false;
+    
   }
   else
   {frontDoor.mask = focus1;
@@ -159,14 +161,18 @@ let lightOnWithFlashLight = () => {
     roomBack.mask = false;
     innerCell.mask = false;
     corner.mask = false;
-    props.app.stage.children[6].visible = false;
+    props.app.stage.children[7].visible = false;
+  //  props.app.stage.children[6].visible = false;
+   
   }
   else
   {frontDoor.mask = focus1; 
     roomBack.mask = focus1;
     innerCell.mask = focus1;
     corner.mask = focus1;
-  props.app.stage.children[6].visible = true;
+  props.app.stage.children[7].visible = true;
+//  props.app.stage.children[6].visible = true;
+   
   }
 }
 
@@ -210,24 +216,31 @@ let lightOnWithFlashLight = () => {
     // Setting Visibility of Screens
 
     if (!props.app.stage.children.length) {
-      corner.addChild(drawer, pc);
+      corner.addChild(drawer);
       roomBack.addChild(objects.idCard1, objects.door, objects.flashLight);
-      frontDoor.addChild(objects.key,objects.lightSwitch);
+      frontDoor.addChild(objects.key);
 
       corner.visible = true;
       innerCell.visible = false;
       roomBack.visible = false;
       frontDoor.visible = false;
+      objects.lightSwitch.visible = false;
+
       // Adding Screens and Interface to Stage
       props.app.stage.addChild(corner, roomBack, frontDoor,innerCell);
       // Adding Arrows
-      props.app.stage.addChild(left, right);
-
+      props.app.stage.addChild(left, right, objects.lightSwitch);
+      //4 = left, 5 = right, 6 = objects.lightSwitch?
     
       //Preparing FlashLight and DarkRoom
-        props.app.stage.addChild(focus1);
-        props.app.stage.children[6].visible = false;
-       frontDoor.mask = focus1;
+        props.app.stage.addChild(focus1,pc);
+        props.app.stage.children[7].visible = false;
+     
+        corner.mask = focus1;
+        innerCell.mask = focus1;
+        roomBack.mask = focus1;
+        frontDoor.mask = focus1;
+
 
         props.app.stage.interactive = true;
         props.app.stage.on('mousemove', pointerMove);
@@ -236,34 +249,44 @@ let lightOnWithFlashLight = () => {
             focus1.position.x = event.data.global.x - focus1.width / 2;
             focus1.position.y = event.data.global.y - focus1.height / 2;
         }
- 
 
     }
 
      }
 
   if (props.app.stage.children.length) {
+
+    props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-    
     //pointer for dark
-    
 
     switch (assetReducer.partNumber) {
       case 1:
+        //RoomBack
         props.app.stage.children[1].visible = true;
+        props.app.stage.children[8].visible = false;
         break;
       case 2:
+        //FrontDoor
+        props.app.stage.children[6].visible = true;
         props.app.stage.children[2].visible = true;
+        props.app.stage.children[8].visible = false;
+
         break;
       case 3: 
         props.app.stage.children[3].visible = true;
+        props.app.stage.children[8].visible = false;
+
         break;
       case 0:
         default:
+        //Corner       
         props.app.stage.children[0].visible = true;
+        props.app.stage.children[8].visible = true;
+
         break;
     }
   }

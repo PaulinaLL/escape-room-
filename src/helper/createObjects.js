@@ -60,22 +60,58 @@ export function setItems(items, app) {
   door.endFill();
   door.lineStyle(0);
 
-  const lightSwitch = new PIXI.Graphics();
+  //Create SwitchLight
+  let radius = 32;
+  let blurSize = 8;
+ 
+  const circle = new PIXI.Graphics()
+    .beginFill(0xFFFFFF,0.5)
+    .drawCircle(radius + blurSize, radius + 
+      blurSize, radius)
+    .endFill();
+    circle.filters = [
+      new PIXI.filters.BlurFilter(blurSize)
+    ];
 
-  lightSwitch.interactive = true;
-  lightSwitch.buttonMode = true;
-  lightSwitch.beginFill(0xffffff, 0.001);
-  lightSwitch.drawRect(540, 410, 30, 30);
-  lightSwitch.endFill();
-  lightSwitch.lineStyle(0);
+    const bounds = new PIXI.Rectangle(0, 0, (radius + 
+      blurSize) * 2, (radius + blurSize) * 2);
 
-  //SendBack
+      const blackTexture = app.renderer.generateTexture(circle,
+        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+
+        // const focus1 = new PIXI.Sprite(blackTexture);
+        
+    const lightSwitch = new PIXI.Sprite(blackTexture);
+
+        lightSwitch.anchor.set(0.9);
+        lightSwitch.x = 590;
+        lightSwitch.y = 450
+
+        lightSwitch.interactive = true;
+        lightSwitch.buttonMode = true;
+      
+  // lightSwitch.beginFill(0xffffff, 0.1);
+  // lightSwitch.drawRect(540, 410, 30, 30);
+  // lightSwitch.endFill();
+  // lightSwitch.lineStyle(0);
+
+  const pcLight = new PIXI.Graphics();
+  pcLight.interactive = true;
+  pcLight.buttonMode = true;
+  pcLight.beginFill(0xffffff, 0.1);
+  pcLight.drawRect(540, 410, 30, 30);
+  pcLight.endFill();
+  pcLight.lineStyle(0);
+
+
+  //SendBack to Game
   return {
     idCard1,
     key,
     door,
     lightSwitch,
     flashLight,
+    pcLight
   };
 }
 
@@ -126,7 +162,7 @@ export function createPC(pcSheet) {
   //const pcoff = new PIXI.Sprite(pcSheet.off[0]);
   const pcoff = new PIXI.Graphics();
 
-  pcoff.beginFill(0xffffff, 0.01);
+  pcoff.beginFill(0xffffff, 0.1);
   pcoff.drawRect(20, 80, 200, 180);
   pcoff.endFill();
   pcoff.lineStyle(0);
