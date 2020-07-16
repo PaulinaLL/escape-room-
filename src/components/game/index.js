@@ -21,9 +21,6 @@ export default function Game(props) {
         .add("pc", require("../../assets/objects/pc2.png"))
         .add("itemList", require("../../assets/objects/items.png"));
 
-
-
-
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
@@ -33,6 +30,34 @@ export default function Game(props) {
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
+
+
+      // Inner radius of the circle
+const radius = 100;
+// The blur amount
+const blurSize = 32;
+
+frontDoor.width = props.app.screen.width;
+frontDoor.height = props.app.screen.height;
+
+
+    const circle = new PIXI.Graphics()
+    .beginFill(0xFF0000)
+    .drawCircle(radius + blurSize, radius + 
+      blurSize, radius)
+    .endFill();
+    circle.filters = [
+      new PIXI.filters.BlurFilter(blurSize)
+    ];
+
+    const bounds = new PIXI.Rectangle(0,0, (radius + 
+      blurSize) * 2, (radius + blurSize) * 2);
+    
+      const blackTexture = props.app.renderer.generateTexture(circle,
+        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+        const focus1 = new PIXI.Sprite(blackTexture);
+
+  
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -48,8 +73,8 @@ export default function Game(props) {
   innerCell.addChild(roomParts[4]);
 
   roomParts.map((part) => {
-    part.width = 768;
-    part.height = 612;
+    part.width = 800;
+    part.height = 800;
     return part;
   });
 
@@ -70,12 +95,25 @@ export default function Game(props) {
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
   }
+
+
+
   function takeKey() {
     frontDoor.children[1].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", openDoor);
   }
+
+  function takeFlashLight() {
+    dispatch({type: "TAKE_FLASHLIGHT"})
+   //4 is FlashLightObject 
+    roomBack.children[4].visible = false;
+
+    frontDoor.children[2].off("pointerdown", lightOn);
+    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
+  
+  };
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
@@ -93,6 +131,40 @@ export default function Game(props) {
   let goToInner = () => {
     dispatch({type: "GO_IN_CELLDOOR"});
   };
+
+ let lightOn = () => {
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
+  }
+  else
+  {frontDoor.mask = focus1;
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  } 
+  
+}
+
+let lightOnWithFlashLight = () => {
+  if(frontDoor.mask === focus1)
+  { frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    props.app.stage.children[6].visible = false;
+  }
+  else
+  {frontDoor.mask = focus1; 
+    roomBack.mask = focus1;
+    innerCell.mask = focus1;
+    corner.mask = focus1;
+  props.app.stage.children[6].visible = true;
+  }
+}
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -121,16 +193,22 @@ export default function Game(props) {
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
     //Objects
+    //Visible
     objects.idCard1.on("pointerdown", takeIDCard);
     objects.key.on("pointerdown", takeKey);
+    
+    //Interactions
     objects.door.on("pointerdown", closedDoor);
+    objects.lightSwitch.on("pointerdown", lightOn);
+    objects.flashLight.on("pointerdown", takeFlashLight);
+
 
     // Setting Visibility of Screens
 
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
-      roomBack.addChild(objects.idCard1, objects.door);
-      frontDoor.addChild(objects.key);
+      roomBack.addChild(objects.idCard1, objects.door, objects.flashLight);
+      frontDoor.addChild(objects.key,objects.lightSwitch);
 
       corner.visible = true;
       innerCell.visible = false;
@@ -142,44 +220,20 @@ export default function Game(props) {
       props.app.stage.addChild(left, right);
 
     
-      //Preparing FlashLight
-
-    // Inner radius of the circle
-const radius = 100;
-// The blur amount
-const blurSize = 32;
-
-frontDoor.width = props.app.screen.width;
-frontDoor.height = props.app.screen.height;
-
-
-    const circle = new PIXI.Graphics()
-    .beginFill(0xFF0000)
-    .drawCircle(radius + blurSize, radius + 
-      blurSize, radius)
-    .endFill();
-    circle.filters = [
-      new PIXI.filters.BlurFilter(blurSize)
-    ];
-
-    const bounds = new PIXI.Rectangle(0,0, (radius + 
-      blurSize) * 2, (radius + blurSize) * 2);
-    
-      const blackTexture = props.app.renderer.generateTexture(circle,
-        PIXI.SCALE_MODES.NEAREST, 1, bounds);
-        const focus = new PIXI.Sprite(blackTexture);
-
-        props.app.stage.addChild(focus);
-        frontDoor.mask = focus;
+      //Preparing FlashLight and DarkRoom
+        props.app.stage.addChild(focus1);
+      //  props.app.stage.children[6].visible = false;
+       frontDoor.mask = focus1;
 
         props.app.stage.interactive = true;
         props.app.stage.on('mousemove', pointerMove);
 
         function pointerMove(event) {
-            focus.position.x = event.data.global.x - focus.width / 2;
-            focus.position.y = event.data.global.y - focus.height / 2;
+            focus1.position.x = event.data.global.x - focus1.width / 2;
+            focus1.position.y = event.data.global.y - focus1.height / 2;
         }
  
+
     }
 
      }
@@ -189,7 +243,9 @@ frontDoor.height = props.app.screen.height;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-
+    
+    //pointer for dark
+    
 
     switch (assetReducer.partNumber) {
       case 1:
@@ -222,7 +278,11 @@ frontDoor.height = props.app.screen.height;
     items["key"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
     ];
+    items["flashLight"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
+    ];
   }
+
 
   // Sheets with items which have more than one state.
 

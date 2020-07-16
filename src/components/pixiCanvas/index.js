@@ -9,7 +9,7 @@ export default function PixiCanvas(props) {
     container.appendChild(app.view);
   }); 
 
-  let app = new PIXI.Application({ width: 768, height: 612 });
+  let app = new PIXI.Application({ width: 800, height: 800 });
 return <div id="pixi-container">
   <Game app={app}></Game>
 </div>;  
