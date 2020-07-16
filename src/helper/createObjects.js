@@ -27,6 +27,8 @@ export function createUserInterface(arrowSheet, app) {
 export function setItems(items, app) {
   //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
+  const idCard2 = new PIXI.Sprite(items.idCard2[0]);
+  const idCard3 = new PIXI.Sprite(items.idCard3[0]);
   const key = new PIXI.Sprite(items.key[0]);
   const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
@@ -36,6 +38,20 @@ export function setItems(items, app) {
   idCard1.y = 440;
   idCard1.height = 70;
   idCard1.width = 70;
+
+  idCard2.interactive = true;
+  idCard2.buttonMode = true;
+  idCard2.x = 390;
+  idCard2.y = 390;
+  idCard2.height = 70;
+  idCard2.width = 70;
+
+  idCard3.interactive = true;
+  idCard3.buttonMode = true;
+  idCard3.x = 410;
+  idCard3.y = 250;
+  idCard3.height = 70;
+  idCard3.width = 70;
 
   key.interactive = true;
   key.buttonMode = true;
@@ -72,6 +88,8 @@ export function setItems(items, app) {
   //SendBack
   return {
     idCard1,
+    idCard2,
+    idCard3,
     key,
     door,
     lightSwitch,
