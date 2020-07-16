@@ -1,35 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import EvalInput from "../evalInput";
 
-const preInputSetup = (userName) => (id) => {
-  const inputs = {
-    1: `function greet(person) {
-    if (person == { name: ${userName} }) {
-    return "hey " +  ${userName};
-    } else {
+import RiddleEditor from "./editor";
+
+const riddles = (userCTX) => (id) => {
+  const defaultRiddle = { setup: { startCode: "" }, check: {} };
+  const allRiddle = {
+    "1": {
+      setup: {
+        arg: { name: `${userCTX.userName}` },
+        fnName: "greet",
+        startCode: `
+function greet(person) {
+  if (person.name == { name: "${userCTX.userName}" } ) {
+    return "hey ${userCTX.userName}";
+  } else {
     return "hey stranger";
-    }
-    }
-    console.log(greet({ name: ${userName} }))`,
-    2: `test for the second function`,
+  }
+}    
+      `,
+      },
+      check: {
+        testFn: (log, error) =>
+          function (result) {
+            if (result === `hey ${userCTX.userName}`) {
+              log("Yes");
+            } else {
+              error("No");
+            }
+          },
+      },
+    },
   };
 
-  return inputs[id] || null;
+  return allRiddle[id] || defaultRiddle;
 };
 
 export default function UserInput() {
+  const dispatch = useDispatch();
   const { userName, currentRiddleDescription } = useSelector(
     (state) => state.answersReducer
   );
 
-  const preInputs = preInputSetup(userName);
+  // user context that is passed in to your riddle code
+  // if you want to dispatch from within testFn you can
+  // make it a prop of userCTX
+  const userCTX = { userName };
+  const riddleWithContext = riddles(userCTX);
+  const currentRiddle = riddleWithContext(currentRiddleDescription.id);
 
-  const [userAnswer, setUserAnswer] = useState({});
-  const [submitStatus, setSubmitStatus] = useState({});
+  const [userAnswer, setUserAnswer] = useState(currentRiddle.setup.startCode);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    // userAnswers needs to persist between render but
+    // when we change the riddle we need to reset our answer
+    // lucky us we have useEffect:
+    // when the startCode changes set userAnswer to new startCode
+    setUserAnswer(currentRiddle.setup.startCode);
+  }, [currentRiddle.setup.startCode]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,21 +70,18 @@ export default function UserInput() {
         answer: userAnswer,
       },
     });
-    // setUserAnswer({ [currentRiddleDescription.id]: "" });
-    setSubmitStatus({ [currentRiddleDescription.id]: true });
-  };
-  console.log(userAnswer);
-
-  const handleOnChange = (e) => {
-    setUserAnswer({ [currentRiddleDescription.id]: e.target.value });
-    setSubmitStatus({ [currentRiddleDescription.id]: false });
   };
 
   return (
     <div className="userInput">
       <form action="#" onSubmit={handleSubmit}>
         <label htmlFor="userInput">Write your code here:</label>
-        <textarea
+        <RiddleEditor
+          currentRiddle={currentRiddle}
+          userCode={userAnswer}
+          setUserCode={setUserAnswer}
+        />
+        {/* <textarea
           type="text"
           id="userInput"
           name="userInput"
@@ -66,8 +93,13 @@ export default function UserInput() {
           }
           onChange={handleOnChange}
         />
+          defaultValue={preInputs(currentRiddleDescription.id)}
+          value={userAnswer[currentRiddleDescription.id]}
+          onChange={(e) =>
+            setUserAnswer({ [currentRiddleDescription.id]: e.target.value })
+          }
+        /> */}
         <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
-        {submitStatus[currentRiddleDescription.id] ? <EvalInput /> : null}
       </form>
     </div>
   );
