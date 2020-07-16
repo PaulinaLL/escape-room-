@@ -25,11 +25,10 @@ export function createUserInterface(arrowSheet, app) {
   return [left, right];
 }
 export function setItems(items, app) {
-
   //Visible Objects
   const idCard1 = new PIXI.Sprite(items.idCard[0]);
   const key = new PIXI.Sprite(items.key[0]);
-const flashLight = new PIXI.Sprite(items.flashLight[0]);
+  const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
   idCard1.interactive = true;
   idCard1.buttonMode = true;
@@ -45,7 +44,6 @@ const flashLight = new PIXI.Sprite(items.flashLight[0]);
   key.height = 90;
   key.width = 90;
 
-
   flashLight.interactive = true;
   flashLight.buttonMode = true;
   flashLight.x = 670;
@@ -55,13 +53,9 @@ const flashLight = new PIXI.Sprite(items.flashLight[0]);
   //Interactions Only
   const door = new PIXI.Graphics();
 
-  //Interactions Only
-  const door = new PIXI.Graphics();
-
-
   door.interactive = true;
   door.buttonMode = true;
-  door.beginFill(0xffffff,0.001);
+  door.beginFill(0xffffff, 0.001);
   door.drawRect(100, 250, 100, 200);
   door.endFill();
   door.lineStyle(0);
@@ -75,17 +69,15 @@ const flashLight = new PIXI.Sprite(items.flashLight[0]);
   lightSwitch.endFill();
   lightSwitch.lineStyle(0);
 
- 
-
   //SendBack
-    return {
-      idCard1,
-      key,
-      door,
-      lightSwitch,
-      flashLight
-    };
-  }
+  return {
+    idCard1,
+    key,
+    door,
+    lightSwitch,
+    flashLight,
+  };
+}
 
 export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
@@ -132,12 +124,12 @@ export function createDrawer(furnitureSheet) {
 // add event listener to PC version 1
 export function createPC(pcSheet) {
   //const pcoff = new PIXI.Sprite(pcSheet.off[0]);
-const pcoff = new PIXI.Graphics();
+  const pcoff = new PIXI.Graphics();
 
-pcoff.beginFill(0xffffff,0.01);
-pcoff.drawRect(20, 80, 200, 180);
-pcoff.endFill();
-pcoff.lineStyle(0);
+  pcoff.beginFill(0xffffff, 0.01);
+  pcoff.drawRect(20, 80, 200, 180);
+  pcoff.endFill();
+  pcoff.lineStyle(0);
 
   pcoff.interactive = true;
   pcoff.buttonMode = true;
