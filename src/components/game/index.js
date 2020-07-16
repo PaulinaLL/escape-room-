@@ -31,35 +31,35 @@ export default function Game(props) {
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
 
-  // Inner radius of the circle
-  const radius = 100;
-  // The blur amount
-  const blurSize = 32;
+      // Inner radius of the circle
+const radius = 100;
+// The blur amount
+const blurSize = 32;
 
-  frontDoor.width = props.app.screen.width;
-  frontDoor.height = props.app.screen.height;
+frontDoor.width = props.app.screen.width;
+frontDoor.height = props.app.screen.height;
 
-  const circle = new PIXI.Graphics()
-    .beginFill(0xff0000)
-    .drawCircle(radius + blurSize, radius + blurSize, radius)
+    const circle = new PIXI.Graphics()
+    .beginFill(0xFF0000)
+    .drawCircle(radius + blurSize, radius + 
+      blurSize, radius)
     .endFill();
-  circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
+    circle.filters = [
+      new PIXI.filters.BlurFilter(blurSize)
+    ];
 
-  const bounds = new PIXI.Rectangle(
-    0,
-    0,
-    (radius + blurSize) * 2,
-    (radius + blurSize) * 2
-  );
+    const bounds = new PIXI.Rectangle(0, 0, (radius + 
+      blurSize) * 2, (radius + blurSize) * 2);
 
-  const blackTexture = props.app.renderer.generateTexture(
-    circle,
-    PIXI.SCALE_MODES.NEAREST,
-    1,
-    bounds
-  );
-  const focus1 = new PIXI.Sprite(blackTexture);
+      const blackTexture = props.app.renderer.generateTexture(circle,
+        PIXI.SCALE_MODES.NEAREST, 1, bounds);
 
+        const focus1 = new PIXI.Sprite(blackTexture);
+
+        focus1.anchor.set(0.9);
+        focus1.x = 100;
+        focus1.y = 660;
+         
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
@@ -120,17 +120,21 @@ export default function Game(props) {
   }
 
   function takeFlashLight() {
-    dispatch({ type: "TAKE_FLASHLIGHT" });
-    //4 is FlashLightObject
-    roomBack.children[4].visible = false;
-
+    dispatch({type: "TAKE_FLASHLIGHT"})
+   //4 is FlashLightObject 
+    
+   focus1.anchor.set(0);
+    
+   roomBack.children[4].visible = false;
+    props.app.stage.children[6].visible = true;
+      
     frontDoor.children[2].off("pointerdown", lightOn);
-    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
-  }
+    frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);  
+  };
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
-    console.log("No Key");
+    console.log("No Key"); 
   };
 
   let openDoor = () => {
@@ -239,9 +243,10 @@ export default function Game(props) {
       props.app.stage.addChild(left, right);
 
       //Preparing FlashLight and DarkRoom
-      props.app.stage.addChild(focus1);
-      //  props.app.stage.children[6].visible = false;
-      frontDoor.mask = focus1;
+
+        props.app.stage.addChild(focus1);
+        props.app.stage.children[6].visible = false;
+       frontDoor.mask = focus1;
 
       props.app.stage.interactive = true;
       props.app.stage.on("mousemove", pointerMove);
