@@ -1,25 +1,23 @@
 import React from "react";
 import "./index.scss";
 import { useSelector } from "react-redux";
-import store from "../../store/store";
 
 const DescriptionField = () => {
-  const { answersReducer } = useSelector((state) => state);
-
-  const storeState = store.getState();
-
+  const { currentRiddleDescription, userName, wantsToPlay } = useSelector(
+    ({ answersReducer }) => ({
+      currentRiddleDescription: answersReducer.currentRiddleDescription,
+      userName: answersReducer.userName,
+      wantsToPlay: answersReducer.wantsToPlay,
+    })
+  );
+  console.log(currentRiddleDescription, userName, wantsToPlay);
   return (
     <div className="description">
-      {storeState.answersReducer.wantsToPlay &&
-      answersReducer.currentRiddleDescription.id === "" ? (
-        <h3> Welcome {answersReducer.userName} </h3>
+      {wantsToPlay && currentRiddleDescription.id === "" ? (
+        <h3> Welcome {userName} </h3>
       ) : null}
 
-      <p>
-        {storeState.answersReducer.wantsToPlay
-          ? answersReducer.currentRiddleDescription.text
-          : null}
-      </p>
+      <p>{wantsToPlay ? currentRiddleDescription.text : null}</p>
       {/* {storeState.answersReducer.wantsToPlay ? (
         <button className="buttonHint">get a hint</button>
       ) : null} */}
