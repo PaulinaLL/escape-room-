@@ -111,9 +111,9 @@ frontDoor.height = props.app.screen.height;
    //4 is FlashLightObject 
     
        focus1.anchor.set(0.1);
-    
+     
    roomBack.children[4].visible = false;
-    props.app.stage.children[7].visible = true;
+    props.app.stage.children[7].visible = false;
       
     props.app.stage.children[6].off("pointerdown", lightOn);
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);  
