@@ -31,40 +31,41 @@ export default function Game(props) {
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
 
+  // Inner radius of the circle
+  const radius = 100;
+  // The blur amount
+  const blurSize = 32;
 
-      // Inner radius of the circle
-const radius = 100;
-// The blur amount
-const blurSize = 32;
+  frontDoor.width = props.app.screen.width;
+  frontDoor.height = props.app.screen.height;
 
-frontDoor.width = props.app.screen.width;
-frontDoor.height = props.app.screen.height;
-
-
-    const circle = new PIXI.Graphics()
-    .beginFill(0xFF0000)
-    .drawCircle(radius + blurSize, radius + 
-      blurSize, radius)
+  const circle = new PIXI.Graphics()
+    .beginFill(0xff0000)
+    .drawCircle(radius + blurSize, radius + blurSize, radius)
     .endFill();
-    circle.filters = [
-      new PIXI.filters.BlurFilter(blurSize)
-    ];
+  circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
-    const bounds = new PIXI.Rectangle(0,0, (radius + 
-      blurSize) * 2, (radius + blurSize) * 2);
-    
-      const blackTexture = props.app.renderer.generateTexture(circle,
-        PIXI.SCALE_MODES.NEAREST, 1, bounds);
-        const focus1 = new PIXI.Sprite(blackTexture);
+  const bounds = new PIXI.Rectangle(
+    0,
+    0,
+    (radius + blurSize) * 2,
+    (radius + blurSize) * 2
+  );
 
-  
+  const blackTexture = props.app.renderer.generateTexture(
+    circle,
+    PIXI.SCALE_MODES.NEAREST,
+    1,
+    bounds
+  );
+  const focus1 = new PIXI.Sprite(blackTexture);
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
-    PIXI.Sprite.from(require("../../assets/rooms/innercell.png"))
+    PIXI.Sprite.from(require("../../assets/rooms/innercell.png")),
   ];
 
   corner.addChild(roomParts[0]);
@@ -91,14 +92,27 @@ frontDoor.height = props.app.screen.height;
     dispatch({ type: "SELECT_DRAWER" });
   }
 
-  function takeIDCard() {
+  function takeIDCard1() {
+    console.log(roomBack);
+    //2 is idCard1
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
   }
 
+  function takeIDCard2() {
+    //5 is idCArd 2 - yellow card
+    roomBack.children[5].visible = false;
+    dispatch({ type: "TAKE_IDCARD2" });
+  }
 
+  function takeIDCard3() {
+    //6 is idCArd3 - orange card
+    roomBack.children[6].visible = false;
+    dispatch({ type: "TAKE_IDCARD3" });
+  }
 
   function takeKey() {
+    //3 is key
     frontDoor.children[1].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
@@ -106,14 +120,13 @@ frontDoor.height = props.app.screen.height;
   }
 
   function takeFlashLight() {
-    dispatch({type: "TAKE_FLASHLIGHT"})
-   //4 is FlashLightObject 
+    dispatch({ type: "TAKE_FLASHLIGHT" });
+    //4 is FlashLightObject
     roomBack.children[4].visible = false;
 
     frontDoor.children[2].off("pointerdown", lightOn);
     frontDoor.children[2].on("pointerdown", lightOnWithFlashLight);
-  
-  };
+  }
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
@@ -129,42 +142,39 @@ frontDoor.height = props.app.screen.height;
   };
 
   let goToInner = () => {
-    dispatch({type: "GO_IN_CELLDOOR"});
+    dispatch({ type: "GO_IN_CELLDOOR" });
   };
 
- let lightOn = () => {
-  if(frontDoor.mask === focus1)
-  { frontDoor.mask = false;
-    roomBack.mask = false;
-    innerCell.mask = false;
-    corner.mask = false;
-    props.app.stage.children[6].visible = false;
-  }
-  else
-  {frontDoor.mask = focus1;
-    roomBack.mask = focus1;
-    innerCell.mask = focus1;
-    corner.mask = focus1;
-  } 
-  
-}
+  let lightOn = () => {
+    if (frontDoor.mask === focus1) {
+      frontDoor.mask = false;
+      roomBack.mask = false;
+      innerCell.mask = false;
+      corner.mask = false;
+      props.app.stage.children[6].visible = false;
+    } else {
+      frontDoor.mask = focus1;
+      roomBack.mask = focus1;
+      innerCell.mask = focus1;
+      corner.mask = focus1;
+    }
+  };
 
-let lightOnWithFlashLight = () => {
-  if(frontDoor.mask === focus1)
-  { frontDoor.mask = false;
-    roomBack.mask = false;
-    innerCell.mask = false;
-    corner.mask = false;
-    props.app.stage.children[6].visible = false;
-  }
-  else
-  {frontDoor.mask = focus1; 
-    roomBack.mask = focus1;
-    innerCell.mask = focus1;
-    corner.mask = focus1;
-  props.app.stage.children[6].visible = true;
-  }
-}
+  let lightOnWithFlashLight = () => {
+    if (frontDoor.mask === focus1) {
+      frontDoor.mask = false;
+      roomBack.mask = false;
+      innerCell.mask = false;
+      corner.mask = false;
+      props.app.stage.children[6].visible = false;
+    } else {
+      frontDoor.mask = focus1;
+      roomBack.mask = focus1;
+      innerCell.mask = focus1;
+      corner.mask = focus1;
+      props.app.stage.children[6].visible = true;
+    }
+  };
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -194,58 +204,62 @@ let lightOnWithFlashLight = () => {
     drawer.on("pointerdown", displaySecondRiddle);
     //Objects
     //Visible
-    objects.idCard1.on("pointerdown", takeIDCard);
+    objects.idCard1.on("pointerdown", takeIDCard1);
+    objects.idCard2.on("pointerdown", takeIDCard2);
+    objects.idCard3.on("pointerdown", takeIDCard3);
     objects.key.on("pointerdown", takeKey);
-    
+
     //Interactions
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
     objects.flashLight.on("pointerdown", takeFlashLight);
 
-
     // Setting Visibility of Screens
+
+    // order of objects in the roomback matters (starts from 0)
 
     if (!props.app.stage.children.length) {
       corner.addChild(drawer, pc);
-      roomBack.addChild(objects.idCard1, objects.door, objects.flashLight);
-      frontDoor.addChild(objects.key,objects.lightSwitch);
+      roomBack.addChild(
+        objects.idCard1,
+        objects.door,
+        objects.flashLight,
+        objects.idCard2,
+        objects.idCard3
+      );
+      frontDoor.addChild(objects.key, objects.lightSwitch);
 
       corner.visible = true;
       innerCell.visible = false;
       roomBack.visible = false;
       frontDoor.visible = false;
       // Adding Screens and Interface to Stage
-      props.app.stage.addChild(corner, roomBack, frontDoor,innerCell);
+      props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
       // Adding Arrows
       props.app.stage.addChild(left, right);
 
-    
       //Preparing FlashLight and DarkRoom
-        props.app.stage.addChild(focus1);
+      props.app.stage.addChild(focus1);
       //  props.app.stage.children[6].visible = false;
-       frontDoor.mask = focus1;
+      frontDoor.mask = focus1;
 
-        props.app.stage.interactive = true;
-        props.app.stage.on('mousemove', pointerMove);
+      props.app.stage.interactive = true;
+      props.app.stage.on("mousemove", pointerMove);
 
-        function pointerMove(event) {
-            focus1.position.x = event.data.global.x - focus1.width / 2;
-            focus1.position.y = event.data.global.y - focus1.height / 2;
-        }
- 
-
+      function pointerMove(event) {
+        focus1.position.x = event.data.global.x - focus1.width / 2;
+        focus1.position.y = event.data.global.y - focus1.height / 2;
+      }
     }
-
-     }
+  }
 
   if (props.app.stage.children.length) {
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-    
+
     //pointer for dark
-    
 
     switch (assetReducer.partNumber) {
       case 1:
@@ -254,11 +268,11 @@ let lightOnWithFlashLight = () => {
       case 2:
         props.app.stage.children[2].visible = true;
         break;
-      case 3: 
+      case 3:
         props.app.stage.children[3].visible = true;
         break;
       case 0:
-        default:
+      default:
         props.app.stage.children[0].visible = true;
         break;
     }
@@ -275,6 +289,12 @@ let lightOnWithFlashLight = () => {
     items["idCard"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 0, 130, 100)),
     ];
+    items["idCard2"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 100, 130, 100)),
+    ];
+    items["idCard3"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(0, 200, 130, 100)),
+    ];
     items["key"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(130, 0, 130, 100)),
     ];
@@ -282,7 +302,6 @@ let lightOnWithFlashLight = () => {
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
   }
-
 
   // Sheets with items which have more than one state.
 
