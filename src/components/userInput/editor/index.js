@@ -19,7 +19,9 @@ function RiddleEditor({ currentRiddle, userCode, setUserCode }) {
 
     // Eval code to check for errors
     try {
-      frame.contentWindow.check = check.testFn(log, error);
+      if (check.testFn) {
+        frame.contentWindow.check = check.testFn(log, error);
+      }
       frame.contentWindow.eval(buildRiddleTestString(code, currentRiddle));
     } catch (e) {
       return error(e.toString());
@@ -27,6 +29,8 @@ function RiddleEditor({ currentRiddle, userCode, setUserCode }) {
   };
 
   useEffect(() => {
+    if (!userCode) return;
+
     try {
       // 1. Parse for syntax error (throws)
       parse(userCode);
