@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
-import EvalInput from "../evalInput";
 
 import RiddleEditor from "./editor";
 
