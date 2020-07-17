@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import RiddleEditor from "./editor";
 
-const getRiddle = (userCTX, id) => {
+const getRiddle = (userCTX, { id, addUserAnswer }) => {
   const defaultRiddle = {
     setup: { startCode: "" },
     check: { testFn: () => () => null },
@@ -30,6 +30,7 @@ function greet(person) {
         testFn: (log, error) => (result) => {
           if (result === `hey ${userCTX.userName}`) {
             log("Yes");
+            addUserAnswer();
           } else {
             error("No");
           }
@@ -49,11 +50,23 @@ export default function UserInput() {
     (state) => state.answersReducer
   );
 
+  const addUserAnswer = () =>
+    dispatch({
+      type: "ADD_USER_ANSWER",
+      payload: {
+        id: currentRiddleDescription.id,
+        answer: userAnswer,
+      },
+    });
+
   // user context that is passed in to your riddle code
   // if you want to dispatch from within testFn you can
   // make it a prop of userCTX
   const userCTX = { userName };
-  const currentRiddle = getRiddle(userCTX, currentRiddleDescription.id);
+  const currentRiddle = getRiddle(userCTX, {
+    id: currentRiddleDescription.id,
+    addUserAnswer,
+  });
   const { startCode } = currentRiddle.setup;
 
   [userAnswer, setUserAnswer] = useState(startCode);
