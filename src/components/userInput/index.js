@@ -42,6 +42,8 @@ function greet(person) {
 };
 
 export default function UserInput() {
+  let userAnswer, setUserAnswer;
+
   const dispatch = useDispatch();
   const { userName, currentRiddleDescription } = useSelector(
     (state) => state.answersReducer
@@ -52,57 +54,26 @@ export default function UserInput() {
   // make it a prop of userCTX
   const userCTX = { userName };
   const currentRiddle = getRiddle(userCTX, currentRiddleDescription.id);
+  const { startCode } = currentRiddle.setup;
 
-  const [userAnswer, setUserAnswer] = useState(currentRiddle.setup.startCode);
+  [userAnswer, setUserAnswer] = useState(startCode);
 
   useEffect(() => {
     // userAnswers needs to persist between render but
     // when we change the riddle we need to reset our answer
     // lucky us we have useEffect:
     // when the startCode changes set userAnswer to new startCode
-    setUserAnswer(currentRiddle.setup.startCode);
-  }, [currentRiddle.setup.startCode]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: "ADD_USER_ANSWER",
-      payload: {
-        id: currentRiddleDescription.id,
-        answer: userAnswer,
-      },
-    });
-  };
+    setUserAnswer(startCode);
+  }, [startCode, setUserAnswer]);
 
   return (
     <div className="userInput">
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="userInput">Write your code here:</label>
-        <RiddleEditor
-          currentRiddle={currentRiddle}
-          userCode={userAnswer}
-          setUserCode={setUserAnswer}
-        />
-        {/* <textarea
-          type="text"
-          id="userInput"
-          name="userInput"
-          rows="15"
-          cols="70"
-          value={
-            userAnswer[currentRiddleDescription.id] ||
-            preInputs(currentRiddleDescription.id)
-          }
-          onChange={handleOnChange}
-        />
-          defaultValue={preInputs(currentRiddleDescription.id)}
-          value={userAnswer[currentRiddleDescription.id]}
-          onChange={(e) =>
-            setUserAnswer({ [currentRiddleDescription.id]: e.target.value })
-          }
-        /> */}
-        <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
-      </form>
+      <label htmlFor="userInput">Write your code here:</label>
+      <RiddleEditor
+        currentRiddle={currentRiddle}
+        userCode={userAnswer}
+        setUserCode={setUserAnswer}
+      />
     </div>
   );
 }
