@@ -5,8 +5,13 @@ import EvalInput from "../evalInput";
 
 import RiddleEditor from "./editor";
 
-const riddles = (userCTX) => (id) => {
-  const defaultRiddle = { setup: { startCode: "" }, check: {} };
+const getRiddle = (userCTX, id) => {
+  const defaultRiddle = {
+    setup: { startCode: "" },
+    check: { testFn: () => null },
+  };
+
+  // This is where the magic happens
   const allRiddle = {
     "1": {
       setup: {
@@ -48,8 +53,7 @@ export default function UserInput() {
   // if you want to dispatch from within testFn you can
   // make it a prop of userCTX
   const userCTX = { userName };
-  const riddleWithContext = riddles(userCTX);
-  const currentRiddle = riddleWithContext(currentRiddleDescription.id);
+  const currentRiddle = getRiddle(userCTX, currentRiddleDescription.id);
 
   const [userAnswer, setUserAnswer] = useState(currentRiddle.setup.startCode);
 
