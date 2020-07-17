@@ -7,7 +7,7 @@ import RiddleEditor from "./editor";
 const getRiddle = (userCTX, id) => {
   const defaultRiddle = {
     setup: { startCode: "" },
-    check: { testFn: () => null },
+    check: { testFn: () => () => null },
   };
 
   // This is where the magic happens
