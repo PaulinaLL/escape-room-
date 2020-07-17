@@ -10,7 +10,7 @@ const DescriptionField = () => {
       wantsToPlay: answersReducer.wantsToPlay,
     })
   );
-  console.log(currentRiddleDescription, userName, wantsToPlay);
+
   return (
     <div className="description">
       {wantsToPlay && currentRiddleDescription.id === "" ? (

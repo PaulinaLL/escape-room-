@@ -44,7 +44,6 @@ const formatLog = (input, index) => {
     try {
       input = JSON.parse(JSON.stringify(input));
     } catch (e) {
-      console.log("to big");
       return (
         <Fragment key={index}>
           Log Skipped: Sorry, this log was too large for our console. You might
