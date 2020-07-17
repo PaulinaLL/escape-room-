@@ -28,14 +28,13 @@ function greet(person) {
       `,
       },
       check: {
-        testFn: (log, error) =>
-          function (result) {
-            if (result === `hey ${userCTX.userName}`) {
-              log("Yes");
-            } else {
-              error("No");
-            }
-          },
+        testFn: (log, error) => (result) => {
+          if (result === `hey ${userCTX.userName}`) {
+            log("Yes");
+          } else {
+            error("No");
+          }
+        },
       },
     },
   };
