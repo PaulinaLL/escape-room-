@@ -18,23 +18,19 @@ class StartScreen extends React.Component {
     // console.log(this.props.rooms);
     return (
       <div className="App">
-        <header>
-          {" "}
-          <h1>Welcome to the exit game </h1>
-        </header>
         <main>
           <GetUserName />
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
-              <PixiCanvas />  
+              <PixiCanvas />
               <ObjectCollection />
-            </div> 
+            </div>
             <div className="fieldsWrapper">
               <DescriptionField />
               <UserInput />
             </div>
           </div>
- 
+
           {/* <h2>Choose character:</h2>
      <section className="characters-container">
           <div>placeholder 1</div>
