@@ -5,13 +5,21 @@ const initialState = {
     collected: false,
     pictureID: "idCard",
   },
+  idCard2: {
+    collected: false,
+    pictureID: "idCard2",
+  },
+  idCard3: {
+    collected: false,
+    pictureID: "idCard3",
+  },
   key: {
     collected: false,
     pictureID: "key",
   },
   flashLight: {
     collected: false,
-    pictureID: "flashLight"
+    pictureID: "flashLight",
   },
   loaded: false,
 };
@@ -38,38 +46,44 @@ function appReducer(state = initialState, action) {
     case "TAKE_IDCARD1":
       return {
         ...state,
-        idCard: { collected: true,
-                  pictureID: "idCard"
-        },
+        idCard: { collected: true, pictureID: "idCard" },
+      };
+
+    case "TAKE_IDCARD2":
+      return {
+        ...state,
+        idCard2: { collected: true, pictureID: "idCard2" },
+      };
+
+    case "TAKE_IDCARD3":
+      return {
+        ...state,
+        idCard3: { collected: true, pictureID: "idCard3" },
       };
 
     case "TAKE_KEY":
       return {
         ...state,
-        key: { collected: true,
-               pictureID: "key"
-        },
+        key: { collected: true, pictureID: "key" },
       };
     case "TAKE_FLASHLIGHT":
-      return{
+      return {
         ...state,
         flashLight: {
           collected: true,
-          pictureID: "flashLight"
-        }
-      }
-      case "OPEN_DOOR":
-      return {
-        ...state,
-        key: { collected: false,
-               pictureID: "key"
+          pictureID: "flashLight",
         },
       };
-      case "GO_IN_CELLDOOR":
-        return {
-          ...state,
-          partNumber: 3
-        };
+    case "OPEN_DOOR":
+      return {
+        ...state,
+        key: { collected: false, pictureID: "key" },
+      };
+    case "GO_IN_CELLDOOR":
+      return {
+        ...state,
+        partNumber: 3,
+      };
     case "LOADED":
       return {
         ...state,
