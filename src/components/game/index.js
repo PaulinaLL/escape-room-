@@ -194,6 +194,26 @@ export default function Game(props) {
     // innerCell.children[1].on("pointerdown", )
   }
 
+  function turnOnCellScreen() {
+    dispatch({ type: "TURN_ON_CELL_SCREEN" });
+  }
+
+  function withoutGreenCard() {
+    console.log("green card needed");
+
+    // if green card in the collection - remove from the collection and activate open box
+    innerCell.children[1].on("pointerdown", openBox);
+    // else nothing happens - but this logic doesnt work here
+  }
+
+  function withoutOrangeCard() {
+    console.log("orange card needed");
+    innerCell.children[2].on("pointerdown", turnOnCellScreen);
+  }
+  function withoutBlueCard() {
+    console.log("blue card needed");
+  }
+
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -231,6 +251,9 @@ export default function Game(props) {
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
     objects.flashLight.on("pointerdown", takeFlashLight);
+    objects.greenCardSlot.on("pointerdown", withoutGreenCard);
+    objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
+    objects.blueCardSlot.on("pointerdown", withoutBlueCard);
 
     // Setting Visibility of Screens
 
@@ -247,6 +270,11 @@ export default function Game(props) {
       );
       frontDoor.addChild(objects.key);
 
+      innerCell.addChild(
+        objects.greenCardSlot,
+        objects.orangeCardSlot,
+        objects.blueCardSlot
+      );
       corner.visible = true;
       innerCell.visible = false;
       roomBack.visible = false;
