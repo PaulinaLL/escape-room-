@@ -5,12 +5,20 @@ import {
   createUserInterface,
   createPC,
   setItems,
+  createScope
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  // const defaultIcon = "url('../../assets/objects/scope.png'),auto";
+  // const hoverIcon = "url('../../assets/objects/scope.png'),auto";
+
+  // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
+  // props.app.renderer.plugins.interaction.cursorStyles.hover = hoverIcon;
+
 
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
@@ -19,8 +27,8 @@ export default function Game(props) {
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
-        .add("itemList", require("../../assets/objects/items.png"));
-
+        .add("itemList", require("../../assets/objects/items.png"))
+        .add("scope", require("../../assets/objects/scope.png"));
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
@@ -36,6 +44,8 @@ export default function Game(props) {
   // The blur amount
   const blurSize = 32;
 
+
+  
   frontDoor.width = props.app.screen.width;
   frontDoor.height = props.app.screen.height;
 
@@ -219,6 +229,7 @@ export default function Game(props) {
   let arrowSheet = {};
   let pcSheet = {};
   let items = {};
+  let scope = {};
 
   function setup() {
     // Preparing Sheets
@@ -226,12 +237,14 @@ export default function Game(props) {
     createArrowSheet();
     createPCSheet();
     createItemSheet();
+    createScopeSheet();
 
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
+    let visor = createScope(scope, props.app);
 
     let left = ui[0];
     let right = ui[1];
@@ -348,6 +361,21 @@ export default function Game(props) {
 
   // Working on Sheets
   // Sheets for diverse items which have just one state inside screen or inventory
+
+  function createScopeSheet() {
+    let scopeSheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["scope"].url
+    );
+
+    scope["basic"] = [
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(0,0, 130, 130))
+    ]
+    scope["first"] = [
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(130,0, 130, 130))
+    ]
+
+    
+  }
 
   function createItemSheet() {
     let itemSheet = new PIXI.BaseTexture.from(
