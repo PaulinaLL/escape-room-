@@ -204,10 +204,7 @@ export default function Game(props) {
 
   function withoutGreenCard() {
     console.log("green card needed");
-
-    // if green card in the collection - remove from the collection and activate open box
     innerCell.children[1].on("pointerdown", openBox);
-    // else nothing happens - but this logic doesnt work here
   }
 
   function withoutOrangeCard() {
