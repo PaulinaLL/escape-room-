@@ -273,7 +273,7 @@ let lightOnWithFlashLight = () => {
             focus1.position.x = event.data.global.x - focus1.width / 2;
             focus1.position.y = event.data.global.y - focus1.height / 2;
         }
-
+   }
 
   if (props.app.stage.children.length) {
 
