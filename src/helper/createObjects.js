@@ -232,11 +232,14 @@ export function createPC(pcSheet) {
 }
 
 export function createBox(boxSheet) {
-  const box = new PIXI.Sprite(boxSheet.closed[0]);
+  const boxClosed = new PIXI.Sprite(boxSheet.closed[0]);
+  const boxOpened = new PIXI.Sprite(boxSheet.opened[0]);
 
   // position
-  box.x = 450;
-  box.y = 475;
+  boxClosed.x = 450;
+  boxClosed.y = 475;
+  boxOpened.x = 445;
+  boxOpened.y = 420;
 
-  return box;
+  return [boxClosed, boxOpened];
 }
