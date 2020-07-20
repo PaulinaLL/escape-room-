@@ -5,6 +5,7 @@ import {
   createUserInterface,
   createPC,
   setItems,
+  createBox,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,7 +20,8 @@ export default function Game(props) {
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
-        .add("itemList", require("../../assets/objects/items.png"));
+        .add("itemList", require("../../assets/objects/items.png"))
+        .add("box", require("../../assets/objects/boxandothers.png"));
 
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
@@ -219,6 +221,7 @@ export default function Game(props) {
   let arrowSheet = {};
   let pcSheet = {};
   let items = {};
+  let boxSheet = {};
 
   function setup() {
     // Preparing Sheets
@@ -226,12 +229,14 @@ export default function Game(props) {
     createArrowSheet();
     createPCSheet();
     createItemSheet();
+    createBoxSheet();
 
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
+    let box = createBox(boxSheet, props.app);
 
     let left = ui[0];
     let right = ui[1];
@@ -241,6 +246,8 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
+    // box.on("pointerdown", () => console.log("hereee"));
+
     //Objects
     //Visible
     objects.idCard1.on("pointerdown", takeIDCard1);
@@ -274,7 +281,8 @@ export default function Game(props) {
       innerCell.addChild(
         objects.greenCardSlot,
         objects.orangeCardSlot,
-        objects.blueCardSlot
+        objects.blueCardSlot,
+        box
       );
       corner.visible = true;
       innerCell.visible = false;
@@ -422,5 +430,16 @@ export default function Game(props) {
     ];
   }
 
+  function createBoxSheet() {
+    let boxsheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["box"].url
+    );
+    let width = 300;
+    let height = 300;
+
+    boxSheet["closed"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(0, 0, width, height)),
+    ];
+  }
   return <div id="pixi-container"></div>;
 }
