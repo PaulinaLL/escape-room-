@@ -28,6 +28,24 @@
       "text": "dummy description 4 NO KEY",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
+    },
+    "5": {
+      "id": 5,
+      "text": "dummy description 5 OPEN BOX",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "6": {
+      "id": 6,
+      "text": "dummy description  6 SCREEN OFF",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "7": {
+      "id": 7,
+      "text": "dummy description 7 SHOULD OPEN EXIT DOOR",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
     }
   }
 }

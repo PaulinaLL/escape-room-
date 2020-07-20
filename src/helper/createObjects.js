@@ -66,6 +66,7 @@ export function setItems(items, app) {
   flashLight.y = 530;
   flashLight.height = 90;
   flashLight.width = 90;
+
   //Interactions Only
   const door = new PIXI.Graphics();
 
@@ -76,36 +77,68 @@ export function setItems(items, app) {
   door.endFill();
   door.lineStyle(0);
 
+  const greenCardSlot = new PIXI.Graphics();
+
+  greenCardSlot.interactive = true;
+  greenCardSlot.buttonMode = true;
+  greenCardSlot.beginFill(0xffffff, 0.001);
+  greenCardSlot.drawRect(670, 330, 60, 60);
+  greenCardSlot.endFill();
+  greenCardSlot.lineStyle(0);
+
+  const orangeCardSlot = new PIXI.Graphics();
+
+  orangeCardSlot.interactive = true;
+  orangeCardSlot.buttonMode = true;
+  orangeCardSlot.beginFill(0xffffff, 0.001);
+  orangeCardSlot.drawRect(530, 320, 60, 60);
+  orangeCardSlot.endFill();
+  orangeCardSlot.lineStyle(0);
+
+  const blueCardSlot = new PIXI.Graphics();
+
+  blueCardSlot.interactive = true;
+  blueCardSlot.buttonMode = true;
+  blueCardSlot.beginFill(0xffffff, 0.001);
+  blueCardSlot.drawRect(595, 210, 60, 60);
+  blueCardSlot.endFill();
+  blueCardSlot.lineStyle(0);
+
   //Create SwitchLight
   let radius = 32;
   let blurSize = 8;
- 
+
   const circle = new PIXI.Graphics()
-    .beginFill(0xFFFFFF,0.5)
-    .drawCircle(radius + blurSize, radius + 
-      blurSize, radius)
+    .beginFill(0xffffff, 0.5)
+    .drawCircle(radius + blurSize, radius + blurSize, radius)
     .endFill();
-    circle.filters = [
-      new PIXI.filters.BlurFilter(blurSize)
-    ];
+  circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
-    const bounds = new PIXI.Rectangle(0, 0, (radius + 
-      blurSize) * 2, (radius + blurSize) * 2);
+  const bounds = new PIXI.Rectangle(
+    0,
+    0,
+    (radius + blurSize) * 2,
+    (radius + blurSize) * 2
+  );
 
-      const blackTexture = app.renderer.generateTexture(circle,
-        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+  const blackTexture = app.renderer.generateTexture(
+    circle,
+    PIXI.SCALE_MODES.NEAREST,
+    1,
+    bounds
+  );
 
-        // const focus1 = new PIXI.Sprite(blackTexture);
-        
-    const lightSwitch = new PIXI.Sprite(blackTexture);
+  // const focus1 = new PIXI.Sprite(blackTexture);
 
-        lightSwitch.anchor.set(0.9);
-        lightSwitch.x = 590;
-        lightSwitch.y = 450
+  const lightSwitch = new PIXI.Sprite(blackTexture);
 
-        lightSwitch.interactive = true;
-        lightSwitch.buttonMode = true;
-      
+  lightSwitch.anchor.set(0.9);
+  lightSwitch.x = 590;
+  lightSwitch.y = 450;
+
+  lightSwitch.interactive = true;
+  lightSwitch.buttonMode = true;
+
   // lightSwitch.beginFill(0xffffff, 0.1);
   // lightSwitch.drawRect(540, 410, 30, 30);
   // lightSwitch.endFill();
@@ -119,7 +152,6 @@ export function setItems(items, app) {
   pcLight.endFill();
   pcLight.lineStyle(0);
 
-
   //SendBack to Game
   return {
     idCard1,
@@ -129,7 +161,10 @@ export function setItems(items, app) {
     door,
     lightSwitch,
     flashLight,
-    pcLight
+    pcLight,
+    greenCardSlot,
+    orangeCardSlot,
+    blueCardSlot,
   };
 }
 

@@ -21,6 +21,12 @@ const initialState = {
     collected: false,
     pictureID: "flashLight",
   },
+  box: {
+    opened: false,
+  },
+  cellScreen: {
+    on: false,
+  },
   loaded: false,
 };
 
@@ -84,6 +90,25 @@ function appReducer(state = initialState, action) {
         ...state,
         partNumber: 3,
       };
+    case "OPEN_BOX":
+      return {
+        ...state,
+        idCard: {
+          collected: false,
+          pictureID: "idCard",
+        },
+        box: { opened: true },
+      };
+    case "TURN_ON_CELL_SCREEN":
+      return {
+        ...state,
+        idCard3: {
+          collected: false,
+          pictureID: "idCard3",
+        },
+        cellScreen: { on: true },
+      };
+
     case "LOADED":
       return {
         ...state,
