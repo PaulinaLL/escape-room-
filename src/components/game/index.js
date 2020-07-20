@@ -102,6 +102,8 @@ export default function Game(props) {
     //2 is idCard1
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
+    innerCell.children[1].off("pointerdown", withoutGreenCard);
+    innerCell.children[1].on("pointerdown", openBox);
   }
 
   function takeIDCard2() {
@@ -114,6 +116,8 @@ export default function Game(props) {
     //6 is idCArd3 - orange card
     roomBack.children[6].visible = false;
     dispatch({ type: "TAKE_IDCARD3" });
+    innerCell.children[2].off("pointerdown", withoutOrangeCard);
+    innerCell.children[2].on("pointerdown", turnOnCellScreen);
   }
 
   function takeKey() {
@@ -190,8 +194,6 @@ export default function Game(props) {
 
   function openBox() {
     dispatch({ type: "OPEN_BOX" });
-    // roomBack.children[2].visible = false;
-    // innerCell.children[1].on("pointerdown", )
   }
 
   function turnOnCellScreen() {
@@ -208,7 +210,6 @@ export default function Game(props) {
 
   function withoutOrangeCard() {
     console.log("orange card needed");
-    innerCell.children[2].on("pointerdown", turnOnCellScreen);
   }
   function withoutBlueCard() {
     console.log("blue card needed");
