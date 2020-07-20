@@ -275,13 +275,6 @@ let lightOnWithFlashLight = () => {
         }
 
 
-      function pointerMove(event) {
-        focus1.position.x = event.data.global.x - focus1.width / 2;
-        focus1.position.y = event.data.global.y - focus1.height / 2;
-      }
-    }
-  }
-
   if (props.app.stage.children.length) {
 
     props.app.stage.children[6].visible = false;
