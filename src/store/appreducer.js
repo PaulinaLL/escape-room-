@@ -24,6 +24,9 @@ const initialState = {
   box: {
     opened: false,
   },
+  cellScreen: {
+    on: false,
+  },
   loaded: false,
 };
 
@@ -90,11 +93,20 @@ function appReducer(state = initialState, action) {
     case "OPEN_BOX":
       return {
         ...state,
-        box: { opened: true },
         idCard: {
           collected: false,
           pictureID: "idCard",
         },
+        box: { opened: true },
+      };
+    case "TURN_ON_CELL_SCREEN":
+      return {
+        ...state,
+        idCard3: {
+          collected: false,
+          pictureID: "idCard3",
+        },
+        cellScreen: { on: true },
       };
 
     case "LOADED":
