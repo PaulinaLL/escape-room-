@@ -31,34 +31,39 @@ export default function Game(props) {
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
 
-      // Inner radius of the circle
-const radius = 100;
-// The blur amount
-const blurSize = 32;
+  // Inner radius of the circle
+  const radius = 100;
+  // The blur amount
+  const blurSize = 32;
 
-frontDoor.width = props.app.screen.width;
-frontDoor.height = props.app.screen.height;
+  frontDoor.width = props.app.screen.width;
+  frontDoor.height = props.app.screen.height;
 
-    const circle = new PIXI.Graphics()
-    .beginFill(0xFF0000)
-    .drawCircle(radius + blurSize, radius + 
-      blurSize, radius)
+  const circle = new PIXI.Graphics()
+    .beginFill(0xff0000)
+    .drawCircle(radius + blurSize, radius + blurSize, radius)
     .endFill();
-    circle.filters = [
-      new PIXI.filters.BlurFilter(blurSize)
-    ];
+  circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
-    const bounds = new PIXI.Rectangle(0, 0, (radius + 
-      blurSize) * 2, (radius + blurSize) * 2);
+  const bounds = new PIXI.Rectangle(
+    0,
+    0,
+    (radius + blurSize) * 2,
+    (radius + blurSize) * 2
+  );
 
-      const blackTexture = props.app.renderer.generateTexture(circle,
-        PIXI.SCALE_MODES.NEAREST, 1, bounds);
+  const blackTexture = props.app.renderer.generateTexture(
+    circle,
+    PIXI.SCALE_MODES.NEAREST,
+    1,
+    bounds
+  );
 
-        const focus1 = new PIXI.Sprite(blackTexture);
+  const focus1 = new PIXI.Sprite(blackTexture);
 
-        focus1.anchor.set(0.9);
-        focus1.x = 100;
-        focus1.y = 660;
+  focus1.anchor.set(0.9);
+  focus1.x = 100;
+  focus1.y = 660;
 
   const roomParts = [
     PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
@@ -98,7 +103,7 @@ frontDoor.height = props.app.screen.height;
     roomBack.children[2].visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
   }
-  
+
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card
     roomBack.children[5].visible = false;
@@ -120,22 +125,21 @@ frontDoor.height = props.app.screen.height;
   }
 
   function takeFlashLight() {
-    dispatch({type: "TAKE_FLASHLIGHT"})
-   //4 is FlashLightObject 
-    
-    focus1.anchor.set(0.1);
-     
-   roomBack.children[4].visible = false;
-    props.app.stage.children[7].visible = false;
-      
-    props.app.stage.children[6].off("pointerdown", lightOn);
-    props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);  
+    dispatch({ type: "TAKE_FLASHLIGHT" });
+    //4 is FlashLightObject
 
-  };
+    focus1.anchor.set(0.1);
+
+    roomBack.children[4].visible = false;
+    props.app.stage.children[7].visible = false;
+
+    props.app.stage.children[6].off("pointerdown", lightOn);
+    props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
+  }
 
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
-    console.log("No Key"); 
+    console.log("No Key");
   };
 
   let openDoor = () => {
@@ -150,45 +154,65 @@ frontDoor.height = props.app.screen.height;
     dispatch({ type: "GO_IN_CELLDOOR" });
   };
 
- let lightOn = () => {
-  if(frontDoor.mask === focus1)
-  { frontDoor.mask = false;
-    roomBack.mask = false;
-    innerCell.mask = false;
-    corner.mask = false;
-    props.app.stage.children[7].visible = false;
-   // props.app.stage.children[6].visible = false;
-    
-  }
-  else
-  {frontDoor.mask = focus1;
-    roomBack.mask = focus1;
-    innerCell.mask = focus1;
-    corner.mask = focus1;
-  } 
-  
-}
+  let lightOn = () => {
+    if (frontDoor.mask === focus1) {
+      frontDoor.mask = false;
+      roomBack.mask = false;
+      innerCell.mask = false;
+      corner.mask = false;
+      props.app.stage.children[7].visible = false;
+      // props.app.stage.children[6].visible = false;
+    } else {
+      frontDoor.mask = focus1;
+      roomBack.mask = focus1;
+      innerCell.mask = focus1;
+      corner.mask = focus1;
+    }
+  };
 
-let lightOnWithFlashLight = () => {
-  if(frontDoor.mask === focus1)
-  { frontDoor.mask = false;
-    roomBack.mask = false;
-    innerCell.mask = false;
-    corner.mask = false;
-    props.app.stage.children[7].visible = false;
-  //  props.app.stage.children[6].visible = false;
-   
+  let lightOnWithFlashLight = () => {
+    if (frontDoor.mask === focus1) {
+      frontDoor.mask = false;
+      roomBack.mask = false;
+      innerCell.mask = false;
+      corner.mask = false;
+      props.app.stage.children[7].visible = false;
+      //  props.app.stage.children[6].visible = false;
+    } else {
+      frontDoor.mask = focus1;
+      roomBack.mask = focus1;
+      innerCell.mask = focus1;
+      corner.mask = focus1;
+      props.app.stage.children[7].visible = true;
+      //  props.app.stage.children[6].visible = true;
+    }
+  };
+
+  function openBox() {
+    dispatch({ type: "OPEN_BOX" });
+    // roomBack.children[2].visible = false;
+    // innerCell.children[1].on("pointerdown", )
   }
-  else
-  {frontDoor.mask = focus1; 
-    roomBack.mask = focus1;
-    innerCell.mask = focus1;
-    corner.mask = focus1;
-  props.app.stage.children[7].visible = true;
-//  props.app.stage.children[6].visible = true;
-   
+
+  function turnOnCellScreen() {
+    dispatch({ type: "TURN_ON_CELL_SCREEN" });
   }
-}
+
+  function withoutGreenCard() {
+    console.log("green card needed");
+
+    // if green card in the collection - remove from the collection and activate open box
+    innerCell.children[1].on("pointerdown", openBox);
+    // else nothing happens - but this logic doesnt work here
+  }
+
+  function withoutOrangeCard() {
+    console.log("orange card needed");
+    innerCell.children[2].on("pointerdown", turnOnCellScreen);
+  }
+  function withoutBlueCard() {
+    console.log("blue card needed");
+  }
 
   let drawerSheet = {};
   let arrowSheet = {};
@@ -227,6 +251,9 @@ let lightOnWithFlashLight = () => {
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
     objects.flashLight.on("pointerdown", takeFlashLight);
+    objects.greenCardSlot.on("pointerdown", withoutGreenCard);
+    objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
+    objects.blueCardSlot.on("pointerdown", withoutBlueCard);
 
     // Setting Visibility of Screens
 
@@ -243,6 +270,11 @@ let lightOnWithFlashLight = () => {
       );
       frontDoor.addChild(objects.key);
 
+      innerCell.addChild(
+        objects.greenCardSlot,
+        objects.orangeCardSlot,
+        objects.blueCardSlot
+      );
       corner.visible = true;
       innerCell.visible = false;
       roomBack.visible = false;
@@ -255,29 +287,27 @@ let lightOnWithFlashLight = () => {
 
       props.app.stage.addChild(left, right, objects.lightSwitch);
       //4 = left, 5 = right, 6 = objects.lightSwitch?
-    
+
       //Preparing FlashLight and DarkRoom
-        props.app.stage.addChild(focus1,pc);
-        props.app.stage.children[7].visible = false;
-     
-        corner.mask = focus1;
-        innerCell.mask = focus1;
-        roomBack.mask = focus1;
-        frontDoor.mask = focus1;
+      props.app.stage.addChild(focus1, pc);
+      props.app.stage.children[7].visible = false;
 
+      corner.mask = focus1;
+      innerCell.mask = focus1;
+      roomBack.mask = focus1;
+      frontDoor.mask = focus1;
 
-        props.app.stage.interactive = true;
-        props.app.stage.on('mousemove', pointerMove);
+      props.app.stage.interactive = true;
+      props.app.stage.on("mousemove", pointerMove);
 
-        function pointerMove(event) {
-            focus1.position.x = event.data.global.x - focus1.width / 2;
-            focus1.position.y = event.data.global.y - focus1.height / 2;
-        }
-   }
-   }
+      function pointerMove(event) {
+        focus1.position.x = event.data.global.x - focus1.width / 2;
+        focus1.position.y = event.data.global.y - focus1.height / 2;
+      }
+    }
+  }
 
   if (props.app.stage.children.length) {
-
     props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
@@ -300,13 +330,14 @@ let lightOnWithFlashLight = () => {
 
         break;
       case 3:
+        //InnerCell
         props.app.stage.children[3].visible = true;
         props.app.stage.children[8].visible = false;
 
         break;
       case 0:
-        default:
-        //Corner       
+      default:
+        //Corner
         props.app.stage.children[0].visible = true;
         props.app.stage.children[8].visible = true;
 
