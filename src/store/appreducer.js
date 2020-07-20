@@ -21,6 +21,9 @@ const initialState = {
     collected: false,
     pictureID: "flashLight",
   },
+  box: {
+    opened: false,
+  },
   loaded: false,
 };
 
@@ -84,6 +87,16 @@ function appReducer(state = initialState, action) {
         ...state,
         partNumber: 3,
       };
+    case "OPEN_BOX":
+      return {
+        ...state,
+        box: { opened: true },
+        idCard: {
+          collected: false,
+          pictureID: "idCard",
+        },
+      };
+
     case "LOADED":
       return {
         ...state,
