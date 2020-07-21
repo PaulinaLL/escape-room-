@@ -133,14 +133,14 @@ export default function Game(props) {
   }
 
   function takeIDCard2() {
-    //5 is idCArd 2 - yellow card
-    roomBack.children[5].visible = false;
+    //5 is idCArd 2 - yellow card (without flashlight 4)
+    roomBack.children[4].visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
   function takeIDCard3() {
-    //6 is idCArd3 - orange card
-    roomBack.children[6].visible = false;
+    //6 is idCArd3 - orange card (without flashlight 5)
+    roomBack.children[5].visible = false;
     dispatch({ type: "TAKE_IDCARD3" });
     innerCell.children[2].off("pointerdown", withoutOrangeCard);
     innerCell.children[2].on("pointerdown", turnOnCellScreen);
@@ -160,7 +160,10 @@ export default function Game(props) {
 
     focus1.anchor.set(0.1);
 
-    roomBack.children[4].visible = false;
+    // roomBack.children[4].visible = false;
+    // innerCell.children[4].visible = false; - closed box
+    // innerCell.children[5].visible = false; -opened box
+    innerCell.children[6].visible = false;
     props.app.stage.children[7].visible = false;
 
     props.app.stage.children[6].off("pointerdown", lightOn);
@@ -224,6 +227,9 @@ export default function Game(props) {
     let box = createBox(boxSheet, props.app);
     let boxOpened = box[1];
     innerCell.addChild(boxOpened);
+    let objects = setItems(items, props.app);
+    objects.flashLight.on("pointerdown", takeFlashLight);
+    innerCell.addChild(objects.flashLight);
   }
 
   function turnOnCellScreen() {
@@ -291,7 +297,7 @@ export default function Game(props) {
     //Interactions
     objects.door.on("pointerdown", closedDoor);
     objects.lightSwitch.on("pointerdown", lightOn);
-    objects.flashLight.on("pointerdown", takeFlashLight);
+    // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
@@ -305,7 +311,7 @@ export default function Game(props) {
       roomBack.addChild(
         objects.idCard1,
         objects.door,
-        objects.flashLight,
+        // objects.flashLight, - bringing it back changest the order of children[]
         objects.idCard2,
         objects.idCard3
       );
