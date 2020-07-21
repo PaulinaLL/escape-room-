@@ -30,7 +30,9 @@ const initialState = {
   loaded: false,
   solved: {
     riddle1: false,
-  }
+    riddle2: false,
+    riddle3: false,
+  },
 };
 
 function appReducer(state = initialState, action) {
@@ -111,13 +113,27 @@ function appReducer(state = initialState, action) {
         },
         cellScreen: { on: true },
       };
-      case "SOLVED_RIDDLE_1":
-        return {
-          ...state,
-          solved: {
-            riddle1 : true
-          }
-        };
+    case "SOLVED_RIDDLE_1":
+      return {
+        ...state,
+        solved: {
+          riddle1: true,
+        },
+      };
+    case "SOLVED_RIDDLE_2":
+      return {
+        ...state,
+        solved: {
+          riddle2: true,
+        },
+      };
+    case "SOLVED_RIDDLE_3":
+      return {
+        ...state,
+        solved: {
+          riddle3: true,
+        },
+      };
     case "LOADED":
       return {
         ...state,
