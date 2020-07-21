@@ -168,6 +168,10 @@ export function setItems(items, app) {
   };
 }
 
+export function createScope(scopeSheet){
+  
+}
+
 export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
   drawer.buttonMode = true;
