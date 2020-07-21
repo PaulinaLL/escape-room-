@@ -5,12 +5,11 @@ import {
   createUserInterface,
   createPC,
   setItems,
-  createScope,
+  // createScope,
   createBox,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
-
-
+import appReducer from "../../store/appreducer";
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
@@ -18,18 +17,15 @@ export default function Game(props) {
 
   useLayoutEffect(() => {
 
-
     // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
     const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
-   
+  
     // const defaultIcon = "none";
     // const hoverIcon = "none";
-   
 
     // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
     props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
     
-
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
@@ -85,7 +81,6 @@ export default function Game(props) {
   // const eyes2 = [
   // ]
  // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
-
 
   focus1.anchor.set(0.9);
   focus1.x = 100;
@@ -266,7 +261,6 @@ export default function Game(props) {
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
-    let visor = createScope(scope, props.app);
     let box = createBox(boxSheet, props.app);
 
     let left = ui[0];
@@ -297,7 +291,6 @@ export default function Game(props) {
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
 
     // Setting Visibility of Screens
-
     // order of objects in the roomback matters (starts from 0)
 
     if (!props.app.stage.children.length) {
@@ -328,6 +321,8 @@ export default function Game(props) {
       // Adding Arrows
 
       props.app.stage.addChild(left, right, objects.lightSwitch);
+      left.visible = false;
+      right.visible = false;
       //4 = left, 5 = right, 6 = objects.lightSwitch?
 
       //Preparing FlashLight and DarkRoom
@@ -354,11 +349,19 @@ export default function Game(props) {
   }
 
   if (props.app.stage.children.length) {
-    props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
+    props.app.stage.children[6].visible = false;
+    
+    //4 and 5 are the arrows. 
+
+if(assetReducer.solved.riddle1 === true){
+  props.app.stage.children[4].visible = true;
+  props.app.stage.children[5].visible = true;
+  
+}
 
     //pointer for dark
 

@@ -30,7 +30,7 @@ function greet(person) {
         testFn: (log, error) => (result) => {
           if (result === `hey ${userCTX.userName}`) {
             log("Yes");
-            addUserAnswer();
+            addUserAnswer(1);
           } else {
             error("No");
           }
@@ -50,14 +50,26 @@ export default function UserInput() {
     (state) => state.answersReducer
   );
 
-  const addUserAnswer = () =>
-    dispatch({
+  const addUserAnswer = (riddleNumber) =>
+    {dispatch({
       type: "ADD_USER_ANSWER",
       payload: {
         id: currentRiddleDescription.id,
         answer: userAnswer,
       },
-    });
+    })
+  
+    switch (riddleNumber){
+      case 1:
+        dispatch({
+          type: "SOLVED_RIDDLE_1"
+        }) 
+      break;
+      default:
+    }
+
+  };
+
 
   // user context that is passed in to your riddle code
   // if you want to dispatch from within testFn you can
