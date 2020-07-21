@@ -149,8 +149,8 @@ export default function Game(props) {
   }
 
   function takeKey() {
-    //3 is key
-    frontDoor.children[1].visible = false;
+    //corner child2 is key
+    corner.children[2].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", openDoor);
@@ -309,15 +309,15 @@ export default function Game(props) {
     // order of objects in the roomback matters (starts from 0)
 
     if (!props.app.stage.children.length) {
+      // removes key  from drawer from corner for now - to add it when riddle solved
       corner.addChild(drawer);
       roomBack.addChild(
         objects.idCard1,
         objects.door,
-        // objects.flashLight, - bringing it back changest the order of children[]
+        // objects.flashLight, - bringing it back changes the order of children[]
         objects.idCard2,
         objects.idCard3
       );
-      frontDoor.addChild(objects.key);
 
       innerCell.addChild(
         objects.greenCardSlot,
@@ -369,13 +369,23 @@ export default function Game(props) {
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
 
-
-    if(assetReducer.solved.riddle1 === true){
+    // displays arrows when riddle1 is solved
+    if (assetReducer.solved.riddle1 === true) {
       props.app.stage.children[4].visible = true;
       props.app.stage.children[5].visible = true;
-      
     }
 
+    // turn on the light when riddle2 is solved
+    if (assetReducer.solved.riddle2 === true) {
+      // lightOn()
+    }
+    // displays key when riddle3 is solved
+    if (assetReducer.solved.riddle3 === true) {
+      let objects = setItems(items, props.app);
+      corner.addChild(objects.key);
+      corner.children[2].visible = true;
+      console.log("HERE", assetReducer.solved.riddle3);
+    }
 
     //pointer for dark
 
