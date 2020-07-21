@@ -74,7 +74,7 @@ function answersReducer(state = initialState, action) {
         ...state,
         currentRiddleDescription: {
           id: 8,
-          text: data.riddleDescription.third.text,
+          text: data.riddleDescription[8].text,
           img: null,
         },
       };
@@ -83,7 +83,7 @@ function answersReducer(state = initialState, action) {
         ...state,
         currentRiddleDescription: {
           id: 10,
-          text: data.riddleDescription.fourth.text,
+          text: data.riddleDescription[10].text,
           img: null,
         },
       };

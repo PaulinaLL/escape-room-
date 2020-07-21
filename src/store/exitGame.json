@@ -41,15 +41,15 @@
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
-    "third": {
+    "8": {
       "id": 8,
-      "text": "dummy description 3 DOOR OPENED",
+      "text": "dummy description  DOOR OPENED",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
-    "fourth": {
+    "10": {
       "id": 10,
-      "text": "dummy description 4 NO KEY",
+      "text": "dummy description  NO KEY",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }
