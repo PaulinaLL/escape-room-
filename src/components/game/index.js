@@ -10,25 +10,19 @@ import {
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
-
-
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-
-
     // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
     const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
-   
+
     // const defaultIcon = "none";
     // const hoverIcon = "none";
-   
 
     // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
     props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
-    
 
     if (!assetReducer.loaded) {
       props.app.loader
@@ -84,8 +78,7 @@ export default function Game(props) {
 
   // const eyes2 = [
   // ]
- // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
-
+  // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
 
   focus1.anchor.set(0.9);
   focus1.x = 100;
@@ -120,8 +113,17 @@ export default function Game(props) {
     dispatch({ type: "SELECT_PC" });
   }
   function displaySecondRiddle() {
+    dispatch({ type: "SELECT_SWITCHER" });
+  }
+  function displayThirdRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
+  // function displayFourthRiddle() {
+  //   dispatch({ type: "SELECT_SCREEN" });
+  // }
+  // function displayFifthRiddle() {
+  //   dispatch({ type: "SELECT_SKELETON" });
+  // }
 
   function takeIDCard1() {
     console.log(roomBack);
@@ -285,7 +287,7 @@ export default function Game(props) {
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
-    drawer.on("pointerdown", displaySecondRiddle);
+    drawer.on("pointerdown", displayThirdRiddle);
 
     //Objects
     //Visible
@@ -349,10 +351,9 @@ export default function Game(props) {
       props.app.stage.on("mousemove", pointerMove);
 
       function pointerMove(event) {
-      
         // eye.position.x = event.data.global.x - eye.width / 2;
         // eye.position.y = event.data.global.y - eye.height / 2;
-     
+
         focus1.position.x = event.data.global.x - focus1.width / 2;
         focus1.position.y = event.data.global.y - focus1.height / 2;
       }
@@ -405,11 +406,11 @@ export default function Game(props) {
     );
 
     scope["basic"] = [
-      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(0,0, 130, 130))
-    ]
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(0, 0, 130, 130)),
+    ];
     scope["first"] = [
-      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(130,0, 130, 130))
-    ]
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(130, 0, 130, 130)),
+    ];
   }
 
   function createItemSheet() {
@@ -443,7 +444,7 @@ export default function Game(props) {
   //   let eyeUnfocused = new PIXI.BaseTexture.from(
   //     props.app.loader.resources["eyeUnfocused"].url
   //   );
-    
+
   //   eye["focused"] = [
   //     new PIXI.Texture(eyeFocused, new PIXI.Rectangle(0, 0, 32, 32))
   //   ];
