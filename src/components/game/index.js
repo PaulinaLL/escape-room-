@@ -5,21 +5,42 @@ import {
   createUserInterface,
   createPC,
   setItems,
+  createScope,
+  createBox,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
+
+
 
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
+
+
+    // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
+    const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
+   
+    // const defaultIcon = "none";
+    // const hoverIcon = "none";
+   
+
+    // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
+    props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
+    
+
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
-        .add("itemList", require("../../assets/objects/items.png"));
+        .add("itemList", require("../../assets/objects/items.png"))
+        .add("scope", require("../../assets/objects/scope.png"))
+        .add("eyeFocused", require("../../assets/objects/EyeFocused.png"))
+        .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
+        .add("box", require("../../assets/objects/boxandothers.png"));
 
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
@@ -60,6 +81,11 @@ export default function Game(props) {
   );
 
   const focus1 = new PIXI.Sprite(blackTexture);
+
+  // const eyes2 = [
+  // ]
+ // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
+
 
   focus1.anchor.set(0.9);
   focus1.x = 100;
@@ -149,6 +175,7 @@ export default function Game(props) {
   let openDoor = () => {
     dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
+    // door to the innercell
     roomBack.children[1].visible = false;
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", goToInner);
@@ -194,6 +221,9 @@ export default function Game(props) {
 
   function openBox() {
     dispatch({ type: "OPEN_BOX" });
+    let box = createBox(boxSheet, props.app);
+    let boxOpened = box[1];
+    innerCell.addChild(boxOpened);
   }
 
   function turnOnCellScreen() {
@@ -202,10 +232,7 @@ export default function Game(props) {
 
   function withoutGreenCard() {
     console.log("green card needed");
-
-    // if green card in the collection - remove from the collection and activate open box
     innerCell.children[1].on("pointerdown", openBox);
-    // else nothing happens - but this logic doesnt work here
   }
 
   function withoutOrangeCard() {
@@ -219,6 +246,9 @@ export default function Game(props) {
   let arrowSheet = {};
   let pcSheet = {};
   let items = {};
+  let scope = {};
+  //  let eye = {};
+  let boxSheet = {};
 
   function setup() {
     // Preparing Sheets
@@ -227,20 +257,30 @@ export default function Game(props) {
     createPCSheet();
     createItemSheet();
 
+    createScopeSheet();
+    // createEyePointer();
+    createBoxSheet();
+
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
+    let visor = createScope(scope, props.app);
+    let box = createBox(boxSheet, props.app);
 
     let left = ui[0];
     let right = ui[1];
+
+    let boxClosed = box[0];
+    // let boxOpened = box[1];
 
     // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
+
     //Objects
     //Visible
     objects.idCard1.on("pointerdown", takeIDCard1);
@@ -274,7 +314,8 @@ export default function Game(props) {
       innerCell.addChild(
         objects.greenCardSlot,
         objects.orangeCardSlot,
-        objects.blueCardSlot
+        objects.blueCardSlot,
+        boxClosed
       );
       corner.visible = true;
       innerCell.visible = false;
@@ -302,6 +343,10 @@ export default function Game(props) {
       props.app.stage.on("mousemove", pointerMove);
 
       function pointerMove(event) {
+      
+        // eye.position.x = event.data.global.x - eye.width / 2;
+        // eye.position.y = event.data.global.y - eye.height / 2;
+     
         focus1.position.x = event.data.global.x - focus1.width / 2;
         focus1.position.y = event.data.global.y - focus1.height / 2;
       }
@@ -341,13 +386,25 @@ export default function Game(props) {
         //Corner
         props.app.stage.children[0].visible = true;
         props.app.stage.children[8].visible = true;
-
         break;
     }
   }
 
   // Working on Sheets
   // Sheets for diverse items which have just one state inside screen or inventory
+
+  function createScopeSheet() {
+    let scopeSheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["scope"].url
+    );
+
+    scope["basic"] = [
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(0,0, 130, 130))
+    ]
+    scope["first"] = [
+      new PIXI.Texture(scopeSheet, new PIXI.Rectangle(130,0, 130, 130))
+    ]
+  }
 
   function createItemSheet() {
     let itemSheet = new PIXI.BaseTexture.from(
@@ -370,6 +427,24 @@ export default function Game(props) {
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
   }
+
+  // function createEyePointer(){
+
+  //  let eyeFocused = new PIXI.BaseTexture.from(
+  //     props.app.loader.resources["eyeFocused"].url
+  //   );
+
+  //   let eyeUnfocused = new PIXI.BaseTexture.from(
+  //     props.app.loader.resources["eyeUnfocused"].url
+  //   );
+    
+  //   eye["focused"] = [
+  //     new PIXI.Texture(eyeFocused, new PIXI.Rectangle(0, 0, 32, 32))
+  //   ];
+  //   eye["unfocused"] = [
+  //     new PIXI.Texture(eyeUnfocused, new PIXI.Rectangle(0, 0 ,32, 32))
+  //   ]
+  // }
 
   // Sheets with items which have more than one state.
 
@@ -422,5 +497,19 @@ export default function Game(props) {
     ];
   }
 
+  function createBoxSheet() {
+    let boxsheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["box"].url
+    );
+    let width = 300;
+    let height = 300;
+
+    boxSheet["closed"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(0, 0, width, height)),
+    ];
+    boxSheet["opened"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(300, 0, width, height)),
+    ];
+  }
   return <div id="pixi-container"></div>;
 }
