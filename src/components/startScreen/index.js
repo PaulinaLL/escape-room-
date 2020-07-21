@@ -16,10 +16,12 @@ class StartScreen extends React.Component {
 
   render() {
     // console.log(this.props.rooms);
+    const userName = this.props.userName;
+    const wantsToPlay = this.props.wantsToPlay;
     return (
       <div className="App">
         <main>
-          <GetUserName />
+          {!userName && !wantsToPlay && <GetUserName />}
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
               <PixiCanvas />
@@ -52,6 +54,8 @@ class StartScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    userName: state.answersReducer.userName,
+    wantsToPlay: state.answersReducer.wantsToPlay,
     // character: state.assetReducer.characters
     // productList: state.cartReducer.normalizedProducts,
     // productCount: state.cartReducer.cart.sum,
