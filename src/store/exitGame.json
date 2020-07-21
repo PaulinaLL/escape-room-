@@ -7,25 +7,19 @@
   "riddleDescription": {
     "1": {
       "id": 1,
-      "text": "If you run the current code you will receive 'hey stranger', correct the code to display your name in the greeting.",
+      "text": "FIRST PC If you run the current code you will receive a wrong greeting: 'hey stranger', correct the code to display your name in the greeting.",
       "correctAnswer": "answer",
       "hints": ["think about how the objects are saved"]
     },
     "2": {
       "id": 2,
-      "text": "dummy description 2 - drawer",
+      "text": "SWITCHER It would be nice to have some light on, right? Create a function that changes text to binary code.",
       "correctAnswer": "5",
       "hints": ["some", "another"]
     },
-    "third": {
+    "3": {
       "id": 3,
-      "text": "dummy description 3 DOOR OPENED",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
-    },
-    "fourth": {
-      "id": 4,
-      "text": "dummy description 4 NO KEY",
+      "text": "DRAWER Create a function that can check if a word contains only unique characters. If you make this work the drawer will open.",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
@@ -44,6 +38,18 @@
     "7": {
       "id": 7,
       "text": "dummy description 7 SHOULD OPEN EXIT DOOR",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "third": {
+      "id": 8,
+      "text": "dummy description 3 DOOR OPENED",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
+    "fourth": {
+      "id": 10,
+      "text": "dummy description 4 NO KEY",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }

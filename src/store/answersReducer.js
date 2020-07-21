@@ -53,7 +53,7 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[1].text,
         },
       };
-    case "SELECT_DRAWER":
+    case "SELECT_SWITCHER":
       return {
         ...state,
         currentRiddleDescription: {
@@ -61,25 +61,33 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[2].text,
         },
       };
-    case "OPEN_DOOR":
+    case "SELECT_DRAWER":
       return {
         ...state,
         currentRiddleDescription: {
           id: 3,
+          text: data.riddleDescription[3].text,
+        },
+      };
+    case "OPEN_DOOR":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 8,
           text: data.riddleDescription.third.text,
           img: null,
         },
       };
-      case "NO_KEY":
-        return {
-          ...state,
-          currentRiddleDescription: {
-            id: 4,
-            text: data.riddleDescription.fourth.text,
-            img: null,
-          },
-        };
-     
+    case "NO_KEY":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 10,
+          text: data.riddleDescription.fourth.text,
+          img: null,
+        },
+      };
+
     default:
       return state;
   }
