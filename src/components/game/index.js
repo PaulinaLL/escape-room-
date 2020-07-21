@@ -14,17 +14,19 @@ export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  console.log("refresh");
+
   useLayoutEffect(() => {
     // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
-    const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
-
     // const defaultIcon = "none";
     // const hoverIcon = "none";
-
     // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-    props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
 
     if (!assetReducer.loaded) {
+
+      const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
+      props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
+  
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
@@ -39,6 +41,11 @@ export default function Game(props) {
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
+
+    if(assetReducer.solved.riddle1 === true){
+      addArrows();
+    }
+
   });
 
   let corner = new PIXI.Container();
@@ -75,10 +82,8 @@ export default function Game(props) {
   );
 
   const focus1 = new PIXI.Sprite(blackTexture);
-
-  // const eyes2 = [
-  // ]
-  // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
+  // const eyes2 = []
+  // const eye   = PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
 
   focus1.anchor.set(0.9);
   focus1.x = 100;
@@ -124,6 +129,14 @@ export default function Game(props) {
   // function displayFifthRiddle() {
   //   dispatch({ type: "SELECT_SKELETON" });
   // }
+  function addArrows() {
+    if (props.app.stage.children.length) {
+      props.app.stage.children[4].visible = true;
+    }
+    console.log("finish");
+    console.log(props.app.stage);
+//    props.app.stage.children[4].visible = true;
+  }
 
   function takeIDCard1() {
     console.log(roomBack);
@@ -139,6 +152,7 @@ export default function Game(props) {
     roomBack.children[4].visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
+
 
   function takeIDCard3() {
     //6 is idCArd3 - orange card (without flashlight 5)
@@ -161,13 +175,11 @@ export default function Game(props) {
     //4 is FlashLightObject
 
     focus1.anchor.set(0.1);
-
     // roomBack.children[4].visible = false;
     // innerCell.children[4].visible = false; - closed box
     // innerCell.children[5].visible = false; -opened box
     innerCell.children[6].visible = false;
     props.app.stage.children[7].visible = false;
-
     props.app.stage.children[6].off("pointerdown", lightOn);
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
   }
@@ -250,6 +262,7 @@ export default function Game(props) {
     console.log("blue card needed");
   }
 
+
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -257,6 +270,8 @@ export default function Game(props) {
   let scope = {};
   //  let eye = {};
   let boxSheet = {};
+
+  //Setup All Objects/Furniture and RoomParts
 
   function setup() {
     // Preparing Sheets
@@ -274,12 +289,9 @@ export default function Game(props) {
     let drawer = createDrawer(drawerSheet, props.app);
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
-    let visor = createScope(scope, props.app);
     let box = createBox(boxSheet, props.app);
-
     let left = ui[0];
     let right = ui[1];
-
     let boxClosed = box[0];
     // let boxOpened = box[1];
 
@@ -305,10 +317,8 @@ export default function Game(props) {
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
 
     // Setting Visibility of Screens
-
     // order of objects in the roomback matters (starts from 0)
 
-    if (!props.app.stage.children.length) {
       corner.addChild(drawer);
       roomBack.addChild(
         objects.idCard1,
@@ -355,27 +365,30 @@ export default function Game(props) {
       function pointerMove(event) {
         // eye.position.x = event.data.global.x - eye.width / 2;
         // eye.position.y = event.data.global.y - eye.height / 2;
-
         focus1.position.x = event.data.global.x - focus1.width / 2;
         focus1.position.y = event.data.global.y - focus1.height / 2;
       }
-    }
+      console.log("Finished Setup")
+  
   }
 
+//End of Setup.
   if (props.app.stage.children.length) {
+
     props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
+    
+  if(assetReducer.solved.riddle1 === true){
+    props.app.stage.children[4].visible = true;
+    props.app.stage.children[5].visible = true;    
+  }
 
 
-    if(assetReducer.solved.riddle1 === true){
-      props.app.stage.children[4].visible = true;
-      props.app.stage.children[5].visible = true;
-      
-    }
-
+    // This step is a bit difficult. And does nnot update a second time.
+    console.log("here we are"); 
 
     //pointer for dark
 
