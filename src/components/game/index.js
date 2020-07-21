@@ -23,10 +23,9 @@ export default function Game(props) {
     // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
 
     if (!assetReducer.loaded) {
-
       const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
       props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
-  
+
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
@@ -42,10 +41,9 @@ export default function Game(props) {
       dispatch({ type: "LOADED" });
     }
 
-    if(assetReducer.solved.riddle1 === true){
+    if (assetReducer.solved.riddle1 === true) {
       addArrows();
     }
-
   });
 
   let corner = new PIXI.Container();
@@ -135,7 +133,7 @@ export default function Game(props) {
     }
     console.log("finish");
     console.log(props.app.stage);
-//    props.app.stage.children[4].visible = true;
+    //    props.app.stage.children[4].visible = true;
   }
 
   function takeIDCard1() {
@@ -153,7 +151,6 @@ export default function Game(props) {
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
-
   function takeIDCard3() {
     //6 is idCArd3 - orange card (without flashlight 5)
     roomBack.children[5].visible = false;
@@ -163,8 +160,8 @@ export default function Game(props) {
   }
 
   function takeKey() {
-    //3 is key
-    frontDoor.children[1].visible = false;
+    //corner child2 is key
+    corner.children[2].visible = false;
     dispatch({ type: "TAKE_KEY" });
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", openDoor);
@@ -262,7 +259,6 @@ export default function Game(props) {
     console.log("blue card needed");
   }
 
-
   let drawerSheet = {};
   let arrowSheet = {};
   let pcSheet = {};
@@ -319,84 +315,91 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
 
-      corner.addChild(drawer);
-      roomBack.addChild(
-        objects.idCard1,
-        objects.door,
-        // objects.flashLight, - bringing it back changest the order of children[]
-        objects.idCard2,
-        objects.idCard3
-      );
-      frontDoor.addChild(objects.key);
+    // removes key  from drawer from corner for now - to add it when riddle solved
+    corner.addChild(drawer);
+    roomBack.addChild(
+      objects.idCard1,
+      objects.door,
+      // objects.flashLight, - bringing it back changes the order of children[]
+      objects.idCard2,
+      objects.idCard3
+    );
 
-      innerCell.addChild(
-        objects.greenCardSlot,
-        objects.orangeCardSlot,
-        objects.blueCardSlot,
-        boxClosed
-      );
-      corner.visible = true;
-      innerCell.visible = false;
-      roomBack.visible = false;
-      frontDoor.visible = false;
-      objects.lightSwitch.visible = false;
+    innerCell.addChild(
+      objects.greenCardSlot,
+      objects.orangeCardSlot,
+      objects.blueCardSlot,
+      boxClosed
+    );
+    corner.visible = true;
+    innerCell.visible = false;
+    roomBack.visible = false;
+    frontDoor.visible = false;
+    objects.lightSwitch.visible = false;
 
-      // Adding Screens and Interface to Stage
-      props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
-      // Adding Arrows
+    // Adding Screens and Interface to Stage
+    props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
+    // Adding Arrows
 
-      props.app.stage.addChild(left, right, objects.lightSwitch);
-      left.visible = false;
-      right.visible = false;
-      //4 = left, 5 = right, 6 = objects.lightSwitch?
+    props.app.stage.addChild(left, right, objects.lightSwitch);
+    left.visible = false;
+    right.visible = false;
+    //4 = left, 5 = right, 6 = objects.lightSwitch?
 
-      //Preparing FlashLight and DarkRoom
-      props.app.stage.addChild(focus1, pc);
-      props.app.stage.children[7].visible = false;
+    //Preparing FlashLight and DarkRoom
+    props.app.stage.addChild(focus1, pc);
+    props.app.stage.children[7].visible = false;
 
-      corner.mask = focus1;
-      innerCell.mask = focus1;
-      roomBack.mask = focus1;
-      frontDoor.mask = focus1;
+    corner.mask = focus1;
+    innerCell.mask = focus1;
+    roomBack.mask = focus1;
+    frontDoor.mask = focus1;
 
-      props.app.stage.interactive = true;
-      props.app.stage.on("mousemove", pointerMove);
+    props.app.stage.interactive = true;
+    props.app.stage.on("mousemove", pointerMove);
 
-      function pointerMove(event) {
-        // eye.position.x = event.data.global.x - eye.width / 2;
-        // eye.position.y = event.data.global.y - eye.height / 2;
-        focus1.position.x = event.data.global.x - focus1.width / 2;
-        focus1.position.y = event.data.global.y - focus1.height / 2;
-      }
-      console.log("Finished Setup")
-  
+    function pointerMove(event) {
+      // eye.position.x = event.data.global.x - eye.width / 2;
+      // eye.position.y = event.data.global.y - eye.height / 2;
+      focus1.position.x = event.data.global.x - focus1.width / 2;
+      focus1.position.y = event.data.global.y - focus1.height / 2;
+    }
+    console.log("Finished Setup");
   }
 
-//End of Setup.
+  //End of Setup.
   if (props.app.stage.children.length) {
-
     props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-    
-  if(assetReducer.solved.riddle1 === true){
-    props.app.stage.children[4].visible = true;
-    props.app.stage.children[5].visible = true;    
-  }
 
-
-    // This step is a bit difficult. And does nnot update a second time.
-    console.log("here we are"); 
-
-
-    if(assetReducer.solved.riddle1 === true){
+    if (assetReducer.solved.riddle1 === true) {
       props.app.stage.children[4].visible = true;
       props.app.stage.children[5].visible = true;
-      
     }
 
+    // This step is a bit difficult. And does nnot update a second time.
+    console.log("here we are");
+
+    // displays arrows when riddle1 is solved
+    if (assetReducer.solved.riddle1 === true) {
+      props.app.stage.children[4].visible = true;
+      props.app.stage.children[5].visible = true;
+    }
+
+    // turn on the light when riddle2 is solved
+    if (assetReducer.solved.riddle2 === true) {
+      // lightOn()
+    }
+    // displays key when riddle3 is solved
+    if (assetReducer.solved.riddle3 === true) {
+      let objects = setItems(items, props.app);
+      corner.addChild(objects.key);
+      corner.children[2].visible = true;
+      console.log("HERE", assetReducer.solved.riddle3);
+    }
 
     //pointer for dark
 
