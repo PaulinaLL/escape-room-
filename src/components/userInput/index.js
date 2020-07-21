@@ -12,8 +12,8 @@ export default function UserInput() {
     (state) => state.answersReducer
   );
 
-  const addUserAnswer = (riddleNumber) =>
-   { dispatch({
+  const addUserAnswer = (riddleNumber) => {
+    dispatch({
       type: "ADD_USER_ANSWER",
       payload: {
         id: currentRiddleDescription.id,
@@ -21,14 +21,29 @@ export default function UserInput() {
       },
     });
 
-    switch(riddleNumber){
+    // dispatch({
+    //   type: `SOLVED_RIDDLE_${currentRiddleDescription.id}`,
+    // });
+
+    switch (riddleNumber) {
       case 1:
-      dispatch({
-        type: "SOLVED_RIDDLE_1"
-      })    
-      break;
+        dispatch({
+          type: "SOLVED_RIDDLE_1",
+        });
+        break;
+      case 2:
+        dispatch({
+          type: "SOLVED_RIDDLE_2",
+        });
+        break;
+      case 3:
+        dispatch({
+          type: "SOLVED_RIDDLE_3",
+        });
+        break;
+      default:
     }
-  }
+  };
   // user context that is passed in to your riddle code
   // if you want to dispatch from within testFn you can
   // make it a prop of userCTX
