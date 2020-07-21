@@ -11,36 +11,6 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
   };
 
   // This is where the magic happens
-  const allRiddle = {
-    "1": {
-      setup: {
-        arg: { name: `${userCTX.userName}` },
-        fnName: "greet",
-        startCode: `
-function greet(person) {
-  if (person.name == { name: "${userCTX.userName}" } ) {
-    return "hey ${userCTX.userName}";
-  } else {
-    return "hey stranger";
-  }
-}    
-      `,
-      },
-      check: {
-        testFn: (log, error) => (result) => {
-          if (result === `hey ${userCTX.userName}`) {
-            log("Yes");
-            addUserAnswer(1);
-          } else {
-            error("No");
-          }
-        },
-      },
-    },
-  };
-
-  return allRiddle[id] || defaultRiddle;
-};
 
 export default function UserInput() {
   let userAnswer, setUserAnswer;
