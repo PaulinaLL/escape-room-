@@ -1,46 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
-
+import getRiddle from "../../helper/riddles.js";
 import RiddleEditor from "./editor";
-
-const getRiddle = (userCTX, { id, addUserAnswer }) => {
-  const defaultRiddle = {
-    setup: { startCode: "" },
-    check: { testFn: () => () => null },
-  };
-
-  // This is where the magic happens
-  const allRiddle = {
-    "1": {
-      setup: {
-        arg: { name: `${userCTX.userName}` },
-        fnName: "greet",
-        startCode: `
-function greet(person) {
-  if (person.name == { name: "${userCTX.userName}" } ) {
-    return "hey ${userCTX.userName}";
-  } else {
-    return "hey stranger";
-  }
-}    
-      `,
-      },
-      check: {
-        testFn: (log, error) => (result) => {
-          if (result === `hey ${userCTX.userName}`) {
-            log("Yes");
-            addUserAnswer();
-          } else {
-            error("No");
-          }
-        },
-      },
-    },
-  };
-
-  return allRiddle[id] || defaultRiddle;
-};
 
 export default function UserInput() {
   let userAnswer, setUserAnswer;
