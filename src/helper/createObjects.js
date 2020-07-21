@@ -62,7 +62,7 @@ export function setItems(items, app) {
 
   flashLight.interactive = true;
   flashLight.buttonMode = true;
-  flashLight.x = 670;
+  flashLight.x = 600;
   flashLight.y = 530;
   flashLight.height = 90;
   flashLight.width = 90;
