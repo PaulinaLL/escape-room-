@@ -5,7 +5,7 @@ import {
   createUserInterface,
   createPC,
   setItems,
-  createScope
+  createScope,
   createBox,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
