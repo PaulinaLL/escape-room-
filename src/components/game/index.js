@@ -336,6 +336,8 @@ export default function Game(props) {
       // Adding Arrows
 
       props.app.stage.addChild(left, right, objects.lightSwitch);
+      left.visible = false;
+      right.visible = false;
       //4 = left, 5 = right, 6 = objects.lightSwitch?
 
       //Preparing FlashLight and DarkRoom
@@ -366,6 +368,14 @@ export default function Game(props) {
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
+
+
+    if(assetReducer.solved.riddle1 === true){
+      props.app.stage.children[4].visible = true;
+      props.app.stage.children[5].visible = true;
+      
+    }
+
 
     //pointer for dark
 
