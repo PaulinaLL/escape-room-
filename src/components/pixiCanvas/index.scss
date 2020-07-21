@@ -1,7 +1,9 @@
 #pixi-container{
-    opacity: 1;
-    cursor: grab;
+    cursor: url(../../assets/objects/EyeUnfocused.png), pointer;
 }
+// .pointer{
+//     cursor: url(../../assets/objects/EyeFocused.png), pointer;
+// }
 
 
 // #pixi-container{

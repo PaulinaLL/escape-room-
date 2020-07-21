@@ -9,18 +9,26 @@ import {
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
+
+
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  // const defaultIcon = "url('../../assets/objects/scope.png'),auto";
-  // const hoverIcon = "url('../../assets/objects/scope.png'),auto";
-
-  // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-  // props.app.renderer.plugins.interaction.cursorStyles.hover = hoverIcon;
-
-
   useLayoutEffect(() => {
+
+
+    // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
+    const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
+   
+    // const defaultIcon = "none";
+    // const hoverIcon = "none";
+   
+
+    // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
+    props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
+    
+
     if (!assetReducer.loaded) {
       props.app.loader
         .reset()
@@ -28,7 +36,9 @@ export default function Game(props) {
         .add("arrows", require("../../assets/objects/usertools.png"))
         .add("pc", require("../../assets/objects/pc2.png"))
         .add("itemList", require("../../assets/objects/items.png"))
-        .add("scope", require("../../assets/objects/scope.png"));
+        .add("scope", require("../../assets/objects/scope.png"))
+        .add("eyeFocused", require("../../assets/objects/EyeFocused.png"))
+        .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
@@ -44,8 +54,6 @@ export default function Game(props) {
   // The blur amount
   const blurSize = 32;
 
-
-  
   frontDoor.width = props.app.screen.width;
   frontDoor.height = props.app.screen.height;
 
@@ -70,6 +78,11 @@ export default function Game(props) {
   );
 
   const focus1 = new PIXI.Sprite(blackTexture);
+
+  // const eyes2 = [
+  // ]
+ // const eye =     PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
+
 
   focus1.anchor.set(0.9);
   focus1.x = 100;
@@ -230,6 +243,7 @@ export default function Game(props) {
   let pcSheet = {};
   let items = {};
   let scope = {};
+  //  let eye = {};
 
   function setup() {
     // Preparing Sheets
@@ -238,6 +252,7 @@ export default function Game(props) {
     createPCSheet();
     createItemSheet();
     createScopeSheet();
+    // createEyePointer();
 
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
@@ -315,6 +330,10 @@ export default function Game(props) {
       props.app.stage.on("mousemove", pointerMove);
 
       function pointerMove(event) {
+      
+        // eye.position.x = event.data.global.x - eye.width / 2;
+        // eye.position.y = event.data.global.y - eye.height / 2;
+     
         focus1.position.x = event.data.global.x - focus1.width / 2;
         focus1.position.y = event.data.global.y - focus1.height / 2;
       }
@@ -354,7 +373,6 @@ export default function Game(props) {
         //Corner
         props.app.stage.children[0].visible = true;
         props.app.stage.children[8].visible = true;
-
         break;
     }
   }
@@ -373,8 +391,6 @@ export default function Game(props) {
     scope["first"] = [
       new PIXI.Texture(scopeSheet, new PIXI.Rectangle(130,0, 130, 130))
     ]
-
-    
   }
 
   function createItemSheet() {
@@ -398,6 +414,24 @@ export default function Game(props) {
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
   }
+
+  // function createEyePointer(){
+
+  //  let eyeFocused = new PIXI.BaseTexture.from(
+  //     props.app.loader.resources["eyeFocused"].url
+  //   );
+
+  //   let eyeUnfocused = new PIXI.BaseTexture.from(
+  //     props.app.loader.resources["eyeUnfocused"].url
+  //   );
+    
+  //   eye["focused"] = [
+  //     new PIXI.Texture(eyeFocused, new PIXI.Rectangle(0, 0, 32, 32))
+  //   ];
+  //   eye["unfocused"] = [
+  //     new PIXI.Texture(eyeUnfocused, new PIXI.Rectangle(0, 0 ,32, 32))
+  //   ]
+  // }
 
   // Sheets with items which have more than one state.
 
