@@ -201,7 +201,7 @@ export function createDrawer(furnitureSheet) {
     }
     this.texture = furnitureSheet.closed[0];
   }
-  //    It would be good if we get the relationship between the values. Please do something about it.
+
   // Width and Height
   drawer.width = 230;
   drawer.height = 390;
@@ -233,4 +233,17 @@ export function createPC(pcSheet) {
   pcoff.y = 110;
 
   return pcoff;
+}
+
+export function createBox(boxSheet) {
+  const boxClosed = new PIXI.Sprite(boxSheet.closed[0]);
+  const boxOpened = new PIXI.Sprite(boxSheet.opened[0]);
+
+  // position
+  boxClosed.x = 450;
+  boxClosed.y = 475;
+  boxOpened.x = 445;
+  boxOpened.y = 420;
+
+  return [boxClosed, boxOpened];
 }

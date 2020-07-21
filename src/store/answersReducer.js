@@ -11,6 +11,19 @@ const initialState = {
   },
 };
 
+if (process.env.NODE_ENV === "development") {
+  //TODO: Remove
+  console.error("OW: Convenience State in place");
+  Object.assign(initialState, {
+    userName: "Oliver",
+    wantsToPlay: true,
+    currentRiddleDescription: {
+      ...initialState.currentRiddleDescription,
+      id: 1,
+    },
+  });
+}
+
 function answersReducer(state = initialState, action) {
   switch (action.type) {
     case "WANTS_TO_PLAY":

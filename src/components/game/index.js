@@ -6,6 +6,7 @@ import {
   createPC,
   setItems,
   createScope
+  createBox,
 } from "../../helper/createObjects";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -39,6 +40,8 @@ export default function Game(props) {
         .add("scope", require("../../assets/objects/scope.png"))
         .add("eyeFocused", require("../../assets/objects/EyeFocused.png"))
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
+        .add("box", require("../../assets/objects/boxandothers.png"));
+
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
@@ -172,6 +175,7 @@ export default function Game(props) {
   let openDoor = () => {
     dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
+    // door to the innercell
     roomBack.children[1].visible = false;
     roomBack.children[3].off("pointerdown", closedDoor);
     roomBack.children[3].on("pointerdown", goToInner);
@@ -217,6 +221,9 @@ export default function Game(props) {
 
   function openBox() {
     dispatch({ type: "OPEN_BOX" });
+    let box = createBox(boxSheet, props.app);
+    let boxOpened = box[1];
+    innerCell.addChild(boxOpened);
   }
 
   function turnOnCellScreen() {
@@ -225,10 +232,7 @@ export default function Game(props) {
 
   function withoutGreenCard() {
     console.log("green card needed");
-
-    // if green card in the collection - remove from the collection and activate open box
     innerCell.children[1].on("pointerdown", openBox);
-    // else nothing happens - but this logic doesnt work here
   }
 
   function withoutOrangeCard() {
@@ -244,6 +248,7 @@ export default function Game(props) {
   let items = {};
   let scope = {};
   //  let eye = {};
+  let boxSheet = {};
 
   function setup() {
     // Preparing Sheets
@@ -251,8 +256,10 @@ export default function Game(props) {
     createArrowSheet();
     createPCSheet();
     createItemSheet();
+
     createScopeSheet();
     // createEyePointer();
+    createBoxSheet();
 
     // Preparing Items,Objects and Interface
     let ui = createUserInterface(arrowSheet, props.app);
@@ -260,15 +267,20 @@ export default function Game(props) {
     let pc = createPC(pcSheet, props.app);
     let objects = setItems(items, props.app);
     let visor = createScope(scope, props.app);
+    let box = createBox(boxSheet, props.app);
 
     let left = ui[0];
     let right = ui[1];
+
+    let boxClosed = box[0];
+    // let boxOpened = box[1];
 
     // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displaySecondRiddle);
+
     //Objects
     //Visible
     objects.idCard1.on("pointerdown", takeIDCard1);
@@ -302,7 +314,8 @@ export default function Game(props) {
       innerCell.addChild(
         objects.greenCardSlot,
         objects.orangeCardSlot,
-        objects.blueCardSlot
+        objects.blueCardSlot,
+        boxClosed
       );
       corner.visible = true;
       innerCell.visible = false;
@@ -484,5 +497,19 @@ export default function Game(props) {
     ];
   }
 
+  function createBoxSheet() {
+    let boxsheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["box"].url
+    );
+    let width = 300;
+    let height = 300;
+
+    boxSheet["closed"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(0, 0, width, height)),
+    ];
+    boxSheet["opened"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(300, 0, width, height)),
+    ];
+  }
   return <div id="pixi-container"></div>;
 }
