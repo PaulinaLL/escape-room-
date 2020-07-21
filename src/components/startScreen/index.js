@@ -18,13 +18,15 @@ class StartScreen extends React.Component {
     // console.log(this.props.rooms);
     const userName = this.props.userName;
     const wantsToPlay = this.props.wantsToPlay;
+
+    console.log("Render");
     return (
       <div className="App">
         <main>
-          {!userName && !wantsToPlay && <GetUserName />}
           <div className="canvasDescriptionWrapper">
+          {!userName && !wantsToPlay && <GetUserName />}
             <div className="canvasContainer">
-              <PixiCanvas />
+         {userName && wantsToPlay && <PixiCanvas /> }
               <ObjectCollection />
             </div>
             <div className="fieldsWrapper">

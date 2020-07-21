@@ -55,8 +55,8 @@ export function setItems(items, app) {
 
   key.interactive = true;
   key.buttonMode = true;
-  key.x = 670;
-  key.y = 530;
+  key.x = 600;
+  key.y = 590;
   key.height = 90;
   key.width = 90;
 
@@ -168,9 +168,7 @@ export function setItems(items, app) {
   };
 }
 
-export function createScope(scopeSheet){
-  
-}
+export function createScope(scopeSheet) {}
 
 export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);

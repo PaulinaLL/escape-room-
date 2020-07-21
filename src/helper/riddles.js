@@ -24,7 +24,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         testFn: (log, error) => (result) => {
           if (result === `hey ${userCTX.userName}`) {
             log("Yes");
-            addUserAnswer();
+            addUserAnswer(1);
           } else {
             error("No");
           }
