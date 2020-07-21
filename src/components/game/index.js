@@ -1,5 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
+import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -552,5 +553,11 @@ export default function Game(props) {
       new PIXI.Texture(boxsheet, new PIXI.Rectangle(300, 0, width, height)),
     ];
   }
-  return <div id="pixi-container"></div>;
+
+  const userName = props.userName;
+  const wantsToPlay = props.wantsToPlay;
+
+  return <div id="pixi-container">
+        {!userName && !wantsToPlay && <GetUserName />}
+  </div>;
 }

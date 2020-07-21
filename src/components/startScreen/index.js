@@ -5,7 +5,7 @@ import PixiCanvas from "../pixiCanvas";
 import DescriptionField from "../descriptionField";
 import UserInput from "../userInput";
 import ObjectCollection from "../objectsCollection";
-import GetUserName from "../promptWindow";
+// import GetUserName from "../promptWindow";
 
 class StartScreen extends React.Component {
   // componentDidMount(){
@@ -24,10 +24,9 @@ class StartScreen extends React.Component {
       <div className="App">
         <main>
           <div className="canvasDescriptionWrapper">
-          {!userName && !wantsToPlay && <GetUserName />}
             <div className="canvasContainer">
-         {userName && wantsToPlay && <PixiCanvas /> }
-              <ObjectCollection />
+          <PixiCanvas />  
+                     <ObjectCollection />
             </div>
             <div className="fieldsWrapper">
               <DescriptionField />
@@ -56,8 +55,8 @@ class StartScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userName: state.answersReducer.userName,
-    wantsToPlay: state.answersReducer.wantsToPlay,
+    // userName: state.answersReducer.userName,
+    // wantsToPlay: state.answersReducer.wantsToPlay,
     // character: state.assetReducer.characters
     // productList: state.cartReducer.normalizedProducts,
     // productCount: state.cartReducer.cart.sum,
