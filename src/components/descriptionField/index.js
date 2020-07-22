@@ -14,7 +14,7 @@ const DescriptionField = () => {
   return (
     <div className="description">
       {wantsToPlay && currentRiddleDescription.id === "" ? (
-        <h3> Welcome {userName} </h3>
+        <h2> Welcome {userName} </h2>
       ) : null}
 
       <p>{wantsToPlay ? currentRiddleDescription.text : null}</p>
