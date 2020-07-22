@@ -40,7 +40,7 @@ export default function Game(props) {
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
-  },[assetReducer.loaded]);
+  }, [assetReducer.loaded]);
 
   //Add Containers
   let corner = new PIXI.Container();
@@ -155,8 +155,8 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
-
-    props.app.stage.children[8].visible = false;
+    greenCard.visible = false;
+    // props.app.stage.children[8].visible = false;
 
     // greenSlot.off("pointerdown", withoutGreenCard);
     // greenSlot.on("pointerdown", openBox);
@@ -223,22 +223,18 @@ export default function Game(props) {
   };
 
   let lightOn = () => {
-
     console.log(props);
 
-    if(frontDoor.mask === focus1)
-    {
-    corner.mask = false;
-    innerCell.mask = false;
-    roomBack.mask = false;
-    frontDoor.mask = false;
-    }
-    else{
+    if (frontDoor.mask === focus1) {
+      corner.mask = false;
+      innerCell.mask = false;
+      roomBack.mask = false;
+      frontDoor.mask = false;
+    } else {
       corner.mask = focus1;
-    innerCell.mask = focus1;
-    roomBack.mask = focus1;
-    frontDoor.mask = focus1;
-    
+      innerCell.mask = focus1;
+      roomBack.mask = focus1;
+      frontDoor.mask = focus1;
     }
   };
   let turnOnLight = () => {
@@ -330,7 +326,7 @@ export default function Game(props) {
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
     objects.lightSwitch.on("pointerdown", lightOn);
-    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle)
+    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle);
 
     //Objects
     //Visible
@@ -385,7 +381,6 @@ export default function Game(props) {
 
     props.app.stage.addChild(left, right, objects.lightSwitch);
 
-
     left.visible = false;
     right.visible = false;
 
@@ -393,11 +388,10 @@ export default function Game(props) {
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
     props.app.stage.children[7].visible = false;
-    
+
     props.app.stage.addChild(objects.lightSwitchRiddle);
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
-    
 
     corner.mask = focus1;
     innerCell.mask = focus1;
@@ -428,12 +422,9 @@ export default function Game(props) {
   // Trying to create fields..
 
   if (props.app.stage.children.length) {
-  
-  
-          props.app.stage.children[6].visible = false;
-          props.app.stage.children[9].visible = false;
-      
-  
+    props.app.stage.children[6].visible = false;
+    props.app.stage.children[9].visible = false;
+
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
@@ -451,10 +442,10 @@ export default function Game(props) {
         break;
       case 2:
         //FrontDoor
-         assetReducer.solved.riddle2 === true? 
-          props.app.stage.children[6].visible = true:
-          props.app.stage.children[9].visible = true;          
-      
+        assetReducer.solved.riddle2 === true
+          ? (props.app.stage.children[6].visible = true)
+          : (props.app.stage.children[9].visible = true);
+
         props.app.stage.children[2].visible = true;
         props.app.stage.children[8].visible = false;
 
@@ -601,6 +592,5 @@ export default function Game(props) {
     </div>
   );
 }
-
 
 //  props.app.stage.children[6].visible LightSwitch (Riddle)
