@@ -69,7 +69,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         testFn: (log, error) => (result) => {
           if (result === false) {
             log("Yes");
-            addUserAnswer();
+            addUserAnswer(3);
           } else {
             error("No");
           }

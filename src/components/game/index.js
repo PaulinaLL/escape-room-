@@ -12,16 +12,15 @@ import {
 //   takeIDCard2
 // } from "../../helper/gameFunctions";
 import { useSelector, useDispatch } from "react-redux";
-
-  
-
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  //let config = {};
   const userName = props.userName;
   const wantsToPlay = props.wantsToPlay;
+  
 
+// Predefine all variables before scope. 
 
   useLayoutEffect(() => {
     // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
@@ -44,10 +43,9 @@ export default function Game(props) {
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
         .add("box", require("../../assets/objects/boxandothers.png"));
 
-      props.app.loader.load(setup);
+        let config = props.app.loader.load(setup({}));
       dispatch({ type: "LOADED" });
     }
-
   });
 
   //Add Containers
@@ -186,11 +184,11 @@ export default function Game(props) {
 
   function takeKey() {
     //corner child2 is key
-    doorKey = corner.children[2];
-    doorKey.visible = false;
+    // doorKey = corner.children[2];
+    // doorKey.visible = false;
     dispatch({ type: "TAKE_KEY" });
-    roomBack.children[3].off("pointerdown", closedDoor);
-    roomBack.children[3].on("pointerdown", openDoor);
+    config.door.off("pointerdown", closedDoor);
+    config.door.on("pointerdown", openDoor);
   }
 
   function takeFlashLight() {
@@ -294,15 +292,13 @@ export default function Game(props) {
 
   //Setup All Objects/Furniture and RoomParts
 
-  function setup() {
+  function setup(config) {
     // Preparing Sheets
     createDrawerSheet();
     createArrowSheet();
     createPCSheet();
     createItemSheet();
-
     createScopeSheet();
-    // createEyePointer();
     createBoxSheet();
 
     // Preparing Items,Objects and Interface
@@ -327,7 +323,7 @@ export default function Game(props) {
     objects.idCard1.on("pointerdown", takeIDCard1);
     objects.idCard2.on("pointerdown", takeIDCard2);
     objects.idCard3.on("pointerdown", takeIDCard3);
-    objects.key.on("pointerdown", takeKey);
+//    objects.key.on("pointerdown", takeKey);
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
@@ -349,6 +345,10 @@ export default function Game(props) {
       objects.idCard2,
       objects.idCard3
     );
+
+// 350 Define Names for Objects and parts of room.
+
+  //  pc = props.app.stage.children[8];  
 
     greenCard = roomBack.children[2];
     yellowCard = roomBack.children[4];
@@ -375,6 +375,8 @@ export default function Game(props) {
 
     left.visible = false;
     right.visible = false;
+
+    
     //4 = left, 5 = right, 6 = objects.lightSwitch?
 
     //Preparing FlashLight and DarkRoom
@@ -394,9 +396,28 @@ export default function Game(props) {
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
  // Setup is finished 
+
+// add configs
+config.left = left;
+config.right = right;
+config.corner = corner;
+config.roomBack = roomBack;
+ return config; 
   }
 
   //End of Setup.
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+// Trying to create fields.. 
+let config = {
+  greenCard : roomBack.children[2],
+  yellowCard : roomBack.children[4],
+  orangeCard : roomBack.children[5],
+  door : roomBack.children[1],
+  drawer : corner.children[3]
+}
+
   if (props.app.stage.children.length) {
     props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
@@ -412,15 +433,14 @@ export default function Game(props) {
       props.app.stage.children[4].visible = true;
       props.app.stage.children[5].visible = true;
     }
-
   
-    // displays key when riddle3 is solved
-    if (assetReducer.solved.riddle3 === true) {
-      let objects = setItems(items, props.app);
-      corner.addChild(objects.key);
-      corner.children[2].visible = true;
-      console.log("HERE", assetReducer.solved.riddle3);
-    }
+  //   // displays key when riddle3 is solved
+  //   if (assetReducer.solved.riddle3 === true) {
+  //  //   let objects = setItems(items, props.app);
+  //  //   corner.addChild(objects.key);
+  //     corner.children[2].visible = true;
+  //     console.log("HERE", assetReducer.solved.riddle3);
+  //   }
 
     //pointer for dark
 
@@ -578,16 +598,17 @@ export default function Game(props) {
     if (assetReducer.solved.riddle1 === true) {
       leftArrow.visible = true;
       rightArrow.visible = true;
+    props.app.stage.children[8].visible = false;
     }
 
     if(assetReducer.solved.riddle3 === true) {
-      console.log("change things for riddle2")
     }
 
      // turn on the light when riddle2 is solved
-  
     if(assetReducer.solved.riddle3 === true) {  
       console.log("change things for riddle3")
+      takeKey();
+      config.drawer.off("pointerdown", displayThirdRiddle);  
     }
 
   return <div id="pixi-container">
