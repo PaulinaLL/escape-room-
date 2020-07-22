@@ -13,7 +13,7 @@
     },
     "2": {
       "id": 2,
-      "text": "SWITCHER It would be nice to have some light on, right? Create a function that changes text to binary code.",
+      "text": "SWITCHER It would be nice to have some light on, right? Create a function that changes text to binary code and you will finally see what is around you.",
       "correctAnswer": "5",
       "hints": ["some", "another"]
     },
