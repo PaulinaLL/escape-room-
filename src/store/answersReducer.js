@@ -7,7 +7,7 @@ const initialState = {
   currentRiddleDescription: {
     id: "",
     text:
-      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in right moment and solve 10 riddles in less then 1 hour. Lets get started!",
+      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in right moment and solve 5 JavaScript challenges to win the game. Lets get started!",
   },
 };
 
