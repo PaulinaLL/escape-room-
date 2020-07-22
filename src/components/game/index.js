@@ -613,5 +613,6 @@ let config = {
 
   return <div id="pixi-container">
         {/* {!userName && !wantsToPlay && <GetUserName />} */}
+
   </div>;
 }
