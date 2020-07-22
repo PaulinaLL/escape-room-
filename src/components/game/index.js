@@ -19,15 +19,10 @@ export default function Game(props) {
   const userName = props.userName;
   const wantsToPlay = props.wantsToPlay;
   
-
 // Predefine all variables before scope. 
 
   useLayoutEffect(() => {
-    // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
-    // const defaultIcon = "none";
-    // const hoverIcon = "none";
-    // props.app.renderer.plugins.interaction.cursorStyles.default = defaultIcon;
-
+  
     if (!assetReducer.loaded) {
       const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
       props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
@@ -43,10 +38,11 @@ export default function Game(props) {
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
         .add("box", require("../../assets/objects/boxandothers.png"));
 
-        let config = props.app.loader.load(setup({}));
+      //  let config = 
+      props.app.loader.load(setup({}));
       dispatch({ type: "LOADED" });
     }
-  });
+  },[]);
 
   //Add Containers
   let corner = new PIXI.Container();
@@ -68,7 +64,7 @@ export default function Game(props) {
   let greenCard = "";
   let yellowCard = "";
   let orangeCard = "";
-
+  let config = "";
   let doorKey = corner.children[2];
   let pc = ""
   let door = ""
@@ -143,6 +139,8 @@ export default function Game(props) {
   function displayThirdRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
+
+
   // function displayFourthRiddle() {
   //   dispatch({ type: "SELECT_SCREEN" });
   // }
@@ -157,12 +155,15 @@ export default function Game(props) {
   }
 
   function takeIDCard1() {
-    greenCard.visible = false;
+    // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
-    let greenSlot = innerCell.children[1];
+    // let greenSlot = innerCell.children[1];
 
-    greenSlot.off("pointerdown", withoutGreenCard);
-    greenSlot.on("pointerdown", openBox);
+    props.app.stage.children[8].visible = false;
+
+    // greenSlot.off("pointerdown", withoutGreenCard);
+    // greenSlot.on("pointerdown", openBox);
+
   }
 
   function takeIDCard2() {
@@ -186,9 +187,13 @@ export default function Game(props) {
     //corner child2 is key
     // doorKey = corner.children[2];
     // doorKey.visible = false;
-    dispatch({ type: "TAKE_KEY" });
-    config.door.off("pointerdown", closedDoor);
-    config.door.on("pointerdown", openDoor);
+    // dispatch({ type: "TAKE_KEY" });
+    props.app.stage.children[8].visible = true;
+
+    // config.greenCard.visible = false;
+    // config.door.off("pointerdown", closedDoor);
+    // config.door.on("pointerdown", openDoor);
+
   }
 
   function takeFlashLight() {
@@ -353,7 +358,7 @@ export default function Game(props) {
     greenCard = roomBack.children[2];
     yellowCard = roomBack.children[4];
     orangeCard = roomBack.children[5];
-    
+
     innerCell.addChild(
       objects.greenCardSlot,
       objects.orangeCardSlot,
@@ -395,14 +400,15 @@ export default function Game(props) {
       focus1.position.x = event.data.global.x - focus1.width / 2;
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
- // Setup is finished 
 
-// add configs
-config.left = left;
-config.right = right;
-config.corner = corner;
-config.roomBack = roomBack;
- return config; 
+    config = {
+      greenCard : roomBack.children[2],
+      yellowCard : roomBack.children[4],
+      orangeCard : roomBack.children[5],
+      door : roomBack.children[2],
+      drawer : corner.children[1]
+    }
+  
   }
 
   //End of Setup.
@@ -410,13 +416,7 @@ config.roomBack = roomBack;
 ///////////////////////////////////////////////////////////////////////////////////
 
 // Trying to create fields.. 
-let config = {
-  greenCard : roomBack.children[2],
-  yellowCard : roomBack.children[4],
-  orangeCard : roomBack.children[5],
-  door : roomBack.children[1],
-  drawer : corner.children[3]
-}
+
 
   if (props.app.stage.children.length) {
     props.app.stage.children[6].visible = false;
@@ -605,10 +605,10 @@ let config = {
     }
 
      // turn on the light when riddle2 is solved
-    if(assetReducer.solved.riddle3 === true) {  
+     if(assetReducer.solved.riddle3 === true) {  
       console.log("change things for riddle3")
       takeKey();
-      config.drawer.off("pointerdown", displayThirdRiddle);  
+      // config.drawer.off("pointerdown", displayThirdRiddle);  
     }
 
   return <div id="pixi-container">
