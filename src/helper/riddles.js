@@ -92,7 +92,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         testFn: (log, error) => (result) => {
           if (result === `uvlight`) {
             log("Yes");
-            addUserAnswer();
+            addUserAnswer(4);
           } else {
             error("No");
           }
@@ -113,7 +113,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         testFn: (log, error) => (result) => {
           if (result === true) {
             log("Yes");
-            addUserAnswer();
+            addUserAnswer(5);
           } else {
             error("No");
           }
