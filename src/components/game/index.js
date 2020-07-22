@@ -6,16 +6,21 @@ import {
   createUserInterface,
   createPC,
   setItems,
-  createScope,
   createBox,
 } from "../../helper/createObjects";
+// import {
+//   takeIDCard2
+// } from "../../helper/gameFunctions";
 import { useSelector, useDispatch } from "react-redux";
-
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
+  //let config = {};
+  const userName = props.userName;
+  const wantsToPlay = props.wantsToPlay;
+  
 
-  console.log("refresh");
+// Predefine all variables before scope. 
 
   useLayoutEffect(() => {
     // const defaultIcon = "url(../../assets/objects/EyeFocused.png)";
@@ -38,20 +43,36 @@ export default function Game(props) {
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
         .add("box", require("../../assets/objects/boxandothers.png"));
 
-      props.app.loader.load(setup);
+        let config = props.app.loader.load(setup({}));
       dispatch({ type: "LOADED" });
-    }
-
-    if (assetReducer.solved.riddle1 === true) {
-      addArrows();
     }
   });
 
+  //Add Containers
   let corner = new PIXI.Container();
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
 
+  //Add Different Fieldsettings
+  let cornerField = props.app.stage.children[0];
+  let roomBackField = props.app.stage.children[1];
+  let frontDoorField = props.app.stage.children[2];
+  let innerCellField = props.app.stage.children[3];
+  
+  // Defining all Variables of Objects/Inventory and UI for better work. 
+  // UserInterface
+  var leftArrow = props.app.stage.children[4];
+  let rightArrow = props.app.stage.children[5];
+
+  let greenCard = "";
+  let yellowCard = "";
+  let orangeCard = "";
+
+  let doorKey = corner.children[2];
+  let pc = ""
+  let door = ""
+  let flashLight = ""
   // Inner radius of the circle
   const radius = 100;
   // The blur amount
@@ -132,29 +153,30 @@ export default function Game(props) {
     if (props.app.stage.children.length) {
       props.app.stage.children[4].visible = true;
     }
-    console.log("finish");
-    console.log(props.app.stage);
     //    props.app.stage.children[4].visible = true;
   }
 
   function takeIDCard1() {
-    console.log(roomBack);
-    //2 is idCard1
-    roomBack.children[2].visible = false;
+    greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
-    innerCell.children[1].off("pointerdown", withoutGreenCard);
-    innerCell.children[1].on("pointerdown", openBox);
+    let greenSlot = innerCell.children[1];
+
+    greenSlot.off("pointerdown", withoutGreenCard);
+    greenSlot.on("pointerdown", openBox);
   }
 
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card (without flashlight 4)
-    roomBack.children[4].visible = false;
+  //  yellowCard = roomBack.children[4];
+    yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
   function takeIDCard3() {
-    //6 is idCArd3 - orange card (without flashlight 5)
-    roomBack.children[5].visible = false;
+    //6 is idCArd3 - orange card (without flashlight 5)   
+    orangeCard = roomBack.children[5];
+    orangeCard.visible = false;
+   
     dispatch({ type: "TAKE_IDCARD3" });
     innerCell.children[2].off("pointerdown", withoutOrangeCard);
     innerCell.children[2].on("pointerdown", turnOnCellScreen);
@@ -162,16 +184,16 @@ export default function Game(props) {
 
   function takeKey() {
     //corner child2 is key
-    corner.children[2].visible = false;
+    // doorKey = corner.children[2];
+    // doorKey.visible = false;
     dispatch({ type: "TAKE_KEY" });
-    roomBack.children[3].off("pointerdown", closedDoor);
-    roomBack.children[3].on("pointerdown", openDoor);
+    config.door.off("pointerdown", closedDoor);
+    config.door.on("pointerdown", openDoor);
   }
 
   function takeFlashLight() {
     dispatch({ type: "TAKE_FLASHLIGHT" });
     //4 is FlashLightObject
-
     focus1.anchor.set(0.1);
     // roomBack.children[4].visible = false;
     // innerCell.children[4].visible = false; - closed box
@@ -270,15 +292,13 @@ export default function Game(props) {
 
   //Setup All Objects/Furniture and RoomParts
 
-  function setup() {
+  function setup(config) {
     // Preparing Sheets
     createDrawerSheet();
     createArrowSheet();
     createPCSheet();
     createItemSheet();
-
     createScopeSheet();
-    // createEyePointer();
     createBoxSheet();
 
     // Preparing Items,Objects and Interface
@@ -303,7 +323,7 @@ export default function Game(props) {
     objects.idCard1.on("pointerdown", takeIDCard1);
     objects.idCard2.on("pointerdown", takeIDCard2);
     objects.idCard3.on("pointerdown", takeIDCard3);
-    objects.key.on("pointerdown", takeKey);
+//    objects.key.on("pointerdown", takeKey);
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
@@ -326,6 +346,14 @@ export default function Game(props) {
       objects.idCard3
     );
 
+// 350 Define Names for Objects and parts of room.
+
+  //  pc = props.app.stage.children[8];  
+
+    greenCard = roomBack.children[2];
+    yellowCard = roomBack.children[4];
+    orangeCard = roomBack.children[5];
+    
     innerCell.addChild(
       objects.greenCardSlot,
       objects.orangeCardSlot,
@@ -343,8 +371,12 @@ export default function Game(props) {
     // Adding Arrows
 
     props.app.stage.addChild(left, right, objects.lightSwitch);
+
+
     left.visible = false;
     right.visible = false;
+
+    
     //4 = left, 5 = right, 6 = objects.lightSwitch?
 
     //Preparing FlashLight and DarkRoom
@@ -360,26 +392,38 @@ export default function Game(props) {
     props.app.stage.on("mousemove", pointerMove);
 
     function pointerMove(event) {
-      // eye.position.x = event.data.global.x - eye.width / 2;
-      // eye.position.y = event.data.global.y - eye.height / 2;
       focus1.position.x = event.data.global.x - focus1.width / 2;
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
-    console.log("Finished Setup");
+ // Setup is finished 
+
+// add configs
+config.left = left;
+config.right = right;
+config.corner = corner;
+config.roomBack = roomBack;
+ return config; 
   }
 
   //End of Setup.
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+// Trying to create fields.. 
+let config = {
+  greenCard : roomBack.children[2],
+  yellowCard : roomBack.children[4],
+  orangeCard : roomBack.children[5],
+  door : roomBack.children[1],
+  drawer : corner.children[3]
+}
+
   if (props.app.stage.children.length) {
     props.app.stage.children[6].visible = false;
     props.app.stage.children[0].visible = false;
     props.app.stage.children[1].visible = false;
     props.app.stage.children[2].visible = false;
     props.app.stage.children[3].visible = false;
-
-    if (assetReducer.solved.riddle1 === true) {
-      props.app.stage.children[4].visible = true;
-      props.app.stage.children[5].visible = true;
-    }
 
     // This step is a bit difficult. And does nnot update a second time.
     console.log("here we are");
@@ -389,18 +433,14 @@ export default function Game(props) {
       props.app.stage.children[4].visible = true;
       props.app.stage.children[5].visible = true;
     }
-
-    // turn on the light when riddle2 is solved
-    if (assetReducer.solved.riddle2 === true) {
-      // lightOn()
-    }
-    // displays key when riddle3 is solved
-    if (assetReducer.solved.riddle3 === true) {
-      let objects = setItems(items, props.app);
-      corner.addChild(objects.key);
-      corner.children[2].visible = true;
-      console.log("HERE", assetReducer.solved.riddle3);
-    }
+  
+  //   // displays key when riddle3 is solved
+  //   if (assetReducer.solved.riddle3 === true) {
+  //  //   let objects = setItems(items, props.app);
+  //  //   corner.addChild(objects.key);
+  //     corner.children[2].visible = true;
+  //     console.log("HERE", assetReducer.solved.riddle3);
+  //   }
 
     //pointer for dark
 
@@ -554,10 +594,25 @@ export default function Game(props) {
     ];
   }
 
-  const userName = props.userName;
-  const wantsToPlay = props.wantsToPlay;
+    //State for Solved riddles
+    if (assetReducer.solved.riddle1 === true) {
+      leftArrow.visible = true;
+      rightArrow.visible = true;
+    props.app.stage.children[8].visible = false;
+    }
+
+    if(assetReducer.solved.riddle3 === true) {
+    }
+
+     // turn on the light when riddle2 is solved
+    if(assetReducer.solved.riddle3 === true) {  
+      console.log("change things for riddle3")
+      takeKey();
+      config.drawer.off("pointerdown", displayThirdRiddle);  
+    }
 
   return <div id="pixi-container">
-        {!userName && !wantsToPlay && <GetUserName />}
+        {/* {!userName && !wantsToPlay && <GetUserName />} */}
+
   </div>;
 }
