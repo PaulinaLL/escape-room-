@@ -136,6 +136,16 @@ export function setItems(items, app) {
   lightSwitch.interactive = true;
   lightSwitch.buttonMode = true;
 
+
+  const lightSwitchRiddle = new PIXI.Sprite(blackTexture);
+  lightSwitchRiddle.anchor.set(0.9);
+  lightSwitchRiddle.x = 590;
+  lightSwitchRiddle.y = 450;
+
+  lightSwitchRiddle.interactive = true;
+  lightSwitchRiddle.buttonMode = true;
+
+
   // lightSwitch.beginFill(0xffffff, 0.1);
   // lightSwitch.drawRect(540, 410, 30, 30);
   // lightSwitch.endFill();
@@ -162,6 +172,7 @@ export function setItems(items, app) {
     greenCardSlot,
     orangeCardSlot,
     blueCardSlot,
+    lightSwitchRiddle
   };
 }
 

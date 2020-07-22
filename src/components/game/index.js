@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-import GetUserName from "../promptWindow";
+// import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -18,7 +18,6 @@ export default function Game(props) {
   //let config = {};
   const userName = props.userName;
   const wantsToPlay = props.wantsToPlay;
-
   // Predefine all variables before scope.
 
   useLayoutEffect(() => {
@@ -38,10 +37,10 @@ export default function Game(props) {
         .add("box", require("../../assets/objects/boxandothers.png"));
 
       //  let config =
-      props.app.loader.load(setup({}));
+      props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
-  }, []);
+  },[assetReducer.loaded]);
 
   //Add Containers
   let corner = new PIXI.Container();
@@ -224,30 +223,31 @@ export default function Game(props) {
   };
 
   let lightOn = () => {
-    if (frontDoor.mask === focus1) {
-      console.log("frontdoor lightOn", frontDoor);
-      console.log("frontdoor mask lightOn", frontDoor.mask);
-      console.log("focus", focus1);
-      frontDoor.mask = false;
-      roomBack.mask = false;
-      innerCell.mask = false;
-      corner.mask = false;
-      props.app.stage.children[7].visible = false;
-      // props.app.stage.children[6].visible = false;
-    } else {
-      frontDoor.mask = focus1;
-      roomBack.mask = focus1;
-      innerCell.mask = focus1;
+
+    console.log(props);
+
+    if(frontDoor.mask === focus1)
+    {
+    corner.mask = false;
+    innerCell.mask = false;
+    roomBack.mask = false;
+    frontDoor.mask = false;
+    }
+    else{
       corner.mask = focus1;
+    innerCell.mask = focus1;
+    roomBack.mask = focus1;
+    frontDoor.mask = focus1;
+    
     }
   };
-
   let turnOnLight = () => {
-    frontDoor.mask = false;
-    roomBack.mask = false;
-    innerCell.mask = false;
-    corner.mask = false;
-    props.app.stage.children[7].visible = false;
+    // frontDoor.mask = false;
+    // roomBack.mask = false;
+    // innerCell.mask = false;
+    // corner.mask = false;
+    // props.app.stage.children[7].visible = false;
+    lightOn();
   };
 
   let lightOnWithFlashLight = () => {
@@ -329,7 +329,8 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
-    // objects.lightSwitch.on("pointerdown", displaySecondRiddle);
+    objects.lightSwitch.on("pointerdown", lightOn);
+    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle)
 
     //Objects
     //Visible
@@ -340,7 +341,7 @@ export default function Game(props) {
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
-    objects.lightSwitch.on("pointerdown", lightOn);
+    // objects.lightSwitch.on("pointerdown", lightOn);
     // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
@@ -348,7 +349,6 @@ export default function Game(props) {
 
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
-
     // removes key  from drawer from corner for now - to add it when riddle solved
     corner.addChild(drawer);
     roomBack.addChild(
@@ -360,7 +360,6 @@ export default function Game(props) {
     );
 
     // 350 Define Names for Objects and parts of room.
-
     //  pc = props.app.stage.children[8];
 
     greenCard = roomBack.children[2];
@@ -378,6 +377,7 @@ export default function Game(props) {
     roomBack.visible = false;
     frontDoor.visible = false;
     objects.lightSwitch.visible = false;
+    objects.lightSwitchRiddle.visible = false;
 
     // Adding Screens and Interface to Stage
     props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
@@ -385,14 +385,19 @@ export default function Game(props) {
 
     props.app.stage.addChild(left, right, objects.lightSwitch);
 
+
     left.visible = false;
     right.visible = false;
 
     //4 = left, 5 = right, 6 = objects.lightSwitch?
-
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
     props.app.stage.children[7].visible = false;
+    
+    props.app.stage.addChild(objects.lightSwitchRiddle);
+    // props.app.stage.children[6].visible = false;
+    // props.app.stage.children[8].visible = false;
+    
 
     corner.mask = focus1;
     innerCell.mask = focus1;
@@ -423,14 +428,18 @@ export default function Game(props) {
   // Trying to create fields..
 
   if (props.app.stage.children.length) {
-    props.app.stage.children[6].visible = false;
+  
+  
+          props.app.stage.children[6].visible = false;
+          props.app.stage.children[9].visible = false;
+      
+  
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
     innerCellField.visible = false;
 
     // This step is a bit difficult. And does nnot update a second time.
-    console.log("here we are");
 
     //pointer for dark
 
@@ -442,7 +451,10 @@ export default function Game(props) {
         break;
       case 2:
         //FrontDoor
-        props.app.stage.children[6].visible = true;
+         assetReducer.solved.riddle2 === true? 
+          props.app.stage.children[6].visible = true:
+          props.app.stage.children[9].visible = true;          
+      
         props.app.stage.children[2].visible = true;
         props.app.stage.children[8].visible = false;
 
@@ -464,7 +476,6 @@ export default function Game(props) {
 
   // Working on Sheets
   // Sheets for diverse items which have just one state inside screen or inventory
-
   function createScopeSheet() {
     let scopeSheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["scope"].url
@@ -499,26 +510,6 @@ export default function Game(props) {
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
   }
-
-  // function createEyePointer(){
-
-  //  let eyeFocused = new PIXI.BaseTexture.from(
-  //     props.app.loader.resources["eyeFocused"].url
-  //   );
-
-  //   let eyeUnfocused = new PIXI.BaseTexture.from(
-  //     props.app.loader.resources["eyeUnfocused"].url
-  //   );
-
-  //   eye["focused"] = [
-  //     new PIXI.Texture(eyeFocused, new PIXI.Rectangle(0, 0, 32, 32))
-  //   ];
-  //   eye["unfocused"] = [
-  //     new PIXI.Texture(eyeUnfocused, new PIXI.Rectangle(0, 0 ,32, 32))
-  //   ]
-  // }
-
-  // Sheets with items which have more than one state.
 
   function createArrowSheet() {
     let asheet = new PIXI.BaseTexture.from(
@@ -592,8 +583,9 @@ export default function Game(props) {
   }
 
   if (assetReducer.solved.riddle2 === true) {
-    console.log("should turn on the light!!!");
-    turnOnLight();
+    // turnOnLight();
+    // props.app.stage.children[6].on("pointerdown", lightOn);
+    // props.app.stage.children[6].visible = false;
   }
 
   // turn on the light when riddle2 is solved
@@ -605,7 +597,10 @@ export default function Game(props) {
 
   return (
     <div id="pixi-container">
-      {!userName && !wantsToPlay && <GetUserName />}
+      {/* {!userName && !wantsToPlay && <GetUserName />} */}
     </div>
   );
 }
+
+
+//  props.app.stage.children[6].visible LightSwitch (Riddle)
