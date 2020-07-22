@@ -65,7 +65,6 @@ export default function Game(props) {
   let yellowCard = "";
   let orangeCard = "";
   let config = "";
-
   let doorKey = corner.children[2];
   let pc = ""
   let door = ""
@@ -164,6 +163,7 @@ export default function Game(props) {
 
     // greenSlot.off("pointerdown", withoutGreenCard);
     // greenSlot.on("pointerdown", openBox);
+
   }
 
   function takeIDCard2() {
@@ -193,6 +193,7 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     // config.door.off("pointerdown", closedDoor);
     // config.door.on("pointerdown", openDoor);
+
   }
 
   function takeFlashLight() {
@@ -296,7 +297,7 @@ export default function Game(props) {
 
   //Setup All Objects/Furniture and RoomParts
 
-  function setup() {
+  function setup(config) {
     // Preparing Sheets
     createDrawerSheet();
     createArrowSheet();
@@ -358,7 +359,6 @@ export default function Game(props) {
     yellowCard = roomBack.children[4];
     orangeCard = roomBack.children[5];
 
-    
     innerCell.addChild(
       objects.greenCardSlot,
       objects.orangeCardSlot,
@@ -409,7 +409,6 @@ export default function Game(props) {
       drawer : corner.children[1]
     }
   
- // Setup is finished 
   }
 
   //End of Setup.
