@@ -240,7 +240,6 @@ export default function Game(props) {
     frontDoor.mask = focus1;
     
     }
- 
   };
   let turnOnLight = () => {
     // frontDoor.mask = false;
