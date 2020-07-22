@@ -201,6 +201,7 @@ export default function Game(props) {
   };
 
   let lightOn = () => {
+    console.log("from lightOn", frontDoor.mask);
     if (frontDoor.mask === focus1) {
       frontDoor.mask = false;
       roomBack.mask = false;
@@ -214,6 +215,14 @@ export default function Game(props) {
       innerCell.mask = focus1;
       corner.mask = focus1;
     }
+  };
+  let turnOnLight = () => {
+    console.log("from turnOn", frontDoor.mask);
+    frontDoor.mask = false;
+    roomBack.mask = false;
+    innerCell.mask = false;
+    corner.mask = false;
+    console.log("from turnOn2", frontDoor.mask);
   };
 
   let lightOnWithFlashLight = () => {
@@ -307,7 +316,7 @@ export default function Game(props) {
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
-    objects.lightSwitch.on("pointerdown", lightOn);
+    objects.lightSwitch.on("pointerdown", displaySecondRiddle);
     // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
@@ -392,14 +401,16 @@ export default function Game(props) {
 
     // turn on the light when riddle2 is solved
     if (assetReducer.solved.riddle2 === true) {
-      // lightOn()
+      console.log("shoud turn on the light!!!");
+      turnOnLight();
     }
+
     // displays key when riddle3 is solved
     if (assetReducer.solved.riddle3 === true) {
-      let objects = setItems(items, props.app);
-      corner.addChild(objects.key);
-      corner.children[2].visible = true;
-      console.log("HERE", assetReducer.solved.riddle3);
+      // let objects = setItems(items, props.app);
+      // corner.addChild(objects.key);
+      // corner.children[2].visible = true;
+      // console.log("HERE", assetReducer.solved.riddle3);
     }
 
     //pointer for dark
@@ -557,7 +568,9 @@ export default function Game(props) {
   const userName = props.userName;
   const wantsToPlay = props.wantsToPlay;
 
-  return <div id="pixi-container">
-        {!userName && !wantsToPlay && <GetUserName />}
-  </div>;
+  return (
+    <div id="pixi-container">
+      {!userName && !wantsToPlay && <GetUserName />}
+    </div>
+  );
 }
