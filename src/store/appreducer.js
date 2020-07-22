@@ -117,6 +117,7 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         solved: {
+          ...state.solved,
           riddle1: true,
         },
       };
@@ -124,6 +125,7 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         solved: {
+          ...state.solved,
           riddle2: true,
         },
       };
@@ -131,6 +133,7 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         solved: {
+          ...state.solved,
           riddle3: true,
         },
       };
