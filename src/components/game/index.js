@@ -224,10 +224,17 @@ export default function Game(props) {
   };
 
   let lightOn = () => {
+
+    console.log(props.app.stage.children[1]);
+    // props.app.stage.children[1].mask.visible = false;
+    
+    if(props.app.stage.children[2].mask.visible === false)
+    {props.app.stage.children[2].mask.visible = true;
+    }else{
+     props.app.stage.children[2].mask.visible = false;
+    }
+
     if (frontDoor.mask === focus1) {
-      console.log("frontdoor lightOn", frontDoor);
-      console.log("frontdoor mask lightOn", frontDoor.mask);
-      console.log("focus", focus1);
       frontDoor.mask = false;
       roomBack.mask = false;
       innerCell.mask = false;
@@ -240,14 +247,17 @@ export default function Game(props) {
       innerCell.mask = focus1;
       corner.mask = focus1;
     }
+
   };
 
   let turnOnLight = () => {
+    console.log("zaz");
     frontDoor.mask = false;
     roomBack.mask = false;
     innerCell.mask = false;
     corner.mask = false;
     props.app.stage.children[7].visible = false;
+    lightOn();
   };
 
   let lightOnWithFlashLight = () => {
@@ -605,7 +615,7 @@ export default function Game(props) {
 
   return (
     <div id="pixi-container">
-      {!userName && !wantsToPlay && <GetUserName />}
+      {/* {!userName && !wantsToPlay && <GetUserName />} */}
     </div>
   );
 }
