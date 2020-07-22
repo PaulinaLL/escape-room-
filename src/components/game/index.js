@@ -592,5 +592,6 @@ export default function Game(props) {
 
   return <div id="pixi-container">
         {/* {!userName && !wantsToPlay && <GetUserName />} */}
+
   </div>;
 }
