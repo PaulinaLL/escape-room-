@@ -1,7 +1,4 @@
 import * as PIXI from "pixi.js";
-// import { leftOver } from "./buttons.js";
-// import { pcRiddleDisplay } from "./pc.js";
-// import { drawerRiddleDisplay } from "./drawer.js";
 
 export function createUserInterface(arrowSheet, app) {
   const left = new PIXI.Sprite(arrowSheet.left[0]);
@@ -175,17 +172,16 @@ export function createDrawer(furnitureSheet) {
   drawer.buttonMode = true;
   drawer.interactive = true;
   drawer.on("pointerover", onPointerOver).on("pointerout", onPointerOut);
-  // .on("pointerdown", drawerRiddleDisplay);
 
   function onPointerOver(event) {
     event.stopPropagation();
     const valueY = Object.values(event.data.global)[1];
 
-    if (valueY >= 440 && valueY <= 499) {
+    if (valueY >= 440 && valueY <= 509) {
       this.texture = furnitureSheet.open4[0];
-    } else if (valueY >= 500 && valueY <= 569) {
-      this.texture = furnitureSheet.open3[0];
-    } else if (valueY >= 570 && valueY <= 639) {
+    } else if (valueY >= 510 && valueY <= 559) {
+      this.texture = furnitureSheet.closed[0];
+    } else if (valueY >= 560 && valueY <= 639) {
       this.texture = furnitureSheet.open2[0];
     } else if (valueY >= 640 && valueY <= 699) {
       this.texture = furnitureSheet.open1[0];
