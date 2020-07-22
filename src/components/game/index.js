@@ -329,7 +329,7 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
-    objects.lightSwitch.on("pointerdown", displaySecondRiddle);
+    // objects.lightSwitch.on("pointerdown", displaySecondRiddle);
 
     //Objects
     //Visible
@@ -340,7 +340,7 @@ export default function Game(props) {
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
-    // objects.lightSwitch.on("pointerdown", lightOn);
+    objects.lightSwitch.on("pointerdown", lightOn);
     // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
