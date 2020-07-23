@@ -72,11 +72,14 @@ function appReducer(state = initialState, action) {
         ...state,
         idCard3: { collected: true, pictureID: "idCard3" },
       };
-
     case "TAKE_KEY":
       return {
         ...state,
         key: { collected: true, pictureID: "key" },
+        solved: {
+          ...state.solved,
+          riddle3: false,
+        },
       };
     case "TAKE_FLASHLIGHT":
       return {
