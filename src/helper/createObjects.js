@@ -160,13 +160,15 @@ export function setItems(items, app) {
   pcLight.drawRect(540, 410, 30, 30);
 
   const escapeDoor = new PIXI.Graphics();
-  escapeDoor.beginFill(0xffffff, 1);
+  escapeDoor.beginFill(0xffffff, 0.001);
   escapeDoor.drawRect(300, 280, 200, 330);
   setBasics(escapeDoor);
 
   const safe = new PIXI.Graphics();
-  safe.beginFill(0xffffff, 1);
-  safe.drawRect(100, 350, 50, 50);
+
+  safe.beginFill(0xffffff, 0.001);
+  //Left, Top,Width,Height,
+  safe.drawRect(120, 500, 120, 140);
   setBasics(safe);
 
   //SendBack to Game
@@ -184,6 +186,7 @@ export function setItems(items, app) {
     blueCardSlot,
     lightSwitchRiddle,
     escapeDoor,
+    safe,
   };
 }
 

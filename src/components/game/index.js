@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-// import GetUserName from "../promptWindow";
+import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -161,7 +161,6 @@ export default function Game(props) {
     greenCard = roomBack.children[2];
     greenCard.visible = false;
     // props.app.stage.children[8].visible = false;
-
     // greenSlot.off("pointerdown", withoutGreenCard);
     // greenSlot.on("pointerdown", openBox);
     // dispatch({ type: "TAKE_IDCARD3" });
@@ -191,6 +190,7 @@ export default function Game(props) {
     doorKey = corner.children[2];
     // door = roomBack.children[1];
     door = props.app.stage.children[1].children[2];
+
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
@@ -222,6 +222,15 @@ export default function Game(props) {
     console.log("No Key");
   };
 
+  let code = () => {
+    dispatch({ type: "CODE" });
+    console.log("need a code");
+  };
+
+  let sealed = () => {
+    dispatch({ type: "NO_ESCAPE" });
+    console.log("cannot esape");
+  };
   let openDoor = () => {
     // dispatch open door, sets the key visibility in the collection to false
     dispatch({ type: "OPEN_DOOR" });
@@ -347,6 +356,10 @@ export default function Game(props) {
     objects.key.on("pointerdown", takeKey);
     //Interactions
     objects.door.on("pointerdown", closedDoor);
+
+    //FrontDoor
+    objects.safe.on("pointerdown", code);
+    objects.escapeDoor.on("pointerdown", sealed);
     // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
@@ -375,7 +388,8 @@ export default function Game(props) {
     );
 
     frontDoor.addChild(
-      objects.escapeDoor //FrontDoor Object Nr 1
+      objects.escapeDoor,
+      objects.safe //FrontDoor Object Nr 1
       // objects.safe      //FrontDoor Nr 2
     );
 
@@ -610,7 +624,7 @@ export default function Game(props) {
 
   return (
     <div id="pixi-container">
-      {/* {!userName && !wantsToPlay && <GetUserName />} */}
+      {!userName && !wantsToPlay && <GetUserName />}
     </div>
   );
 }
