@@ -395,6 +395,7 @@ export default function Game(props) {
       // objects.safe FrontDoor Nr 2
       // GreenCard Nr3
     );
+    objects.idCard1.visible = false;
 
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
@@ -623,6 +624,11 @@ export default function Game(props) {
       "pointerdown",
       displayThirdRiddle
     );
+  }
+
+  if (assetReducer.solved.riddle4 === true) {
+    // green cards gets visible:
+    props.app.stage.children[2].children[3].visible = true;
   }
 
   return (
