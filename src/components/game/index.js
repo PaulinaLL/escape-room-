@@ -155,6 +155,7 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
+    greenCard = roomBack.children[2];
     greenCard.visible = false;
     // props.app.stage.children[8].visible = false;
 
@@ -164,7 +165,7 @@ export default function Game(props) {
 
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card (without flashlight 4)
-    //  yellowCard = roomBack.children[4];
+    yellowCard = roomBack.children[4];
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
@@ -183,7 +184,7 @@ export default function Game(props) {
     //corner child2 is key
     doorKey = corner.children[2];
     // door = roomBack.children[1];
-    door =  props.app.stage.children[1].children[3];
+    door = props.app.stage.children[1].children[3];
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
@@ -229,19 +230,16 @@ export default function Game(props) {
   let lightOn = () => {
     console.log(props);
 
-    if(frontDoor.mask === focus1)
-    {
-    corner.mask = false;
-    innerCell.mask = false;
-    roomBack.mask = false;
-    frontDoor.mask = false;
-    }
-    else{
-    corner.mask = focus1;
-    innerCell.mask = focus1;
-    roomBack.mask = focus1;
-    frontDoor.mask = focus1;
-    
+    if (frontDoor.mask === focus1) {
+      corner.mask = false;
+      innerCell.mask = false;
+      roomBack.mask = false;
+      frontDoor.mask = false;
+    } else {
+      corner.mask = focus1;
+      innerCell.mask = focus1;
+      roomBack.mask = focus1;
+      frontDoor.mask = focus1;
     }
   };
 
@@ -362,9 +360,9 @@ export default function Game(props) {
     );
 
     frontDoor.addChild(
-      objects.escapeDoor, //FrontDoor Object Nr 1
+      objects.escapeDoor //FrontDoor Object Nr 1
       // objects.safe      //FrontDoor Nr 2
-    )
+    );
 
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
@@ -386,14 +384,14 @@ export default function Game(props) {
     props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
     props.app.stage.addChild(left, right, objects.lightSwitch);
     // Adding Arrows
-    
+
     left.visible = false;
     right.visible = false;
 
     //4 = left, 5 = right, 6 = objects.lightSwitch?
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
-    props.app.stage.children[7].visible = false;    
+    props.app.stage.children[7].visible = false;
     props.app.stage.addChild(objects.lightSwitchRiddle);
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
@@ -425,10 +423,9 @@ export default function Game(props) {
   // Trying to create fields..
 
   if (props.app.stage.children.length) {
-  
-          props.app.stage.children[6].visible = false;
-          props.app.stage.children[9].visible = false; 
-          
+    props.app.stage.children[6].visible = false;
+    props.app.stage.children[9].visible = false;
+
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
@@ -445,11 +442,11 @@ export default function Game(props) {
         break;
       case 2:
         //FrontDoor
-         assetReducer.solved.riddle2 === true? 
-          props.app.stage.children[6].visible = true:
-          props.app.stage.children[9].visible = true;          
-          props.app.stage.children[2].visible = true;
-          props.app.stage.children[8].visible = false;
+        assetReducer.solved.riddle2 === true
+          ? (props.app.stage.children[6].visible = true)
+          : (props.app.stage.children[9].visible = true);
+        props.app.stage.children[2].visible = true;
+        props.app.stage.children[8].visible = false;
         break;
       case 3:
         //InnerCell
@@ -575,7 +572,7 @@ export default function Game(props) {
     props.app.stage.children[8].visible = false;
   }
 
-  if(assetReducer.solved.riddle2Voucher === true){
+  if (assetReducer.solved.riddle2Voucher === true) {
     props.app.stage.children[2].mask = false;
     props.app.stage.children[1].mask = false;
     props.app.stage.children[3].mask = false;
