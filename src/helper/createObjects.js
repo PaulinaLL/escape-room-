@@ -53,7 +53,7 @@ export function setItems(items, app) {
   key.interactive = true;
   key.buttonMode = true;
   key.x = 600;
-  key.y = 590;
+  key.y = 510;
   key.height = 90;
   key.width = 90;
 
@@ -136,7 +136,6 @@ export function setItems(items, app) {
   lightSwitch.interactive = true;
   lightSwitch.buttonMode = true;
 
-
   const lightSwitchRiddle = new PIXI.Sprite(blackTexture);
   lightSwitchRiddle.anchor.set(0.9);
   lightSwitchRiddle.x = 590;
@@ -144,7 +143,6 @@ export function setItems(items, app) {
 
   lightSwitchRiddle.interactive = true;
   lightSwitchRiddle.buttonMode = true;
-
 
   
   const setBasics = (object) => {
@@ -154,7 +152,6 @@ export function setItems(items, app) {
     object.lineStyle(0);
     return object;  
   }
-
 
   const pcLight = new PIXI.Graphics();
   setBasics(pcLight);
