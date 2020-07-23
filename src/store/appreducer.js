@@ -31,6 +31,7 @@ const initialState = {
   solved: {
     riddle1: false,
     riddle2: false,
+    riddle2Voucher: false,
     riddle3: false,
   },
 };
@@ -127,6 +128,7 @@ function appReducer(state = initialState, action) {
         solved: {
           ...state.solved,
           riddle2: true,
+          riddle2Voucher: true,
         },
       };
     case "SOLVED_RIDDLE_3":

@@ -234,7 +234,7 @@ export default function Game(props) {
     frontDoor.mask = false;
     }
     else{
-      corner.mask = focus1;
+    corner.mask = focus1;
     innerCell.mask = focus1;
     roomBack.mask = focus1;
     frontDoor.mask = focus1;
@@ -398,7 +398,6 @@ export default function Game(props) {
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
     
-
     corner.mask = focus1;
     innerCell.mask = focus1;
     roomBack.mask = focus1;
@@ -429,15 +428,14 @@ export default function Game(props) {
 
   if (props.app.stage.children.length) {
   
-  
           props.app.stage.children[6].visible = false;
-          props.app.stage.children[9].visible = false;
-      
-  
+          props.app.stage.children[9].visible = false; 
+          
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
     innerCellField.visible = false;
+
 
     // This step is a bit difficult. And does nnot update a second time.
 
@@ -454,9 +452,8 @@ export default function Game(props) {
          assetReducer.solved.riddle2 === true? 
           props.app.stage.children[6].visible = true:
           props.app.stage.children[9].visible = true;          
-      
-        props.app.stage.children[2].visible = true;
-        props.app.stage.children[8].visible = false;
+          props.app.stage.children[2].visible = true;
+          props.app.stage.children[8].visible = false;
 
         break;
       case 3:
@@ -576,16 +573,17 @@ export default function Game(props) {
   }
 
   //State for Solved riddles
-  if (assetReducer.solved.riddle1 === true) {
+  if (assetReducer.solved.riddle1 === true && props.app.stage.children[8].visible === true) {
     leftArrow.visible = true;
     rightArrow.visible = true;
     props.app.stage.children[8].visible = false;
   }
 
-  if (assetReducer.solved.riddle2 === true) {
-    // turnOnLight();
-    // props.app.stage.children[6].on("pointerdown", lightOn);
-    // props.app.stage.children[6].visible = false;
+  if(assetReducer.solved.riddle2Voucher === true){
+    props.app.stage.children[2].mask = false;
+    props.app.stage.children[1].mask = false;
+    props.app.stage.children[3].mask = false;
+    props.app.stage.children[0].mask = false;
   }
 
   // turn on the light when riddle2 is solved
@@ -601,6 +599,5 @@ export default function Game(props) {
     </div>
   );
 }
-
 
 //  props.app.stage.children[6].visible LightSwitch (Riddle)
