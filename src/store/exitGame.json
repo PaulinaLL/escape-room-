@@ -23,6 +23,12 @@
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
+    "4": {
+      "id": 4,
+      "text": "ORANGE SLOT Create a function that encode the secret message to get a hint",
+      "correctAnswer": "answer",
+      "hints": ["some", "another"]
+    },
     "5": {
       "id": 5,
       "text": "dummy description 5 OPEN BOX",
