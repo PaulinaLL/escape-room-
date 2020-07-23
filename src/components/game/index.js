@@ -183,7 +183,8 @@ export default function Game(props) {
     //corner child2 is key
     doorKey = corner.children[2];
     // door = roomBack.children[1];
-    door = props.app.stage.children[1].children[1];
+    door =  props.app.stage.children[1].children[3];
+    // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
     // props.app.stage.children[8].visible = true;
@@ -216,9 +217,9 @@ export default function Game(props) {
     // dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
     // door to the innercell
-    // roomBack.children[1].visible = false;
-    // roomBack.children[3].off("pointerdown", closedDoor);
-    // roomBack.children[3].on("pointerdown", goToInner);
+    roomBack.children[1].visible = false;
+    roomBack.children[3].off("pointerdown", closedDoor);
+    roomBack.children[3].on("pointerdown", goToInner);
   };
 
   let goToInner = () => {

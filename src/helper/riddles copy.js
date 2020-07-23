@@ -12,7 +12,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "greet",
         startCode: `
     function greet(person) {
-      if (person.name = { name: "${userCTX.userName}" } ) {
+      if (person.name == { name: "${userCTX.userName}" } ) {
         return "hey ${userCTX.userName}";
       } else {
         return "hey stranger";
@@ -37,9 +37,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "textToBinary",
         startCode: `
     function textToBinary(string) {
-      return string.split('').map(function (char) { 
-        return char.charCodeAt(0).toString(2); })
-        .join(' ');        
+  
     }
           `,
       },
@@ -63,20 +61,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "uniqueCharacters",
         startCode: `
     function uniqueCharacters(word) {
-      const objectOfLetters = word.split("").reduce((acc, cur) => {
-        if (acc[cur]) {
-          acc[cur] += 1;
-        } else {
-          acc[cur] = 1;
-        }    return acc;
-      }, {});
   
-      //   console.log(objectOfLetters);  
-    
-    const result = Object.values(objectOfLetters).filter((x) => x > 1);  
-    //   console.log("result", result);
-     return result.length === 0 ? true : false;
-    
     }
           `,
       },
