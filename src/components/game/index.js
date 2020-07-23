@@ -63,8 +63,8 @@ export default function Game(props) {
   let yellowCard = "";
   let orangeCard = "";
   let config = "";
-  let doorKey = corner.children[2];
-  // let doorKey = "";
+  // let doorKey = corner.children[2];
+  let doorKey = "";
   let pc = "";
   let door = "";
   let flashLight = "";
@@ -181,11 +181,14 @@ export default function Game(props) {
 
   function takeKey() {
     //corner child2 is key
-    // doorKey = corner.children[2];
-    // doorKey.visible = false;
+    doorKey = corner.children[2];
+    // door = roomBack.children[1];
+    door = props.app.stage.children[1].children[1];
     dispatch({ type: "TAKE_KEY" });
+    doorKey.visible = false;
     // props.app.stage.children[8].visible = true;
-
+    door.off("pointerdown", closedDoor);
+    door.on("pointerdown", openDoor);
     // config.greenCard.visible = false;
     // config.door.off("pointerdown", closedDoor);
     // config.door.on("pointerdown", openDoor);
@@ -210,12 +213,12 @@ export default function Game(props) {
   };
 
   let openDoor = () => {
-    dispatch({ type: "OPEN_DOOR" });
+    // dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
     // door to the innercell
-    roomBack.children[1].visible = false;
-    roomBack.children[3].off("pointerdown", closedDoor);
-    roomBack.children[3].on("pointerdown", goToInner);
+    // roomBack.children[1].visible = false;
+    // roomBack.children[3].off("pointerdown", closedDoor);
+    // roomBack.children[3].on("pointerdown", goToInner);
   };
 
   let goToInner = () => {
@@ -239,14 +242,6 @@ export default function Game(props) {
     frontDoor.mask = focus1;
     
     }
-  };
-  let turnOnLight = () => {
-    // frontDoor.mask = false;
-    // roomBack.mask = false;
-    // innerCell.mask = false;
-    // corner.mask = false;
-    // props.app.stage.children[7].visible = false;
-    lightOn();
   };
 
   let lightOnWithFlashLight = () => {
@@ -419,6 +414,7 @@ export default function Game(props) {
       orangeCard: roomBack.children[5],
       door: roomBack.children[2],
       drawer: corner.children[1],
+      doorKey: corner.children[2],
     };
   }
   //End of Setup.
@@ -569,7 +565,10 @@ export default function Game(props) {
   }
 
   //State for Solved riddles
-  if (assetReducer.solved.riddle1 === true && props.app.stage.children[8].visible === true) {
+  if (
+    assetReducer.solved.riddle1 === true &&
+    props.app.stage.children[8].visible === true
+  ) {
     leftArrow.visible = true;
     rightArrow.visible = true;
     props.app.stage.children[8].visible = false;
@@ -582,17 +581,18 @@ export default function Game(props) {
     props.app.stage.children[0].mask = false;
   }
 
-  // turn on the light when riddle2 is solved
+  // gives the key when the drawer riddle is solved
   if (assetReducer.solved.riddle3 === true) {
-    console.log("change things for riddle3");
-    // corner is a container, doorKey and corner.children[2] are undefinded
-    console.log(corner);
-    console.log(doorKey);
-    console.log(corner.children);
-    // doorKey = corner.children[2];
-    // doorKey.visible = true;
-    // takeKey();
+    // console.log("change things for riddle3");
+    // props.app.stage.children[0].children[1] = drawer
+    // props.app.stage.children[0].children[2] = key
+    props.app.stage.children[0].children[2].visible = true;
+    // openDoor();
     // config.drawer.off("pointerdown", displayThirdRiddle);
+    props.app.stage.children[0].children[1].off(
+      "pointerdown",
+      displayThirdRiddle
+    );
   }
 
   return (
