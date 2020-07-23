@@ -29,24 +29,26 @@ export function setItems(items, app) {
   const key = new PIXI.Sprite(items.key[0]);
   const flashLight = new PIXI.Sprite(items.flashLight[0]);
 
+  //green
   idCard1.interactive = true;
   idCard1.buttonMode = true;
-  idCard1.x = 570;
-  idCard1.y = 440;
+  idCard1.x = 110;
+  idCard1.y = 490;
   idCard1.height = 70;
   idCard1.width = 70;
 
+  //yellow
   idCard2.interactive = true;
   idCard2.buttonMode = true;
-  idCard2.x = 390;
-  idCard2.y = 390;
+  idCard2.x = 570;
+  idCard2.y = 440;
   idCard2.height = 70;
   idCard2.width = 70;
-
+  // orange
   idCard3.interactive = true;
   idCard3.buttonMode = true;
-  idCard3.x = 410;
-  idCard3.y = 250;
+  idCard3.x = 420;
+  idCard3.y = 300;
   idCard3.height = 70;
   idCard3.width = 70;
 
@@ -144,39 +146,38 @@ export function setItems(items, app) {
   lightSwitchRiddle.interactive = true;
   lightSwitchRiddle.buttonMode = true;
 
-  
   const setBasics = (object) => {
     object.interactive = true;
     object.buttonMode = true;
     object.endFill();
     object.lineStyle(0);
-    return object;  
-  }
+    return object;
+  };
 
   const pcLight = new PIXI.Graphics();
   setBasics(pcLight);
   pcLight.beginFill(0xffffff, 0.1);
   pcLight.drawRect(540, 410, 30, 30);
-  
 
   const escapeDoor = new PIXI.Graphics();
-  escapeDoor.beginFill(0xffffff, 0.001);    
+  escapeDoor.beginFill(0xffffff, 0.001);
   escapeDoor.drawRect(300, 280, 200, 330);
   setBasics(escapeDoor);
 
   const safe = new PIXI.Graphics();
+
   safe.beginFill(0xffffff, 0.001);
-  //Left, Top,Width,Height, 
-  safe.drawRect(120,500, 120, 140)
+  //Left, Top,Width,Height,
+  safe.drawRect(120, 500, 120, 140);
   setBasics(safe);
 
   //SendBack to Game
   return {
-    idCard1, 
+    idCard1,
     idCard2,
     idCard3,
     key,
-    door,         //5
+    door, //5
     lightSwitch,
     flashLight,
     pcLight,
@@ -185,7 +186,7 @@ export function setItems(items, app) {
     blueCardSlot,
     lightSwitchRiddle,
     escapeDoor,
-    safe
+    safe,
   };
 }
 
