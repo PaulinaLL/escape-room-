@@ -12,7 +12,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "greet",
         startCode: `
     function greet(person) {
-      if (person.name = { name: "${userCTX.userName}" } ) {
+      if (person.name ==  "${userCTX.userName}"  ) {
         return "hey ${userCTX.userName}";
       } else {
         return "hey stranger";
@@ -39,7 +39,8 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
     function textToBinary(string) {
       return string.split('').map(function (char) { 
         return char.charCodeAt(0).toString(2); })
-        .join(' ');        
+      .join(' ');
+        
     }
           `,
       },
@@ -70,13 +71,8 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
           acc[cur] = 1;
         }    return acc;
       }, {});
-  
-      //   console.log(objectOfLetters);  
-    
     const result = Object.values(objectOfLetters).filter((x) => x > 1);  
-    //   console.log("result", result);
      return result.length === 0 ? true : false;
-    
     }
           `,
       },
@@ -98,7 +94,26 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "extractHint",
         startCode: `
     function extractHint(message) {
-  
+      let letterWithFreq = {};
+      message.split("").forEach((char) => {
+      
+      if (letterWithFreq[char]) {
+      letterWithFreq[char] = letterWithFreq[char] + 1;
+      } else {
+      letterWithFreq[char] = 1;
+      }
+      });
+      
+      let keysSorted = Object.keys(letterWithFreq).sort(function (a, b) {
+      return letterWithFreq[b] - letterWithFreq[a];
+      });
+      
+      let indexOfDash = keysSorted.indexOf("_");
+      
+      let result = keysSorted.slice(0, indexOfDash).join("");
+      
+      return result;
+      }
     }
     console.log(extraHint(message))
           `,
@@ -120,7 +135,9 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "canCapture",
         startCode: `
     function canCapture([yourShip, opponentsShip]) {
-  
+      let toArr1 = Array.from(yourShip);
+      let toArr2 = Array.from(opponentsShip);
+     return ((toArr1[0] === toArr2[0]) || (toArr1[1] === toArr2[1]));
     }
           `,
       },
