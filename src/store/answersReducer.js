@@ -69,6 +69,15 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[3].text,
         },
       };
+    case "SELECT_ORANGE_SLOT":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 4,
+          text: data.riddleDescription[4].text,
+        },
+      };
+
     case "OPEN_DOOR":
       return {
         ...state,

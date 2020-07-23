@@ -113,9 +113,8 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
       let result = keysSorted.slice(0, indexOfDash).join("");
       
       return result;
-      }
+      
     }
-    console.log(extraHint(message))
           `,
       },
       check: {
