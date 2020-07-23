@@ -40,7 +40,7 @@ export default function Game(props) {
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
     }
-  },[assetReducer.loaded]);
+  }, [assetReducer.loaded]);
 
   //Add Containers
   let corner = new PIXI.Container();
@@ -64,6 +64,7 @@ export default function Game(props) {
   let orangeCard = "";
   let config = "";
   let doorKey = corner.children[2];
+  // let doorKey = "";
   let pc = "";
   let door = "";
   let flashLight = "";
@@ -155,8 +156,8 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
-
-    props.app.stage.children[8].visible = false;
+    greenCard.visible = false;
+    // props.app.stage.children[8].visible = false;
 
     // greenSlot.off("pointerdown", withoutGreenCard);
     // greenSlot.on("pointerdown", openBox);
@@ -183,8 +184,8 @@ export default function Game(props) {
     //corner child2 is key
     // doorKey = corner.children[2];
     // doorKey.visible = false;
-    // dispatch({ type: "TAKE_KEY" });
-    props.app.stage.children[8].visible = true;
+    dispatch({ type: "TAKE_KEY" });
+    // props.app.stage.children[8].visible = true;
 
     // config.greenCard.visible = false;
     // config.door.off("pointerdown", closedDoor);
@@ -223,7 +224,6 @@ export default function Game(props) {
   };
 
   let lightOn = () => {
-
     console.log(props);
 
     if(frontDoor.mask === focus1)
@@ -330,14 +330,14 @@ export default function Game(props) {
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
     objects.lightSwitch.on("pointerdown", lightOn);
-    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle)
+    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle);
 
     //Objects
     //Visible
     objects.idCard1.on("pointerdown", takeIDCard1);
     objects.idCard2.on("pointerdown", takeIDCard2);
     objects.idCard3.on("pointerdown", takeIDCard3);
-    //    objects.key.on("pointerdown", takeKey);
+    objects.key.on("pointerdown", takeKey);
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
@@ -350,7 +350,8 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    corner.addChild(drawer);
+    corner.addChild(drawer, objects.key);
+    objects.key.visible = false;
     roomBack.addChild(
       objects.idCard1,
       objects.door,
@@ -385,7 +386,6 @@ export default function Game(props) {
 
     props.app.stage.addChild(left, right, objects.lightSwitch);
 
-
     left.visible = false;
     right.visible = false;
 
@@ -393,11 +393,11 @@ export default function Game(props) {
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
     props.app.stage.children[7].visible = false;
-    
+
     props.app.stage.addChild(objects.lightSwitchRiddle);
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
-    
+
     corner.mask = focus1;
     innerCell.mask = focus1;
     roomBack.mask = focus1;
@@ -589,7 +589,13 @@ export default function Game(props) {
   // turn on the light when riddle2 is solved
   if (assetReducer.solved.riddle3 === true) {
     console.log("change things for riddle3");
-    takeKey();
+    // corner is a container, doorKey and corner.children[2] are undefinded
+    console.log(corner);
+    console.log(doorKey);
+    console.log(corner.children);
+    // doorKey = corner.children[2];
+    // doorKey.visible = true;
+    // takeKey();
     // config.drawer.off("pointerdown", displayThirdRiddle);
   }
 
