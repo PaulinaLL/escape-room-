@@ -87,6 +87,27 @@ function answersReducer(state = initialState, action) {
           img: null,
         },
       };
+    case "NO_ESCAPE":
+        return {
+          ...state,
+          currentRiddleDescription: {
+            id: 101,
+            text: data.Descripton["escapeDoorClosed"].text,
+            img: null, 
+          }
+    };
+    case "CODE":
+        return {
+          ...state,
+          currentRiddleDescription: {
+            id: 101,
+            text: data.Descripton["needCode"].text,
+            img: null, 
+          }
+    }
+
+    
+
 
     default:
       return state;
