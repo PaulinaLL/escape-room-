@@ -98,7 +98,6 @@ export default function Game(props) {
   const focus1 = new PIXI.Sprite(blackTexture);
   // const eyes2 = []
   // const eye   = PIXI.Sprite.from(require("../../assets/objects/EyeFocused.png"));
-
   focus1.anchor.set(0.9);
   focus1.x = 100;
   focus1.y = 660;
@@ -303,6 +302,8 @@ export default function Game(props) {
   let boxSheet = {};
 
   //Setup All Objects/Furniture and RoomParts
+  //////////////////////////////////////////////////// Start Setup //////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 
   function setup(config) {
     // Preparing Sheets
@@ -329,23 +330,27 @@ export default function Game(props) {
     right.on("pointerdown", turnRight);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
-    objects.lightSwitch.on("pointerdown", lightOn);
-    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle)
+    // objects.escapeDoor.on("pointerdown", displayFirstRiddle);
 
     //Objects
     //Visible
     objects.idCard1.on("pointerdown", takeIDCard1);
     objects.idCard2.on("pointerdown", takeIDCard2);
     objects.idCard3.on("pointerdown", takeIDCard3);
-    //    objects.key.on("pointerdown", takeKey);
+    objects.lightSwitch.on("pointerdown", lightOn);
+    objects.lightSwitchRiddle.on("pointerdown", displaySecondRiddle);
+    //objects.key.on("pointerdown", takeKey);
 
     //Interactions
     objects.door.on("pointerdown", closedDoor);
-    // objects.lightSwitch.on("pointerdown", lightOn);
     // objects.flashLight.on("pointerdown", takeFlashLight);
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
+
+    greenCard = roomBack.children[2];
+    yellowCard = roomBack.children[4];
+    orangeCard = roomBack.children[5];
 
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
@@ -354,24 +359,25 @@ export default function Game(props) {
     roomBack.addChild(
       objects.idCard1,
       objects.door,
-      // objects.flashLight, - bringing it back changes the order of children[]
       objects.idCard2,
       objects.idCard3
+      // objects.flashLight, - bringing it back changes the order of children[]
     );
+
+    frontDoor.addChild(
+      objects.escapeDoor, //FrontDoor Object Nr 1
+      // objects.safe      //FrontDoor Nr 2
+    )
 
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
-
-    greenCard = roomBack.children[2];
-    yellowCard = roomBack.children[4];
-    orangeCard = roomBack.children[5];
-
     innerCell.addChild(
       objects.greenCardSlot,
       objects.orangeCardSlot,
       objects.blueCardSlot,
       boxClosed
     );
+
     corner.visible = true;
     innerCell.visible = false;
     roomBack.visible = false;
@@ -381,19 +387,16 @@ export default function Game(props) {
 
     // Adding Screens and Interface to Stage
     props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
-    // Adding Arrows
-
     props.app.stage.addChild(left, right, objects.lightSwitch);
-
-
+    // Adding Arrows
+    
     left.visible = false;
     right.visible = false;
 
     //4 = left, 5 = right, 6 = objects.lightSwitch?
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
-    props.app.stage.children[7].visible = false;
-    
+    props.app.stage.children[7].visible = false;    
     props.app.stage.addChild(objects.lightSwitchRiddle);
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
@@ -402,7 +405,6 @@ export default function Game(props) {
     innerCell.mask = focus1;
     roomBack.mask = focus1;
     frontDoor.mask = focus1;
-
     props.app.stage.interactive = true;
     props.app.stage.on("mousemove", pointerMove);
 
@@ -410,7 +412,6 @@ export default function Game(props) {
       focus1.position.x = event.data.global.x - focus1.width / 2;
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
-
     config = {
       greenCard: roomBack.children[2],
       yellowCard: roomBack.children[4],
@@ -419,7 +420,6 @@ export default function Game(props) {
       drawer: corner.children[1],
     };
   }
-
   //End of Setup.
   /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////
@@ -436,9 +436,7 @@ export default function Game(props) {
     frontDoorField.visible = false;
     innerCellField.visible = false;
 
-
     // This step is a bit difficult. And does nnot update a second time.
-
     //pointer for dark
 
     switch (assetReducer.partNumber) {
@@ -454,13 +452,11 @@ export default function Game(props) {
           props.app.stage.children[9].visible = true;          
           props.app.stage.children[2].visible = true;
           props.app.stage.children[8].visible = false;
-
         break;
       case 3:
         //InnerCell
         innerCellField.visible = true;
         props.app.stage.children[8].visible = false;
-
         break;
       case 0:
       default:
@@ -551,7 +547,6 @@ export default function Game(props) {
     );
     let height = 174;
     let width = 214;
-
     pcSheet["off"] = [
       new PIXI.Texture(pcsheet, new PIXI.Rectangle(0, 0, width, height)),
     ];
