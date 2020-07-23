@@ -171,14 +171,14 @@ export default function Game(props) {
 
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card (without flashlight 4)
-    yellowCard = roomBack.children[4];
+    yellowCard = roomBack.children[3];
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
   function takeIDCard3() {
     //6 is idCArd3 - orange card (without flashlight 5)
-    orangeCard = roomBack.children[5];
+    orangeCard = roomBack.children[4];
     orangeCard.visible = false;
 
     dispatch({ type: "TAKE_IDCARD3" });
@@ -190,7 +190,7 @@ export default function Game(props) {
     //corner child2 is key
     doorKey = corner.children[2];
     // door = roomBack.children[1];
-    door = props.app.stage.children[1].children[3];
+    door = props.app.stage.children[1].children[2];
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
@@ -228,8 +228,8 @@ export default function Game(props) {
     console.log("open_Door");
     // door to the innercell
     roomBack.children[1].visible = false;
-    roomBack.children[3].off("pointerdown", closedDoor);
-    roomBack.children[3].on("pointerdown", goToInner);
+    roomBack.children[2].off("pointerdown", closedDoor);
+    roomBack.children[2].on("pointerdown", goToInner);
   };
 
   let goToInner = () => {
@@ -352,9 +352,14 @@ export default function Game(props) {
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
 
-    greenCard = roomBack.children[2];
-    yellowCard = roomBack.children[4];
-    orangeCard = roomBack.children[5];
+    // greenCard = roomBack.children[2];
+    // doodr = roomBack.children[3];
+    // yellowCard = roomBack.children[4];
+    // orangeCard = roomBack.children[5];
+
+    // doodr = roomBack.children[2];
+    yellowCard = roomBack.children[3];
+    orangeCard = roomBack.children[4];
 
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
@@ -362,7 +367,7 @@ export default function Game(props) {
     corner.addChild(drawer, objects.key);
     objects.key.visible = false;
     roomBack.addChild(
-      objects.idCard1,
+      // objects.idCard1,
       objects.door,
       objects.idCard2,
       objects.idCard3
@@ -418,10 +423,10 @@ export default function Game(props) {
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
     config = {
-      greenCard: roomBack.children[2],
-      yellowCard: roomBack.children[4],
-      orangeCard: roomBack.children[5],
-      door: roomBack.children[2],
+      // greenCard: roomBack.children[2],
+      yellowCard: roomBack.children[3],
+      orangeCard: roomBack.children[4],
+      door: roomBack.children[1],
       drawer: corner.children[1],
       doorKey: corner.children[2],
     };
