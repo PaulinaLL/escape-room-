@@ -59,5 +59,15 @@
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     }
+  },
+  "Descripton": {
+    "escapeDoorClosed": {
+      "id": 1,
+      "text": "The Solid Door is closed, I see no Doorknob and it does not budge"  
+    },
+    "needCode": {
+      "id": 1,
+      "text": "There are 6 Numbers on the Safe. I could test around but it takes too long, I better find the code"  
+    }
   }
 }
