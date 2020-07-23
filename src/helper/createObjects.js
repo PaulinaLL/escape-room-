@@ -144,33 +144,47 @@ export function setItems(items, app) {
   lightSwitchRiddle.interactive = true;
   lightSwitchRiddle.buttonMode = true;
 
-  // lightSwitch.beginFill(0xffffff, 0.1);
-  // lightSwitch.drawRect(540, 410, 30, 30);
-  // lightSwitch.endFill();
-  // lightSwitch.lineStyle(0);
+  
+  const setBasics = (object) => {
+    object.interactive = true;
+    object.buttonMode = true;
+    object.endFill();
+    object.lineStyle(0);
+    return object;  
+  }
 
   const pcLight = new PIXI.Graphics();
-  pcLight.interactive = true;
-  pcLight.buttonMode = true;
+  setBasics(pcLight);
   pcLight.beginFill(0xffffff, 0.1);
   pcLight.drawRect(540, 410, 30, 30);
-  pcLight.endFill();
-  pcLight.lineStyle(0);
+  
+
+  const escapeDoor = new PIXI.Graphics();
+  escapeDoor.beginFill(0xffffff, 1);    
+  escapeDoor.drawRect(300, 280, 200, 330);
+  setBasics(escapeDoor);
+
+  const safe = new PIXI.Graphics();
+  safe.beginFill(0xffffff, 1);
+  safe.drawRect(100,350, 50, 50)
+  setBasics(safe);
+  
 
   //SendBack to Game
   return {
-    idCard1,
+    idCard1, 
     idCard2,
     idCard3,
     key,
-    door,
+    door,         //5
     lightSwitch,
     flashLight,
     pcLight,
     greenCardSlot,
-    orangeCardSlot,
+    orangeCardSlot, //10
     blueCardSlot,
     lightSwitchRiddle,
+    escapeDoor
   };
 }
 
@@ -234,7 +248,6 @@ export function createPC(pcSheet) {
 
   pcoff.x = 50;
   pcoff.y = 110;
-
   return pcoff;
 }
 
