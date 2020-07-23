@@ -63,8 +63,8 @@ export default function Game(props) {
   let yellowCard = "";
   let orangeCard = "";
   let config = "";
-  let doorKey = corner.children[2];
-  // let doorKey = "";
+  // let doorKey = corner.children[2];
+  let doorKey = "";
   let pc = "";
   let door = "";
   let flashLight = "";
@@ -182,9 +182,9 @@ export default function Game(props) {
 
   function takeKey() {
     //corner child2 is key
-    // doorKey = corner.children[2];
-    // doorKey.visible = false;
+    doorKey = corner.children[2];
     dispatch({ type: "TAKE_KEY" });
+    doorKey.visible = false;
     // props.app.stage.children[8].visible = true;
 
     // config.greenCard.visible = false;
@@ -226,28 +226,17 @@ export default function Game(props) {
   let lightOn = () => {
     console.log(props);
 
-    if(frontDoor.mask === focus1)
-    {
-    corner.mask = false;
-    innerCell.mask = false;
-    roomBack.mask = false;
-    frontDoor.mask = false;
+    if (frontDoor.mask === focus1) {
+      corner.mask = false;
+      innerCell.mask = false;
+      roomBack.mask = false;
+      frontDoor.mask = false;
+    } else {
+      corner.mask = focus1;
+      innerCell.mask = focus1;
+      roomBack.mask = focus1;
+      frontDoor.mask = focus1;
     }
-    else{
-    corner.mask = focus1;
-    innerCell.mask = focus1;
-    roomBack.mask = focus1;
-    frontDoor.mask = focus1;
-    
-    }
-  };
-  let turnOnLight = () => {
-    // frontDoor.mask = false;
-    // roomBack.mask = false;
-    // innerCell.mask = false;
-    // corner.mask = false;
-    // props.app.stage.children[7].visible = false;
-    lightOn();
   };
 
   let lightOnWithFlashLight = () => {
@@ -303,7 +292,6 @@ export default function Game(props) {
   let boxSheet = {};
 
   //Setup All Objects/Furniture and RoomParts
-
   function setup(config) {
     // Preparing Sheets
     createDrawerSheet();
@@ -417,6 +405,7 @@ export default function Game(props) {
       orangeCard: roomBack.children[5],
       door: roomBack.children[2],
       drawer: corner.children[1],
+      doorKey: corner.children[2],
     };
   }
 
@@ -427,15 +416,13 @@ export default function Game(props) {
   // Trying to create fields..
 
   if (props.app.stage.children.length) {
-  
-          props.app.stage.children[6].visible = false;
-          props.app.stage.children[9].visible = false; 
-          
+    props.app.stage.children[6].visible = false;
+    props.app.stage.children[9].visible = false;
+
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
     innerCellField.visible = false;
-
 
     // This step is a bit difficult. And does nnot update a second time.
 
@@ -449,11 +436,11 @@ export default function Game(props) {
         break;
       case 2:
         //FrontDoor
-         assetReducer.solved.riddle2 === true? 
-          props.app.stage.children[6].visible = true:
-          props.app.stage.children[9].visible = true;          
-          props.app.stage.children[2].visible = true;
-          props.app.stage.children[8].visible = false;
+        assetReducer.solved.riddle2 === true
+          ? (props.app.stage.children[6].visible = true)
+          : (props.app.stage.children[9].visible = true);
+        props.app.stage.children[2].visible = true;
+        props.app.stage.children[8].visible = false;
 
         break;
       case 3:
@@ -573,29 +560,26 @@ export default function Game(props) {
   }
 
   //State for Solved riddles
-  if (assetReducer.solved.riddle1 === true && props.app.stage.children[8].visible === true) {
+  if (
+    assetReducer.solved.riddle1 === true &&
+    props.app.stage.children[8].visible === true
+  ) {
     leftArrow.visible = true;
     rightArrow.visible = true;
     props.app.stage.children[8].visible = false;
   }
 
-  if(assetReducer.solved.riddle2Voucher === true){
+  if (assetReducer.solved.riddle2Voucher === true) {
     props.app.stage.children[2].mask = false;
     props.app.stage.children[1].mask = false;
     props.app.stage.children[3].mask = false;
     props.app.stage.children[0].mask = false;
   }
 
-  // turn on the light when riddle2 is solved
-  if (assetReducer.solved.riddle3 === true) {
-    console.log("change things for riddle3");
-    // corner is a container, doorKey and corner.children[2] are undefinded
-    console.log(corner);
-    console.log(doorKey);
-    console.log(corner.children);
-    // doorKey = corner.children[2];
-    // doorKey.visible = true;
-    // takeKey();
+  // gives the key when the drawer riddle is solved
+  if (assetReducer.solved.riddle3Voucher === true) {
+    // console.log("change things for riddle3");
+    props.app.stage.children[0].children[2].visible = true;
     // config.drawer.off("pointerdown", displayThirdRiddle);
   }
 
