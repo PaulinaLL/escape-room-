@@ -137,6 +137,9 @@ export default function Game(props) {
   function displayThirdRiddle() {
     dispatch({ type: "SELECT_DRAWER" });
   }
+  function displayFourthRiddle() {
+    dispatch({ type: "SELECT_ORANGE_SLOT" });
+  }
 
   // function displayFourthRiddle() {
   //   dispatch({ type: "SELECT_SCREEN" });
@@ -161,6 +164,9 @@ export default function Game(props) {
 
     // greenSlot.off("pointerdown", withoutGreenCard);
     // greenSlot.on("pointerdown", openBox);
+    // dispatch({ type: "TAKE_IDCARD3" });
+    innerCell.children[1].off("pointerdown", withoutGreenCard);
+    innerCell.children[1].on("pointerdown", openBox);
   }
 
   function takeIDCard2() {
@@ -207,6 +213,8 @@ export default function Game(props) {
     props.app.stage.children[7].visible = false;
     props.app.stage.children[6].off("pointerdown", lightOn);
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
+    //GreenCardSlot gets deacivated:
+    innerCell.children[1].interactive = false;
   }
 
   let closedDoor = () => {
@@ -215,7 +223,8 @@ export default function Game(props) {
   };
 
   let openDoor = () => {
-    // dispatch({ type: "OPEN_DOOR" });
+    // dispatch open door, sets the key visibility in the collection to false
+    dispatch({ type: "OPEN_DOOR" });
     console.log("open_Door");
     // door to the innercell
     roomBack.children[1].visible = false;
@@ -273,11 +282,12 @@ export default function Game(props) {
 
   function turnOnCellScreen() {
     dispatch({ type: "TURN_ON_CELL_SCREEN" });
+    dispatch({ type: "SELECT_ORANGE_SLOT" });
+    console.log("TURNS THE CELLSCREEN");
   }
 
   function withoutGreenCard() {
     console.log("green card needed");
-    innerCell.children[1].on("pointerdown", openBox);
   }
 
   function withoutOrangeCard() {
