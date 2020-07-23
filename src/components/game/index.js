@@ -158,7 +158,7 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
-    greenCard = roomBack.children[2];
+    greenCard = frontDoor.children[3];
     greenCard.visible = false;
     // props.app.stage.children[8].visible = false;
     // greenSlot.off("pointerdown", withoutGreenCard);
@@ -389,8 +389,11 @@ export default function Game(props) {
 
     frontDoor.addChild(
       objects.escapeDoor,
-      objects.safe //FrontDoor Object Nr 1
-      // objects.safe      //FrontDoor Nr 2
+      objects.safe,
+      objects.idCard1
+      //FrontDoor Object Nr 1
+      // objects.safe FrontDoor Nr 2
+      // GreenCard Nr3
     );
 
     // 350 Define Names for Objects and parts of room.
@@ -437,7 +440,7 @@ export default function Game(props) {
       focus1.position.y = event.data.global.y - focus1.height / 2;
     }
     config = {
-      // greenCard: roomBack.children[2],
+      greenCard: frontDoor.children[3],
       yellowCard: roomBack.children[3],
       orangeCard: roomBack.children[4],
       door: roomBack.children[1],
