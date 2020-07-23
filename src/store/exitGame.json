@@ -25,7 +25,7 @@
     },
     "4": {
       "id": 4,
-      "text": "ORANGE CARD SLOT",
+      "text": "ORANGE SLOT Create a function that encode the secret message to get a hint",
       "correctAnswer": "answer",
       "hints": ["some", "another"]
     },
