@@ -113,6 +113,15 @@ export function setItems(items, app) {
   skeletonPc.endFill();
   skeletonPc.lineStyle(0);
 
+  const skeletonFinger = new PIXI.Graphics();
+
+  skeletonFinger.interactive = true;
+  skeletonFinger.buttonMode = true;
+  skeletonFinger.beginFill(0xffffff, 0.001);
+  skeletonFinger.drawRect(565, 515, 45, 25);
+  skeletonFinger.endFill();
+  skeletonFinger.lineStyle(0);
+
   //Create SwitchLight
   let radius = 32;
   let blurSize = 8;
@@ -198,6 +207,7 @@ export function setItems(items, app) {
     escapeDoor,
     safe,
     skeletonPc,
+    skeletonFinger,
   };
 }
 
