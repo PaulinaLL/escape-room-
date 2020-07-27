@@ -40,8 +40,8 @@ export function setItems(items, app) {
   //yellow
   idCard2.interactive = true;
   idCard2.buttonMode = true;
-  idCard2.x = 570;
-  idCard2.y = 440;
+  idCard2.x = 275;
+  idCard2.y = 490;
   idCard2.height = 70;
   idCard2.width = 70;
   // orange
