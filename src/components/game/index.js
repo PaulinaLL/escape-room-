@@ -386,7 +386,7 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    corner.addChild(drawer, objects.key, objects.idCard2);
+    corner.addChild(drawer, objects.key, objects.idCard2, objects.extraDrawer);
     objects.key.visible = false;
     objects.idCard2.visible = false;
 
@@ -656,6 +656,7 @@ export default function Game(props) {
   if (assetReducer.solved.riddle5 === true) {
     // yellowCard.visible = true;
     props.app.stage.children[0].children[3].visible = true;
+    // props.app.stage.children[0].children[4] - extraDrawer
     // finger is clickable and can go to the collection
     props.app.stage.children[1].children[5].off("pointerdown", nothingHappens);
     props.app.stage.children[1].children[5].on("pointerdown", takeFinger);
