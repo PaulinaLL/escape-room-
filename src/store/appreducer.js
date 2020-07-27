@@ -21,6 +21,10 @@ const initialState = {
     collected: false,
     pictureID: "flashLight",
   },
+  finger: {
+    collected: false,
+    pictureID: "finger",
+  },
   box: {
     opened: false,
   },
@@ -94,6 +98,11 @@ function appReducer(state = initialState, action) {
           collected: true,
           pictureID: "flashLight",
         },
+      };
+    case "TAKE_FINGER":
+      return {
+        ...state,
+        finger: { collected: true, pictureID: "finger" },
       };
     case "OPEN_DOOR":
       return {
