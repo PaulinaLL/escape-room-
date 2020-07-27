@@ -187,6 +187,7 @@ export default function Game(props) {
 
   function takeKey() {
     //corner child2 is key
+    let drawer = props.app.stage.children[0].children[1];
     doorKey = corner.children[2];
     // door = roomBack.children[1];
     door = props.app.stage.children[1].children[2];
@@ -200,6 +201,7 @@ export default function Game(props) {
     // config.greenCard.visible = false;
     // config.door.off("pointerdown", closedDoor);
     // config.door.on("pointerdown", openDoor);
+    drawer.off("pointerdown", displayThirdRiddle);
   }
 
   function takeFlashLight() {
@@ -615,15 +617,12 @@ export default function Game(props) {
   // gives the key when the drawer riddle is solved
   if (assetReducer.solved.riddle3 === true) {
     // console.log("change things for riddle3");
-    // props.app.stage.children[0].children[1] = drawer
-    // props.app.stage.children[0].children[2] = key
-    props.app.stage.children[0].children[2].visible = true;
+    // let drawer = props.app.stage.children[0].children[1];
+    let key = props.app.stage.children[0].children[2];
+    key.visible = true;
     // openDoor();
     // config.drawer.off("pointerdown", displayThirdRiddle);
-    props.app.stage.children[0].children[1].off(
-      "pointerdown",
-      displayThirdRiddle
-    );
+    // drawer.off("pointerdown", displayThirdRiddle);
   }
 
   if (assetReducer.solved.riddle4 === true) {
