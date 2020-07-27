@@ -375,10 +375,16 @@ export default function Game(props) {
     // in corner
     yellowCard = corner.children[3];
 
+    // greenCard = roomBack.children[2];
+    // doodr = roomBack.children[3];
+    // yellowCard = roomBack.children[4];
+    // orangeCard = roomBack.children[5];
+    // doodr = roomBack.children[2];
+    // yellowCard = roomBack.children[3];
+    // orangeCard = roomBack.children[4];
     //roomback
     objects.skeletonPc.on("pointerdown", nothingHappens);
     orangeCard = roomBack.children[3];
-
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
