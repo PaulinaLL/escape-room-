@@ -40,10 +40,11 @@ export function setItems(items, app) {
   //yellow
   idCard2.interactive = true;
   idCard2.buttonMode = true;
-  idCard2.x = 275;
-  idCard2.y = 490;
+  idCard2.x = 270;
+  idCard2.y = 500;
   idCard2.height = 70;
   idCard2.width = 70;
+
   // orange
   idCard3.interactive = true;
   idCard3.buttonMode = true;
@@ -126,8 +127,8 @@ export function setItems(items, app) {
 
   extraDrawer.interactive = true;
   extraDrawer.buttonMode = true;
-  extraDrawer.beginFill(0x00ff00, 0.1);
-  extraDrawer.drawRect(300, 495, 80, 100);
+  extraDrawer.beginFill(0xffffff, 0.001);
+  extraDrawer.drawRect(325, 495, 50, 90);
   extraDrawer.endFill();
   extraDrawer.lineStyle(0);
 

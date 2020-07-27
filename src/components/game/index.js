@@ -294,6 +294,13 @@ export default function Game(props) {
     objects.flashLight.on("pointerdown", takeFlashLight);
     innerCell.addChild(objects.flashLight);
   }
+  function openExtraDrawer() {
+    dispatch({ type: "OPEN_EXTRA_DRAWER" });
+    //make yellow card visible:
+    props.app.stage.children[0].children[3].visible = true;
+    // finger
+    props.app.stage.children[1].children[5].visible = true;
+  }
 
   // function turnOnCellScreen() {
   //   dispatch({ type: "TURN_ON_CELL_SCREEN" });
@@ -654,9 +661,10 @@ export default function Game(props) {
   }
 
   if (assetReducer.solved.riddle5 === true) {
-    // yellowCard.visible = true;
-    props.app.stage.children[0].children[3].visible = true;
-    // props.app.stage.children[0].children[4] - extraDrawer
+    // yellowCard = props.app.stage.children[0].children[3];
+    // props.app.stage.children[0].children[3].visible = true;
+    // extraDrawer - props.app.stage.children[0].children[4]
+    props.app.stage.children[0].children[4].on("pointerdown", openExtraDrawer);
     // finger is clickable and can go to the collection
     props.app.stage.children[1].children[5].off("pointerdown", nothingHappens);
     props.app.stage.children[1].children[5].on("pointerdown", takeFinger);

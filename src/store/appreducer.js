@@ -104,6 +104,11 @@ function appReducer(state = initialState, action) {
         ...state,
         finger: { collected: true, pictureID: "finger" },
       };
+    case "OPEN_EXTRA_DRAWER":
+      return {
+        ...state,
+        finger: { collected: false, pictureID: "finger" },
+      };
     case "OPEN_DOOR":
       return {
         ...state,
