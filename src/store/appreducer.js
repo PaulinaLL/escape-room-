@@ -60,6 +60,10 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         idCard: { collected: true, pictureID: "idCard" },
+        solved: {
+          ...state.solved,
+          riddle4: false,
+        },
       };
 
     case "TAKE_IDCARD2":
