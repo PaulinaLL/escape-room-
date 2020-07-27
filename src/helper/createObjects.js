@@ -118,9 +118,18 @@ export function setItems(items, app) {
   skeletonFinger.interactive = true;
   skeletonFinger.buttonMode = true;
   skeletonFinger.beginFill(0xffffff, 0.001);
-  skeletonFinger.drawRect(565, 515, 45, 25);
+  skeletonFinger.drawRect(565, 490, 45, 30);
   skeletonFinger.endFill();
   skeletonFinger.lineStyle(0);
+
+  const extraDrawer = new PIXI.Graphics();
+
+  extraDrawer.interactive = true;
+  extraDrawer.buttonMode = true;
+  extraDrawer.beginFill(0x00ff00, 0.1);
+  extraDrawer.drawRect(300, 495, 80, 100);
+  extraDrawer.endFill();
+  extraDrawer.lineStyle(0);
 
   //Create SwitchLight
   let radius = 32;
@@ -208,6 +217,7 @@ export function setItems(items, app) {
     safe,
     skeletonPc,
     skeletonFinger,
+    extraDrawer,
   };
 }
 
