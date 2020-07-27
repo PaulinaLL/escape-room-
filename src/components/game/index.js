@@ -499,6 +499,7 @@ export default function Game(props) {
     let scopeSheet = new PIXI.BaseTexture.from(
       props.app.loader.resources["scope"].url
     );
+    
 
     scope["basic"] = [
       new PIXI.Texture(scopeSheet, new PIXI.Rectangle(0, 0, 130, 130)),
