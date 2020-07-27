@@ -103,6 +103,16 @@ export function setItems(items, app) {
   blueCardSlot.endFill();
   blueCardSlot.lineStyle(0);
 
+  // Skeleton PC
+  const skeletonPc = new PIXI.Graphics();
+
+  skeletonPc.interactive = true;
+  skeletonPc.buttonMode = true;
+  skeletonPc.beginFill(0xffffff, 0.001);
+  skeletonPc.drawRect(645, 405, 100, 100);
+  skeletonPc.endFill();
+  skeletonPc.lineStyle(0);
+
   //Create SwitchLight
   let radius = 32;
   let blurSize = 8;
@@ -187,6 +197,7 @@ export function setItems(items, app) {
     lightSwitchRiddle,
     escapeDoor,
     safe,
+    skeletonPc,
   };
 }
 
