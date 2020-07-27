@@ -24,8 +24,8 @@ export default function Game(props) {
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
+ 
       props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
-
       props.app.loader
         .reset()
         .add("furniture", require("../../assets/objects/Drawer2.png"))
@@ -36,7 +36,6 @@ export default function Game(props) {
         .add("eyeFocused", require("../../assets/objects/EyeFocused.png"))
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
         .add("box", require("../../assets/objects/boxandothers.png"));
-
       //  let config =
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
@@ -48,6 +47,7 @@ export default function Game(props) {
   let roomBack = new PIXI.Container();
   let frontDoor = new PIXI.Container();
   let innerCell = new PIXI.Container();
+  let ending = new PIXI.Container();
 
   //Add Different Fieldsettings
   let cornerField = props.app.stage.children[0];
@@ -105,17 +105,19 @@ export default function Game(props) {
   focus1.y = 660;
 
   const roomParts = [
-    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
+    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")), 
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
     PIXI.Sprite.from(require("../../assets/rooms/innercell.png")),
+    PIXI.Sprite.from(require("../../assets/start-screen/EndScreen.png"))
   ];
 
   corner.addChild(roomParts[0]);
   roomBack.addChild(roomParts[3], roomParts[1]);
   frontDoor.addChild(roomParts[2]);
   innerCell.addChild(roomParts[4]);
+  ending.addChild(roomParts[5]);
 
   roomParts.map((part) => {
     part.width = 800;
@@ -148,6 +150,18 @@ export default function Game(props) {
     dispatch({ type: "SELECT_SKELETONS_PC" });
   }
 
+  function displayLastRiddle() {
+    frontDoor.children[4].on("pointerdown", openEscapeDoor);
+//    frontDoor.children[2]
+    dispatch({ type: "SELECT_BLUE_SLOT" });
+  }
+
+  function openEscapeDoor() {
+    frontDoor.children[4].off("pointerdown", openEscapeDoor);
+    frontDoor.children[1].off("pointerdown", escapeDoorSealed);
+    frontDoor.children[1].on("pointerdown", escape);
+  }
+
   function addArrows() {
     if (props.app.stage.children.length) {
       props.app.stage.children[4].visible = true;
@@ -174,6 +188,8 @@ export default function Game(props) {
     yellowCard = corner.children[3];
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
+    innerCell.children[3].off("pointerdown", withoutBlueCard);
+    innerCell.children[3].on("pointerdown", displayLastRiddle);
   }
 
   function takeIDCard3() {
@@ -187,15 +203,13 @@ export default function Game(props) {
   }
 
   function takeKey() {
-    //corner child2 is key
+    // corner child2 is key
     doorKey = corner.children[2];
     // door = roomBack.children[1];
     door = props.app.stage.children[1].children[2];
-
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
-
     // props.app.stage.children[8].visible = true;
     door.off("pointerdown", closedDoor);
     door.on("pointerdown", openDoor);
@@ -232,10 +246,16 @@ export default function Game(props) {
     console.log("need a code");
   };
 
-  let sealed = () => {
+  let escapeDoorSealed = () => {
     dispatch({ type: "NO_ESCAPE" });
     console.log("cannot esape");
   };
+
+  let escape = () => {
+    dispatch({type: "ESCAPE"});
+    console.log("You escaped");
+  }
+
   let openDoor = () => {
     // dispatch open door, sets the key visibility in the collection to false
     dispatch({ type: "OPEN_DOOR" });
@@ -328,7 +348,6 @@ export default function Game(props) {
   let pcSheet = {};
   let items = {};
   let scope = {};
-  //  let eye = {};
   let boxSheet = {};
 
   //Setup All Objects/Furniture and RoomParts
@@ -374,18 +393,19 @@ export default function Game(props) {
     //Interactions
     objects.door.on("pointerdown", closedDoor);
 
+
     //FrontDoor
     objects.safe.on("pointerdown", code);
-    objects.escapeDoor.on("pointerdown", sealed);
+    objects.escapeDoor.on("pointerdown", escapeDoorSealed);
     // objects.flashLight.on("pointerdown", takeFlashLight);
 
     //in innercell not visible
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
+    
     // in corner
     yellowCard = corner.children[3];
-
     //roomback
     objects.skeletonPc.on("pointerdown", nothingHappens);
     objects.skeletonFinger.on("pointerdown", nothingHappens);
@@ -410,10 +430,12 @@ export default function Game(props) {
     frontDoor.addChild(
       objects.escapeDoor,
       objects.safe,
-      objects.idCard1
+      objects.idCard1,
+      objects.escapeDoorScreen
       //FrontDoor Object Nr 1
       // objects.safe FrontDoor Nr 2
-      // GreenCard Nr3
+      // GreenCard Nr 3
+      // escabeDoorScreen Nr4
     );
     objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
@@ -435,6 +457,7 @@ export default function Game(props) {
     // Adding Screens and Interface to Stage
     props.app.stage.addChild(corner, roomBack, frontDoor, innerCell);
     props.app.stage.addChild(left, right, objects.lightSwitch);
+
     // Adding Arrows
 
     left.visible = false;
@@ -445,6 +468,8 @@ export default function Game(props) {
     props.app.stage.addChild(focus1, pc);
     props.app.stage.children[7].visible = false;
     props.app.stage.addChild(objects.lightSwitchRiddle);
+    props.app.stage.addChild(ending); //10
+    props.app.stage.children[10].visible = false;
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
 
@@ -477,7 +502,6 @@ export default function Game(props) {
   if (props.app.stage.children.length) {
     props.app.stage.children[6].visible = false;
     props.app.stage.children[9].visible = false;
-
     cornerField.visible = false;
     roomBackField.visible = false;
     frontDoorField.visible = false;
@@ -505,6 +529,8 @@ export default function Game(props) {
         innerCellField.visible = true;
         props.app.stage.children[8].visible = false;
         break;
+      case 10:
+        props.app.stage.children[10].visible = true;
       case 0:
       default:
         //Corner
@@ -632,6 +658,8 @@ export default function Game(props) {
     props.app.stage.children[1].mask = false;
     props.app.stage.children[3].mask = false;
     props.app.stage.children[0].mask = false;
+    dispatch({ type: "USE_VOUCHER2" });
+   
   }
 
   // gives the key when the drawer riddle is solved
@@ -651,7 +679,6 @@ export default function Game(props) {
   if (assetReducer.solved.riddle4 === true) {
     // greenCard.visible = true;
     props.app.stage.children[2].children[3].visible = true;
-
     // change skeletonPC function to display 5.riddle:
     props.app.stage.children[1].children[4].off("pointerdown", nothingHappens);
     props.app.stage.children[1].children[4].on(
