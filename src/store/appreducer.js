@@ -34,6 +34,7 @@ const initialState = {
     riddle2Voucher: false,
     riddle3: false,
     riddle4: false,
+    riddle5: false,
   },
 };
 
@@ -153,6 +154,14 @@ function appReducer(state = initialState, action) {
         solved: {
           ...state.solved,
           riddle4: true,
+        },
+      };
+    case "SOLVED_RIDDLE_5":
+      return {
+        ...state,
+        solved: {
+          ...state.solved,
+          riddle5: true,
         },
       };
     case "LOADED":
