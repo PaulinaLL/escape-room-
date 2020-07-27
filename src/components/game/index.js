@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-import GetUserName from "../promptWindow";
+// import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -155,7 +155,6 @@ export default function Game(props) {
   }
 
   function takeIDCard1() {
-    // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
     greenCard = frontDoor.children[3];
@@ -166,18 +165,19 @@ export default function Game(props) {
     // dispatch({ type: "TAKE_IDCARD3" });
     innerCell.children[1].off("pointerdown", withoutGreenCard);
     innerCell.children[1].on("pointerdown", openBox);
+    // greenCard.off("pointerdown", takeIDCard1);
   }
 
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card (without flashlight 4)
-    yellowCard = roomBack.children[3];
+    yellowCard = corner.children[3];
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
   function takeIDCard3() {
     //6 is idCArd3 - orange card (without flashlight 5)
-    orangeCard = roomBack.children[4];
+    orangeCard = roomBack.children[3];
     orangeCard.visible = false;
 
     dispatch({ type: "TAKE_IDCARD3" });
@@ -194,6 +194,7 @@ export default function Game(props) {
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
+
     // props.app.stage.children[8].visible = true;
     door.off("pointerdown", closedDoor);
     door.on("pointerdown", openDoor);
@@ -239,6 +240,7 @@ export default function Game(props) {
     roomBack.children[1].visible = false;
     roomBack.children[2].off("pointerdown", closedDoor);
     roomBack.children[2].on("pointerdown", goToInner);
+    corner.children[1].off("pointerdown", displayThirdRiddle);
   };
 
   let goToInner = () => {
@@ -371,18 +373,18 @@ export default function Game(props) {
     // orangeCard = roomBack.children[5];
 
     // doodr = roomBack.children[2];
-    yellowCard = roomBack.children[3];
-    orangeCard = roomBack.children[4];
+    yellowCard = corner.children[3];
+    orangeCard = roomBack.children[3];
 
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    corner.addChild(drawer, objects.key);
+    corner.addChild(drawer, objects.key, objects.idCard2);
     objects.key.visible = false;
     roomBack.addChild(
       // objects.idCard1,
       objects.door,
-      objects.idCard2,
+      // objects.idCard2,
       objects.idCard3
       // objects.flashLight, - bringing it back changes the order of children[]
     );
@@ -395,7 +397,7 @@ export default function Game(props) {
       // objects.safe FrontDoor Nr 2
       // GreenCard Nr3
     );
-
+    objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
     innerCell.addChild(
@@ -441,8 +443,8 @@ export default function Game(props) {
     }
     config = {
       greenCard: frontDoor.children[3],
-      yellowCard: roomBack.children[3],
-      orangeCard: roomBack.children[4],
+      // yellowCard: corner.children[3],
+      orangeCard: roomBack.children[3],
       door: roomBack.children[1],
       drawer: corner.children[1],
       doorKey: corner.children[2],
@@ -619,15 +621,20 @@ export default function Game(props) {
     props.app.stage.children[0].children[2].visible = true;
     // openDoor();
     // config.drawer.off("pointerdown", displayThirdRiddle);
-    props.app.stage.children[0].children[1].off(
-      "pointerdown",
-      displayThirdRiddle
-    );
+    // props.app.stage.children[0].children[1].off(
+    //   "pointerdown",
+    //   displayThirdRiddle
+    // );
+  }
+
+  if (assetReducer.solved.riddle4 === true) {
+    // greenCard.visible = true;
+    props.app.stage.children[2].children[3].visible = true;
   }
 
   return (
     <div id="pixi-container">
-      {!userName && !wantsToPlay && <GetUserName />}
+      {/* {!userName && !wantsToPlay && <GetUserName />} */}
     </div>
   );
 }
