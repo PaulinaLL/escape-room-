@@ -77,6 +77,14 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[4].text,
         },
       };
+    case "SELECT_SKELETONS_PC":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 5,
+          text: data.riddleDescription[5].text,
+        },
+      };
 
     case "OPEN_DOOR":
       return {
