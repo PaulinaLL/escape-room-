@@ -369,7 +369,6 @@ export default function Game(props) {
     // doodr = roomBack.children[3];
     // yellowCard = roomBack.children[4];
     // orangeCard = roomBack.children[5];
-
     // doodr = roomBack.children[2];
     yellowCard = roomBack.children[3];
     orangeCard = roomBack.children[4];
