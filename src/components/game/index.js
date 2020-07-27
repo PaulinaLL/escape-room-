@@ -12,6 +12,7 @@ import {
 //   takeIDCard2
 // } from "../../helper/gameFunctions";
 import { useSelector, useDispatch } from "react-redux";
+
 export default function Game(props) {
   const { assetReducer } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -218,6 +219,9 @@ export default function Game(props) {
     innerCell.children[1].interactive = false;
   }
 
+  function takeFinger() {
+    dispatch({ type: "TAKE_FINGER" });
+  }
   let closedDoor = () => {
     dispatch({ type: "NO_KEY" });
     console.log("No Key");
@@ -309,7 +313,7 @@ export default function Game(props) {
   }
 
   function nothingHappens() {
-    console.log("skeleton PC");
+    console.log("skeleton PC / finger");
   }
 
   let drawerSheet = {};
@@ -375,15 +379,9 @@ export default function Game(props) {
     // in corner
     yellowCard = corner.children[3];
 
-    // greenCard = roomBack.children[2];
-    // doodr = roomBack.children[3];
-    // yellowCard = roomBack.children[4];
-    // orangeCard = roomBack.children[5];
-    // doodr = roomBack.children[2];
-    // yellowCard = roomBack.children[3];
-    // orangeCard = roomBack.children[4];
     //roomback
     objects.skeletonPc.on("pointerdown", nothingHappens);
+    objects.skeletonFinger.on("pointerdown", nothingHappens);
     orangeCard = roomBack.children[3];
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
@@ -397,7 +395,8 @@ export default function Game(props) {
       objects.door,
       // objects.idCard2,
       objects.idCard3,
-      objects.skeletonPc
+      objects.skeletonPc,
+      objects.skeletonFinger
       // objects.flashLight, - bringing it back changes the order of children[]
     );
 
@@ -543,6 +542,9 @@ export default function Game(props) {
     items["flashLight"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(260, 0, 130, 100)),
     ];
+    items["finger"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(390, 0, 130, 100)),
+    ];
   }
 
   function createArrowSheet() {
@@ -654,6 +656,9 @@ export default function Game(props) {
   if (assetReducer.solved.riddle5 === true) {
     // yellowCard.visible = true;
     props.app.stage.children[0].children[3].visible = true;
+    // finger is clickable and can go to the collection
+    props.app.stage.children[1].children[5].off("pointerdown", nothingHappens);
+    props.app.stage.children[1].children[5].on("pointerdown", takeFinger);
   }
 
   return (
