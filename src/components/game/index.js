@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-import GetUserName from "../promptWindow";
+// import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -138,15 +138,15 @@ export default function Game(props) {
     dispatch({ type: "SELECT_DRAWER" });
   }
   function displayFourthRiddle() {
+    dispatch({ type: "TURN_ON_CELL_SCREEN" });
     dispatch({ type: "SELECT_ORANGE_SLOT" });
+    console.log("TURNS THE CELLSCREEN");
   }
 
-  // function displayFourthRiddle() {
-  //   dispatch({ type: "SELECT_SCREEN" });
-  // }
-  // function displayFifthRiddle() {
-  //   dispatch({ type: "SELECT_SKELETON" });
-  // }
+  function displayFifthRiddle() {
+    dispatch({ type: "SELECT_SKELETONS_PC" });
+  }
+
   function addArrows() {
     if (props.app.stage.children.length) {
       props.app.stage.children[4].visible = true;
@@ -155,7 +155,6 @@ export default function Game(props) {
   }
 
   function takeIDCard1() {
-    // config.greenCard.visible = false;
     dispatch({ type: "TAKE_IDCARD1" });
     // let greenSlot = innerCell.children[1];
     greenCard = frontDoor.children[3];
@@ -166,23 +165,24 @@ export default function Game(props) {
     // dispatch({ type: "TAKE_IDCARD3" });
     innerCell.children[1].off("pointerdown", withoutGreenCard);
     innerCell.children[1].on("pointerdown", openBox);
+    // greenCard.off("pointerdown", takeIDCard1);
   }
 
   function takeIDCard2() {
     //5 is idCArd 2 - yellow card (without flashlight 4)
-    yellowCard = roomBack.children[3];
+    yellowCard = corner.children[3];
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
   }
 
   function takeIDCard3() {
     //6 is idCArd3 - orange card (without flashlight 5)
-    orangeCard = roomBack.children[4];
+    orangeCard = roomBack.children[3];
     orangeCard.visible = false;
 
     dispatch({ type: "TAKE_IDCARD3" });
     innerCell.children[2].off("pointerdown", withoutOrangeCard);
-    innerCell.children[2].on("pointerdown", turnOnCellScreen);
+    innerCell.children[2].on("pointerdown", displayFourthRiddle);
   }
 
   function takeKey() {
@@ -194,6 +194,7 @@ export default function Game(props) {
     // console.log(props.stage.children[1]);
     dispatch({ type: "TAKE_KEY" });
     doorKey.visible = false;
+
     // props.app.stage.children[8].visible = true;
     door.off("pointerdown", closedDoor);
     door.on("pointerdown", openDoor);
@@ -239,6 +240,7 @@ export default function Game(props) {
     roomBack.children[1].visible = false;
     roomBack.children[2].off("pointerdown", closedDoor);
     roomBack.children[2].on("pointerdown", goToInner);
+    corner.children[1].off("pointerdown", displayThirdRiddle);
   };
 
   let goToInner = () => {
@@ -289,11 +291,11 @@ export default function Game(props) {
     innerCell.addChild(objects.flashLight);
   }
 
-  function turnOnCellScreen() {
-    dispatch({ type: "TURN_ON_CELL_SCREEN" });
-    dispatch({ type: "SELECT_ORANGE_SLOT" });
-    console.log("TURNS THE CELLSCREEN");
-  }
+  // function turnOnCellScreen() {
+  //   dispatch({ type: "TURN_ON_CELL_SCREEN" });
+  //   dispatch({ type: "SELECT_ORANGE_SLOT" });
+  //   console.log("TURNS THE CELLSCREEN");
+  // }
 
   function withoutGreenCard() {
     console.log("green card needed");
@@ -304,6 +306,10 @@ export default function Game(props) {
   }
   function withoutBlueCard() {
     console.log("blue card needed");
+  }
+
+  function nothingHappens() {
+    console.log("skeleton PC");
   }
 
   let drawerSheet = {};
@@ -361,28 +367,37 @@ export default function Game(props) {
     objects.safe.on("pointerdown", code);
     objects.escapeDoor.on("pointerdown", sealed);
     // objects.flashLight.on("pointerdown", takeFlashLight);
+
+    //in innercell not visible
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
+    // in corner
+    yellowCard = corner.children[3];
 
     // greenCard = roomBack.children[2];
     // doodr = roomBack.children[3];
     // yellowCard = roomBack.children[4];
     // orangeCard = roomBack.children[5];
     // doodr = roomBack.children[2];
-    yellowCard = roomBack.children[3];
-    orangeCard = roomBack.children[4];
-
+    // yellowCard = roomBack.children[3];
+    // orangeCard = roomBack.children[4];
+    //roomback
+    objects.skeletonPc.on("pointerdown", nothingHappens);
+    orangeCard = roomBack.children[3];
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    corner.addChild(drawer, objects.key);
+    corner.addChild(drawer, objects.key, objects.idCard2);
     objects.key.visible = false;
+    objects.idCard2.visible = false;
+
     roomBack.addChild(
       // objects.idCard1,
       objects.door,
-      objects.idCard2,
-      objects.idCard3
+      // objects.idCard2,
+      objects.idCard3,
+      objects.skeletonPc
       // objects.flashLight, - bringing it back changes the order of children[]
     );
 
@@ -394,7 +409,7 @@ export default function Game(props) {
       // objects.safe FrontDoor Nr 2
       // GreenCard Nr3
     );
-
+    objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
     innerCell.addChild(
@@ -440,8 +455,8 @@ export default function Game(props) {
     }
     config = {
       greenCard: frontDoor.children[3],
-      yellowCard: roomBack.children[3],
-      orangeCard: roomBack.children[4],
+      // yellowCard: corner.children[3],
+      orangeCard: roomBack.children[3],
       door: roomBack.children[1],
       drawer: corner.children[1],
       doorKey: corner.children[2],
@@ -618,15 +633,32 @@ export default function Game(props) {
     props.app.stage.children[0].children[2].visible = true;
     // openDoor();
     // config.drawer.off("pointerdown", displayThirdRiddle);
-    props.app.stage.children[0].children[1].off(
+    // props.app.stage.children[0].children[1].off(
+    //   "pointerdown",
+    //   displayThirdRiddle
+    // );
+  }
+
+  if (assetReducer.solved.riddle4 === true) {
+    // greenCard.visible = true;
+    props.app.stage.children[2].children[3].visible = true;
+
+    // change skeletonPC function to display 5.riddle:
+    props.app.stage.children[1].children[4].off("pointerdown", nothingHappens);
+    props.app.stage.children[1].children[4].on(
       "pointerdown",
-      displayThirdRiddle
+      displayFifthRiddle
     );
+  }
+
+  if (assetReducer.solved.riddle5 === true) {
+    // yellowCard.visible = true;
+    props.app.stage.children[0].children[3].visible = true;
   }
 
   return (
     <div id="pixi-container">
-      {!userName && !wantsToPlay && <GetUserName />}
+      {/* {!userName && !wantsToPlay && <GetUserName />} */}
     </div>
   );
 }

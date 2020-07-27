@@ -7,7 +7,7 @@ const initialState = {
   currentRiddleDescription: {
     id: "",
     text:
-      "WELCOME DESCRIPTION - GAME INTRODUCTION. Use your JavaScript skills to escape the room, you will have to find and collect objects to use them in right moment and solve 10 riddles in less then 1 hour. Lets get started!",
+      "WELCOME You just woke up in a dark place... Use your JavaScript skills to escape this room, you will have to find and collect objects to use them in right moment and solve 6 code challenges. Good luck!",
   },
 };
 
@@ -77,6 +77,14 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[4].text,
         },
       };
+    case "SELECT_SKELETONS_PC":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 5,
+          text: data.riddleDescription[5].text,
+        },
+      };
 
     case "OPEN_DOOR":
       return {
@@ -97,26 +105,23 @@ function answersReducer(state = initialState, action) {
         },
       };
     case "NO_ESCAPE":
-        return {
-          ...state,
-          currentRiddleDescription: {
-            id: 101,
-            text: data.Descripton["escapeDoorClosed"].text,
-            img: null, 
-          }
-    };
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 101,
+          text: data.Descripton["escapeDoorClosed"].text,
+          img: null,
+        },
+      };
     case "CODE":
-        return {
-          ...state,
-          currentRiddleDescription: {
-            id: 101,
-            text: data.Descripton["needCode"].text,
-            img: null, 
-          }
-    }
-
-    
-
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 101,
+          text: data.Descripton["needCode"].text,
+          img: null,
+        },
+      };
 
     default:
       return state;

@@ -40,8 +40,8 @@ export function setItems(items, app) {
   //yellow
   idCard2.interactive = true;
   idCard2.buttonMode = true;
-  idCard2.x = 570;
-  idCard2.y = 440;
+  idCard2.x = 275;
+  idCard2.y = 490;
   idCard2.height = 70;
   idCard2.width = 70;
   // orange
@@ -102,6 +102,16 @@ export function setItems(items, app) {
   blueCardSlot.drawRect(595, 210, 60, 60);
   blueCardSlot.endFill();
   blueCardSlot.lineStyle(0);
+
+  // Skeleton PC
+  const skeletonPc = new PIXI.Graphics();
+
+  skeletonPc.interactive = true;
+  skeletonPc.buttonMode = true;
+  skeletonPc.beginFill(0xffffff, 0.001);
+  skeletonPc.drawRect(645, 405, 100, 100);
+  skeletonPc.endFill();
+  skeletonPc.lineStyle(0);
 
   //Create SwitchLight
   let radius = 32;
@@ -187,6 +197,7 @@ export function setItems(items, app) {
     lightSwitchRiddle,
     escapeDoor,
     safe,
+    skeletonPc,
   };
 }
 
