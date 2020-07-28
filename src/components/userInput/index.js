@@ -78,6 +78,9 @@ export default function UserInput() {
     // lucky us we have useEffect:
     // when the startCode changes set userAnswer to new startCode
     setUserAnswer(startCode);
+
+    // reset logs on riddle switch
+    setLog([]);
   }, [startCode, setUserAnswer]);
 
   return (
