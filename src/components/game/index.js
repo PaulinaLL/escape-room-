@@ -155,6 +155,9 @@ export default function Game(props) {
   }
 
   function displayLastRiddle() {
+//    frontDoor.children[4].on("pointerdown", openEscapeDoor);
+//    frontDoor.children[6].visible = true;
+//    frontDoor.children[2]
     dispatch({ type: "SELECT_ESCAPE_SCREEN" });
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
     // //    frontDoor.children[2]
@@ -167,6 +170,10 @@ export default function Game(props) {
   }
 
   function openEscapeDoor() {
+    frontDoor.children[6].visible = false;
+    frontDoor.children[7].visible = true;
+
+
     frontDoor.children[4].off("pointerdown", openEscapeDoor);
     frontDoor.children[1].off("pointerdown", escapeDoorSealed);
     frontDoor.children[1].on("pointerdown", escape);
@@ -393,6 +400,7 @@ export default function Game(props) {
     let right = ui[1];
     let boxClosed = box[0];
     // let boxOpened = box[1];
+    let innerCellScreen = box[2];
 
     // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
@@ -463,7 +471,9 @@ export default function Game(props) {
       objects.safe,
       objects.idCard1,
       objects.escapeDoorScreen,
-      roomParts[8]
+      roomParts[8],
+      objects.lock,
+      objects.open
       //FrontDoor Object Nr 1
       // objects.safe FrontDoor Nr 2
       // GreenCard Nr 3
@@ -471,8 +481,10 @@ export default function Game(props) {
       //Message Nr5
     );
 
-    frontDoor.children[5].visible = false;
-
+    for(let i = 5; i <= 7; i++)
+    {frontDoor.children[i].visible = false;}
+ 
+    
     objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
@@ -482,13 +494,17 @@ export default function Game(props) {
       objects.blueCardSlot,
       boxClosed,
       roomParts[9], // 5
-      objects.uvHint // 6
+      innerCellScreen, // 6 
+      objects.uvHint // 
     );
 
+    
     innerCell.children[5].visible = false;
     //uv hint = 6:
     innerCell.children[6].visible = false;
+   innerCell.children[7].visible = false;
 
+    
     corner.visible = true;
     innerCell.visible = false;
     roomBack.visible = false;
@@ -620,6 +636,12 @@ export default function Game(props) {
     items["finger"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(390, 0, 130, 100)),
     ];
+    items["open"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(440, 0, 130, 100)),
+    ];
+    items["lock"] = [
+      new PIXI.Texture(itemSheet, new PIXI.Rectangle(440, 100, 130, 100)),
+    ];
   }
 
   function createArrowSheet() {
@@ -683,6 +705,9 @@ export default function Game(props) {
     boxSheet["opened"] = [
       new PIXI.Texture(boxsheet, new PIXI.Rectangle(300, 0, width, height)),
     ];
+    boxSheet["uvlight"] = [
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(620, 0, 260, 260)),   
+    ]
   }
 
   //State for Solved riddles
@@ -716,9 +741,10 @@ export default function Game(props) {
     //   displayThirdRiddle
     // );
   }
-
+  
   if (assetReducer.solved.riddle4 === true) {
     // greenCard.visible = true;
+    props.app.stage.children[3].children[6].visible = true;
     props.app.stage.children[2].children[3].visible = true;
     // change skeletonPC function to display 5.riddle:
     props.app.stage.children[1].children[4].off("pointerdown", nothingHappens);
