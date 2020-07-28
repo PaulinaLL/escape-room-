@@ -115,7 +115,7 @@ const Log = ({ logs } = { logs: [] }) => {
               style={{
                 backgroundColor: bg[method],
                 color: cl[method],
-                overflow: "scroll",
+                overflow: "hidden",
               }}
             >
               {method === "log" ? (
@@ -124,7 +124,7 @@ const Log = ({ logs } = { logs: [] }) => {
                 <code>{args}</code>
               )}
             </pre>
-            <hr />
+            {/* <hr /> */}
           </Fragment>
         ))}
     </div>
