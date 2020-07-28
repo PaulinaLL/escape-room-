@@ -11,7 +11,6 @@ export function createUserInterface(arrowSheet, app) {
 
   right.interactive = true;
   right.buttonMode = true;
-
   right.scale.set(-1);
 
   right.x = 730;
@@ -78,7 +77,6 @@ export function setItems(items, app) {
   door.lineStyle(0);
 
   const greenCardSlot = new PIXI.Graphics();
-
   greenCardSlot.interactive = true;
   greenCardSlot.buttonMode = true;
   greenCardSlot.beginFill(0xffffff, 0.001);
@@ -87,7 +85,6 @@ export function setItems(items, app) {
   greenCardSlot.lineStyle(0);
 
   const orangeCardSlot = new PIXI.Graphics();
-
   orangeCardSlot.interactive = true;
   orangeCardSlot.buttonMode = true;
   orangeCardSlot.beginFill(0xffffff, 0.001);
@@ -96,10 +93,9 @@ export function setItems(items, app) {
   orangeCardSlot.lineStyle(0);
 
   const blueCardSlot = new PIXI.Graphics();
-
   blueCardSlot.interactive = true;
   blueCardSlot.buttonMode = true;
-  blueCardSlot.beginFill(0xffffff, 0.001);
+  blueCardSlot.beginFill(0xffffff, 1);
   blueCardSlot.drawRect(595, 210, 60, 60);
   blueCardSlot.endFill();
   blueCardSlot.lineStyle(0);
@@ -138,7 +134,7 @@ export function setItems(items, app) {
 
   const circle = new PIXI.Graphics()
     .beginFill(0xffffff, 0.5)
-    .drawCircle(radius + blurSize, radius + blurSize, radius)
+    .drawCircle(radius + blurSize, radius + blurSize, radius) 
     .endFill();
   circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
@@ -193,6 +189,10 @@ export function setItems(items, app) {
   escapeDoor.drawRect(300, 280, 200, 330);
   setBasics(escapeDoor);
 
+  const escapeDoorScreen = new PIXI.Graphics();
+  escapeDoorScreen.beginFill(0xffffff, 1);
+  escapeDoorScreen.drawRect(160, 340, 70, 100);
+  setBasics(escapeDoorScreen);
   const safe = new PIXI.Graphics();
 
   safe.beginFill(0xffffff, 0.001);
@@ -215,6 +215,7 @@ export function setItems(items, app) {
     blueCardSlot,
     lightSwitchRiddle,
     escapeDoor,
+    escapeDoorScreen,
     safe,
     skeletonPc,
     skeletonFinger,
@@ -274,12 +275,10 @@ export function createPC(pcSheet) {
   pcoff.drawRect(20, 80, 200, 180);
   pcoff.endFill();
   pcoff.lineStyle(0);
-
   pcoff.interactive = true;
   pcoff.buttonMode = true;
 
   // pcoff.on("pointerdown", pcRiddleDisplay);
-
   pcoff.x = 50;
   pcoff.y = 110;
   return pcoff;
