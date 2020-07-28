@@ -155,9 +155,15 @@ export default function Game(props) {
   }
 
   function displayLastRiddle() {
-    frontDoor.children[4].on("pointerdown", openEscapeDoor);
-    //    frontDoor.children[2]
+    dispatch({ type: "SELECT_ESCAPE_SCREEN" });
+    // frontDoor.children[4].on("pointerdown", openEscapeDoor);
+    // //    frontDoor.children[2]
+  }
+
+  function useBlueCard() {
     dispatch({ type: "SELECT_BLUE_SLOT" });
+    // sets displayLastRiddle on the escapeDoorScreen
+    frontDoor.children[4].on("pointerdown", displayLastRiddle);
   }
 
   function openEscapeDoor() {
@@ -193,7 +199,7 @@ export default function Game(props) {
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
     innerCell.children[3].off("pointerdown", withoutBlueCard);
-    innerCell.children[3].on("pointerdown", displayLastRiddle);
+    innerCell.children[3].on("pointerdown", useBlueCard);
   }
 
   function takeIDCard3() {
@@ -734,6 +740,13 @@ export default function Game(props) {
     props.app.stage.children[1].children[5].on("pointerdown", takeFinger);
   }
 
+  if (assetReducer.solved.riddle6 === true) {
+    //1.  sets openEscapeDoor on escapeScreen
+    // frontDoor.children[4].on("pointerdown", openEscapeDoor);
+    //or 2.  sets escape door on the door
+    // frontDoor.children[1].on("pointerdown", escape); -doesnt work
+    props.app.stage.children[2].children[1].on("pointerdown", escape);
+  }
   return (
     <div id="pixi-container">
       {/* {!userName && !wantsToPlay && <GetUserName />} */}
