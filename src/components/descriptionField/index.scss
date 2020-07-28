@@ -4,12 +4,13 @@
   flex-direction: column;
   height: 350px;
   width: 600px;
-  background-color: black;
+  // background-color: black;
   // flex-basis: 30%;
   align-self: center;
-  color: white;
+  color: black;
   margin: 50px;
   border-radius: 8px;
+  border: 1px solid black;
 }
 
 p {
