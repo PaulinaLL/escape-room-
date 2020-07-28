@@ -85,6 +85,14 @@ function answersReducer(state = initialState, action) {
           text: data.riddleDescription[5].text,
         },
       };
+    case "SELECT_ESCAPE_SCREEN":
+      return {
+        ...state,
+        currentRiddleDescription: {
+          id: 6,
+          text: data.riddleDescription[6].text,
+        },
+      };
 
     case "OPEN_DOOR":
       return {
