@@ -244,7 +244,7 @@ export function setItems(items, app) {
     skeletonFinger,
     extraDrawer,
     open,
-    lock
+    lock,
     uvHint,
   };
 }
