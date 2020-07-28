@@ -128,13 +128,22 @@ export function setItems(items, app) {
   extraDrawer.endFill();
   extraDrawer.lineStyle(0);
 
+  const uvHint = new PIXI.Graphics();
+
+  uvHint.interactive = true;
+  uvHint.buttonMode = true;
+  uvHint.beginFill(0x00ff00, 0.1);
+  uvHint.drawRect(275, 255, 110, 80);
+  uvHint.endFill();
+  uvHint.lineStyle(0);
+
   //Create SwitchLight
   let radius = 32;
   let blurSize = 8;
 
   const circle = new PIXI.Graphics()
     .beginFill(0xffffff, 0.5)
-    .drawCircle(radius + blurSize, radius + blurSize, radius) 
+    .drawCircle(radius + blurSize, radius + blurSize, radius)
     .endFill();
   circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
@@ -220,6 +229,7 @@ export function setItems(items, app) {
     skeletonPc,
     skeletonFinger,
     extraDrawer,
+    uvHint,
   };
 }
 
