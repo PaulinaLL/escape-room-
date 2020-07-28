@@ -51,6 +51,11 @@ export default function UserInput() {
           type: "SOLVED_RIDDLE_5",
         });
         break;
+      case 6:
+        dispatch({
+          type: "SOLVED_RIDDLE_6",
+        });
+        break;
       default:
     }
   };

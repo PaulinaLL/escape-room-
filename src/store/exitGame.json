@@ -7,73 +7,53 @@
   "riddleDescription": {
     "1": {
       "id": 1,
-      "text": "FIRST PC If you run the current code you will receive a wrong greeting: 'hey stranger', correct the code to display your name in the greeting.",
-      "correctAnswer": "answer",
-      "hints": ["think about how the objects are saved"]
+      "text": " FIRST PC -If you run the function below you will receive a wrong greeting: 'hey stranger', correct the code to display your name in the greeting."
     },
     "2": {
       "id": 2,
-      "text": "SWITCHER It would be nice to have some light on, right? Create a function that changes text to binary code and you will finally see what is around you.",
-      "correctAnswer": "5",
-      "hints": ["some", "another"]
+      "text": "SWITCHER - Congratulations! The first riddle is done! You can now move inside of the room but still there is no light... Create a function that changes text to binary code and you will finally see what is around you."
     },
     "3": {
       "id": 3,
-      "text": "DRAWER Create a function that can check if a word contains only unique characters. If you make this work the drawer will open.",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "DRAWER - All drawers besides the second are opening but they are empty... Create a function that can check if a word contains only unique characters, if you make this work the second drawer will open."
     },
     "4": {
       "id": 4,
-      "text": "ORANGE SLOT Create a function that encode the secret message to get a hint",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "ORANGE SLOT This is a beginning of encoded message: `epqqwdwuyku_vtqttjeqqivhyvl_ugwgtmkwguu_uk_gtvkhukgved pmuqyupxpvvpuxkwptgjmdzuu_ljytuuuvtvxvuulip_qi _vlxqmg_ietpmlvxvvudipem_jldvmkglvliekdkjwkdlgjk_ vxjykgulevgqmvqlfpteqglmvpullglipyhlljevvefwvjpviqulvie...`. The secret word contains letters with the highest occurrence and finishes with `_`."
     },
     "5": {
       "id": 5,
-      "text": "RIDDLE 5 Battleship game. Looks like before death the skeleton was trying to solve this code challenge... be faster than him and create a function that checks if you could shoot a ship of the opponent in the Battleship game.",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "RIDDLE 5 Battleship game. Looks like before death the skeleton was trying to solve this code challenge... better be faster than him and create a function that checks if you could shoot a ship of the opponent in the Battleship game. If you succeed the skeleton will give you a hand..."
     },
     "6": {
       "id": 6,
-      "text": "dummy description  6 SCREEN OFF",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "LAST RIDDLE - write the missing code"
     },
     "7": {
       "id": 7,
-      "text": "dummy description 7 SHOULD OPEN EXIT DOOR",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "dummy description 7 SHOULD OPEN EXIT DOOR"
     },
     "8": {
       "id": 8,
-      "text": "dummy description  DOOR OPENED",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "DOOR OPENED 3 slots with colors, a screen and a box..."
     },
     "10": {
       "id": 10,
-      "text": "dummy description  NO KEY",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "JDoor - There is something worth to check behind this door... but where is the key?"
     },
     "11": {
       "id": 11,
-      "text": "dummy description 5 OPEN BOX",
-      "correctAnswer": "answer",
-      "hints": ["some", "another"]
+      "text": "dummy description 5 OPEN BOX"
     }
   },
   "Descripton": {
     "escapeDoorClosed": {
       "id": 1,
-      "text": "The Solid Door is closed, I see no Doorknob and it does not budge"
+      "text": "The Solid Door is closed, there is no Doorknob and it does not budge"
     },
     "needCode": {
       "id": 1,
-      "text": "There are 6 Numbers on the Safe. I could test around but it takes too long, I better find the code"
+      "text": "There are 6 Numbers on the Safe. You could test around but it will take too long, better find another way to open it."
     }
   }
 }
