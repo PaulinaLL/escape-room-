@@ -114,7 +114,7 @@ export function setItems(items, app) {
 
   skeletonFinger.interactive = true;
   skeletonFinger.buttonMode = true;
-  skeletonFinger.beginFill(0xffffff, 1);
+  skeletonFinger.beginFill(0xffffff, 0.001);
   skeletonFinger.drawRect(565, 490, 45, 40);
   skeletonFinger.endFill();
   skeletonFinger.lineStyle(0);
@@ -132,7 +132,7 @@ export function setItems(items, app) {
 
   uvHint.interactive = true;
   uvHint.buttonMode = true;
-  uvHint.beginFill(0x00ff00, 0.1);
+  uvHint.beginFill(0x00ff00, 1);
   uvHint.drawRect(275, 255, 110, 80);
   uvHint.endFill();
   uvHint.lineStyle(0);
