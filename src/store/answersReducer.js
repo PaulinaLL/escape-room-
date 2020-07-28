@@ -100,7 +100,6 @@ function answersReducer(state = initialState, action) {
         currentRiddleDescription: {
           id: 8,
           text: data.riddleDescription[8].text,
-          img: null,
         },
       };
     case "NO_KEY":
@@ -109,7 +108,6 @@ function answersReducer(state = initialState, action) {
         currentRiddleDescription: {
           id: 10,
           text: data.riddleDescription[10].text,
-          img: null,
         },
       };
     case "NO_ESCAPE":
@@ -118,7 +116,6 @@ function answersReducer(state = initialState, action) {
         currentRiddleDescription: {
           id: 101,
           text: data.Descripton["escapeDoorClosed"].text,
-          img: null,
         },
       };
     case "CODE":
@@ -127,7 +124,6 @@ function answersReducer(state = initialState, action) {
         currentRiddleDescription: {
           id: 101,
           text: data.Descripton["needCode"].text,
-          img: null,
         },
       };
 
