@@ -157,8 +157,8 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "writeCode",
         startCode: `
     function writeCode(code) {
-        code: "12345"
-        return code;
+      let yourCode = 
+      return yourCode == code;
     }
           `,
       },
