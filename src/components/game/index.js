@@ -110,7 +110,11 @@ export default function Game(props) {
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
     PIXI.Sprite.from(require("../../assets/rooms/innercell.png")),
-    PIXI.Sprite.from(require("../../assets/start-screen/EndScreen.png"))
+    PIXI.Sprite.from(require("../../assets/start-screen/EndScreen.png")),
+    PIXI.Sprite.from(require("../../assets/messages/messageCorner.png")), //6
+    PIXI.Sprite.from(require("../../assets/messages/RoomBackMessage.png")), 
+    PIXI.Sprite.from(require("../../assets/messages/FrontDoorMessage.png")), 
+    PIXI.Sprite.from(require("../../assets/messages/InnerCellMessage.png")) 
   ];
 
   corner.addChild(roomParts[0]);
@@ -289,6 +293,12 @@ export default function Game(props) {
 
   let lightOnWithFlashLight = () => {
     if (frontDoor.mask === focus1) {
+
+      frontDoor.children[5].visible = false;
+      roomBack.children[6].visible = false;
+      innerCell.children[5].visible = false;
+      corner.children[5].visible = false;
+ 
       frontDoor.mask = false;
       roomBack.mask = false;
       innerCell.mask = false;
@@ -296,6 +306,11 @@ export default function Game(props) {
       props.app.stage.children[7].visible = false;
       //  props.app.stage.children[6].visible = false;
     } else {
+      frontDoor.children[5].visible = true;
+      roomBack.children[6].visible = true;
+      innerCell.children[5].visible = true;
+      corner.children[5].visible = true;
+
       frontDoor.mask = focus1;
       roomBack.mask = focus1;
       innerCell.mask = focus1;
@@ -413,39 +428,59 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    corner.addChild(drawer, objects.key, objects.idCard2, objects.extraDrawer);
-    objects.key.visible = false;
+    
+    corner.addChild(
+      drawer, 
+      objects.key, 
+      objects.idCard2, 
+      objects.extraDrawer, 
+      roomParts[6]);
+   
+    objects.key.visible = false; 
     objects.idCard2.visible = false;
-
+    corner.children[5].visible = false; //5 is message
+   
     roomBack.addChild(
       // objects.idCard1,
-      objects.door,
+      objects.door, // Nr 2
       // objects.idCard2,
       objects.idCard3,
       objects.skeletonPc,
-      objects.skeletonFinger
+      objects.skeletonFinger,
+      roomParts[7]
       // objects.flashLight, - bringing it back changes the order of children[]
     );
+
+    roomBack.children[6].visible = false;
 
     frontDoor.addChild(
       objects.escapeDoor,
       objects.safe,
       objects.idCard1,
-      objects.escapeDoorScreen
+      objects.escapeDoorScreen,
+      roomParts[8]
       //FrontDoor Object Nr 1
       // objects.safe FrontDoor Nr 2
       // GreenCard Nr 3
       // escabeDoorScreen Nr4
+      //Message Nr5
     );
+
+    frontDoor.children[5].visible = false;
+
     objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
     innerCell.addChild(
-      objects.greenCardSlot,
-      objects.orangeCardSlot,
+      objects.greenCardSlot, // 1
+      objects.orangeCardSlot, // 2
       objects.blueCardSlot,
-      boxClosed
+      boxClosed,
+      roomParts[9] // 5
     );
+
+    innerCell.children[5].visible = false;
+
 
     corner.visible = true;
     innerCell.visible = false;
