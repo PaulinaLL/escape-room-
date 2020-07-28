@@ -69,6 +69,7 @@ export default function UserInput() {
   });
   const { startCode } = currentRiddle.setup;
 
+  const [logs, setLog] = useState([]);
   [userAnswer, setUserAnswer] = useState(startCode);
 
   useEffect(() => {
@@ -77,6 +78,9 @@ export default function UserInput() {
     // lucky us we have useEffect:
     // when the startCode changes set userAnswer to new startCode
     setUserAnswer(startCode);
+
+    // reset logs on riddle switch
+    setLog([]);
   }, [startCode, setUserAnswer]);
 
   return (
@@ -86,6 +90,8 @@ export default function UserInput() {
         currentRiddle={currentRiddle}
         userCode={userAnswer}
         setUserCode={setUserAnswer}
+        setLog={setLog}
+        logs={logs}
       />
     </div>
   );

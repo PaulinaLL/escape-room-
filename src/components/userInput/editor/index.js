@@ -7,9 +7,7 @@ import { createLogger, buildRiddleTestString } from "./lib";
 import Log from "./log";
 import Editor from "./editor";
 
-function RiddleEditor({ currentRiddle, userCode, setUserCode }) {
-  const [logs, setLog] = useState([]);
-
+function RiddleEditor({ currentRiddle, userCode, setUserCode, setLog, logs }) {
   const frame = createIframe(setLog);
 
   const { log, error } = createLogger(setLog);
