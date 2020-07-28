@@ -80,7 +80,7 @@ export function setItems(items, app) {
   greenCardSlot.interactive = true;
   greenCardSlot.buttonMode = true;
   greenCardSlot.beginFill(0xffffff, 0.001);
-  greenCardSlot.drawRect(670, 330, 60, 60);
+  greenCardSlot.drawRect(650, 330, 60, 60);
   greenCardSlot.endFill();
   greenCardSlot.lineStyle(0);
 
@@ -95,7 +95,7 @@ export function setItems(items, app) {
   const blueCardSlot = new PIXI.Graphics();
   blueCardSlot.interactive = true;
   blueCardSlot.buttonMode = true;
-  blueCardSlot.beginFill(0xffffff, 1);
+  blueCardSlot.beginFill(0xffffff, 0.001);
   blueCardSlot.drawRect(595, 210, 60, 60);
   blueCardSlot.endFill();
   blueCardSlot.lineStyle(0);
@@ -114,8 +114,8 @@ export function setItems(items, app) {
 
   skeletonFinger.interactive = true;
   skeletonFinger.buttonMode = true;
-  skeletonFinger.beginFill(0xffffff, 0.001);
-  skeletonFinger.drawRect(565, 490, 45, 30);
+  skeletonFinger.beginFill(0xffffff, 1);
+  skeletonFinger.drawRect(565, 490, 45, 40);
   skeletonFinger.endFill();
   skeletonFinger.lineStyle(0);
 
@@ -199,7 +199,7 @@ export function setItems(items, app) {
   setBasics(escapeDoor);
 
   const escapeDoorScreen = new PIXI.Graphics();
-  escapeDoorScreen.beginFill(0xffffff, 1);
+  escapeDoorScreen.beginFill(0xffffff, 0.001);
   escapeDoorScreen.drawRect(160, 340, 70, 100);
   setBasics(escapeDoorScreen);
   const safe = new PIXI.Graphics();
