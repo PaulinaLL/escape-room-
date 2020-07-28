@@ -69,6 +69,7 @@ export default function UserInput() {
   });
   const { startCode } = currentRiddle.setup;
 
+  const [logs, setLog] = useState([]);
   [userAnswer, setUserAnswer] = useState(startCode);
 
   useEffect(() => {
@@ -86,6 +87,8 @@ export default function UserInput() {
         currentRiddle={currentRiddle}
         userCode={userAnswer}
         setUserCode={setUserAnswer}
+        setLog={setLog}
+        logs={logs}
       />
     </div>
   );
