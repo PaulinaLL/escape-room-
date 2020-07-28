@@ -120,7 +120,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
       check: {
         testFn: (log, error) => (result) => {
           if (result === `uvlight`) {
-            log("Yes");
+            log("UV LIGHT");
             addUserAnswer(4);
           } else {
             error("No");
@@ -145,6 +145,28 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
           if (result === true) {
             log("Yes");
             addUserAnswer(5);
+          } else {
+            error("No");
+          }
+        },
+      },
+    },
+    "6": {
+      setup: {
+        arg: "12345",
+        fnName: "writeCode",
+        startCode: `
+    function writeCode(code) {
+        code: "12345"
+        return code;
+    }
+          `,
+      },
+      check: {
+        testFn: (log, error) => (result) => {
+          if (result === true) {
+            log("Yes");
+            addUserAnswer(6);
           } else {
             error("No");
           }
