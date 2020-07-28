@@ -27,7 +27,8 @@ export function setItems(items, app) {
   const idCard3 = new PIXI.Sprite(items.idCard3[0]);
   const key = new PIXI.Sprite(items.key[0]);
   const flashLight = new PIXI.Sprite(items.flashLight[0]);
-
+  const open = new PIXI.Sprite(items.open[0]);
+  const lock = new PIXI.Sprite(items.lock[0]);
   //green
   idCard1.interactive = true;
   idCard1.buttonMode = true;
@@ -66,6 +67,19 @@ export function setItems(items, app) {
   flashLight.height = 90;
   flashLight.width = 90;
 
+
+
+  open.x = 145;
+  open.y = 320;
+  open.height = 90;
+  open.width = 100;
+
+  lock.x = 145;
+  lock.y = 335;
+  lock.height = 90;
+  lock.width = 100;
+
+
   //Interactions Only
   const door = new PIXI.Graphics();
 
@@ -95,7 +109,7 @@ export function setItems(items, app) {
   const blueCardSlot = new PIXI.Graphics();
   blueCardSlot.interactive = true;
   blueCardSlot.buttonMode = true;
-  blueCardSlot.beginFill(0xffffff, 1);
+  blueCardSlot.beginFill(0xffffff, 0.001);
   blueCardSlot.drawRect(595, 210, 60, 60);
   blueCardSlot.endFill();
   blueCardSlot.lineStyle(0);
@@ -190,7 +204,7 @@ export function setItems(items, app) {
   setBasics(escapeDoor);
 
   const escapeDoorScreen = new PIXI.Graphics();
-  escapeDoorScreen.beginFill(0xffffff, 1);
+  escapeDoorScreen.beginFill(0xffffff, 0.001);
   escapeDoorScreen.drawRect(160, 340, 70, 100);
   setBasics(escapeDoorScreen);
   const safe = new PIXI.Graphics();
@@ -220,6 +234,8 @@ export function setItems(items, app) {
     skeletonPc,
     skeletonFinger,
     extraDrawer,
+    open,
+    lock
   };
 }
 
@@ -287,12 +303,18 @@ export function createPC(pcSheet) {
 export function createBox(boxSheet) {
   const boxClosed = new PIXI.Sprite(boxSheet.closed[0]);
   const boxOpened = new PIXI.Sprite(boxSheet.opened[0]);
-
+  const uvlight = new PIXI.Sprite(boxSheet.uvlight[0]);
+  
   // position
   boxClosed.x = 450;
   boxClosed.y = 475;
   boxOpened.x = 445;
   boxOpened.y = 420;
+  uvlight.x = 220;
+  uvlight.y = 145;
+  uvlight.width = 200;
+  uvlight.height = 200;
 
-  return [boxClosed, boxOpened];
+
+  return [boxClosed, boxOpened, uvlight];
 }
