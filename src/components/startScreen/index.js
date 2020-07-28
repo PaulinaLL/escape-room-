@@ -25,8 +25,8 @@ class StartScreen extends React.Component {
         <main>
           <div className="canvasDescriptionWrapper">
             <div className="canvasContainer">
-          <PixiCanvas />  
-                     <ObjectCollection />
+              <PixiCanvas />
+              <ObjectCollection />
             </div>
             <div className="fieldsWrapper">
               <DescriptionField />
@@ -46,7 +46,18 @@ class StartScreen extends React.Component {
         </main>
         <footer>
           {" "}
-          <p> © Gerald | Paulina 2020 </p>{" "}
+          <p>
+            {" "}
+            ©{" "}
+            <a href="https://github.com/Gercai" target="_blank">
+              Gerald
+            </a>{" "}
+            |{" "}
+            <a href="https://github.com/PaulinaLL" target="_blank">
+              Paulina
+            </a>{" "}
+            2020{" "}
+          </p>{" "}
         </footer>
       </div>
     );
