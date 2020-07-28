@@ -494,7 +494,7 @@ export default function Game(props) {
       objects.blueCardSlot,
       boxClosed,
       roomParts[9], // 5
-      innerCellScreen // 6 
+      innerCellScreen, // 6 
       objects.uvHint // 
     );
 
