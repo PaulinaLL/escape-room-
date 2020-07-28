@@ -24,7 +24,7 @@ export default function Game(props) {
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
- 
+
       props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
       props.app.loader
         .reset()
@@ -105,16 +105,16 @@ export default function Game(props) {
   focus1.y = 660;
 
   const roomParts = [
-    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")), 
+    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
     PIXI.Sprite.from(require("../../assets/rooms/innercell.png")),
     PIXI.Sprite.from(require("../../assets/start-screen/EndScreen.png")),
     PIXI.Sprite.from(require("../../assets/messages/messageCorner.png")), //6
-    PIXI.Sprite.from(require("../../assets/messages/RoomBackMessage.png")), 
-    PIXI.Sprite.from(require("../../assets/messages/FrontDoorMessage.png")), 
-    PIXI.Sprite.from(require("../../assets/messages/InnerCellMessage.png")) 
+    PIXI.Sprite.from(require("../../assets/messages/RoomBackMessage.png")),
+    PIXI.Sprite.from(require("../../assets/messages/FrontDoorMessage.png")),
+    PIXI.Sprite.from(require("../../assets/messages/InnerCellMessage.png")),
   ];
 
   corner.addChild(roomParts[0]);
@@ -156,7 +156,7 @@ export default function Game(props) {
 
   function displayLastRiddle() {
     frontDoor.children[4].on("pointerdown", openEscapeDoor);
-//    frontDoor.children[2]
+    //    frontDoor.children[2]
     dispatch({ type: "SELECT_BLUE_SLOT" });
   }
 
@@ -256,9 +256,9 @@ export default function Game(props) {
   };
 
   let escape = () => {
-    dispatch({type: "ESCAPE"});
+    dispatch({ type: "ESCAPE" });
     console.log("You escaped");
-  }
+  };
 
   let openDoor = () => {
     // dispatch open door, sets the key visibility in the collection to false
@@ -293,12 +293,11 @@ export default function Game(props) {
 
   let lightOnWithFlashLight = () => {
     if (frontDoor.mask === focus1) {
-
       frontDoor.children[5].visible = false;
       roomBack.children[6].visible = false;
       innerCell.children[5].visible = false;
       corner.children[5].visible = false;
- 
+
       frontDoor.mask = false;
       roomBack.mask = false;
       innerCell.mask = false;
@@ -408,7 +407,6 @@ export default function Game(props) {
     //Interactions
     objects.door.on("pointerdown", closedDoor);
 
-
     //FrontDoor
     objects.safe.on("pointerdown", code);
     objects.escapeDoor.on("pointerdown", escapeDoorSealed);
@@ -418,7 +416,7 @@ export default function Game(props) {
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
-    
+
     // in corner
     yellowCard = corner.children[3];
     //roomback
@@ -428,18 +426,19 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    
+
     corner.addChild(
-      drawer, 
-      objects.key, 
-      objects.idCard2, 
-      objects.extraDrawer, 
-      roomParts[6]);
-   
-    objects.key.visible = false; 
+      drawer,
+      objects.key,
+      objects.idCard2,
+      objects.extraDrawer,
+      roomParts[6]
+    );
+
+    objects.key.visible = false;
     objects.idCard2.visible = false;
     corner.children[5].visible = false; //5 is message
-   
+
     roomBack.addChild(
       // objects.idCard1,
       objects.door, // Nr 2
@@ -476,11 +475,13 @@ export default function Game(props) {
       objects.orangeCardSlot, // 2
       objects.blueCardSlot,
       boxClosed,
-      roomParts[9] // 5
+      roomParts[9], // 5
+      objects.uvHint // 6
     );
 
     innerCell.children[5].visible = false;
-
+    //uv hint = 6:
+    innerCell.children[6].visible = false;
 
     corner.visible = true;
     innerCell.visible = false;
@@ -694,7 +695,6 @@ export default function Game(props) {
     props.app.stage.children[3].mask = false;
     props.app.stage.children[0].mask = false;
     dispatch({ type: "USE_VOUCHER2" });
-   
   }
 
   // gives the key when the drawer riddle is solved
@@ -720,6 +720,8 @@ export default function Game(props) {
       "pointerdown",
       displayFifthRiddle
     );
+    // uvHint visible after success of riddle4:
+    props.app.stage.children[3].children[6].visible = true;
   }
 
   if (assetReducer.solved.riddle5 === true) {
