@@ -60,12 +60,16 @@ function appReducer(state = initialState, action) {
             : state.partNumber + 1,
       };
     case "SWITCH_RIGHT":
-      console.log(state.numberOfParts);
       return {
         ...state,
         partNumber: state.partNumber - 1 === -1 ? 2 : state.partNumber - 1,
       };
-      case "GO_IN_CELLDOOR":
+    case "GO_BACK":
+      return {
+        ...state,
+        partNumber: 1,
+      };     
+    case "GO_IN_CELLDOOR":
         return {
           ...state,
           partNumber: 3,
