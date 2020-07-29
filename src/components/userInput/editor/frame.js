@@ -20,21 +20,7 @@ const bindConsole = (frame, logger = () => null) => {
 };
 
 export const createIframe = (logger) => {
-  const frameID = "userFrame";
-  const prevFrame = document.querySelector(`#${frameID}`);
-
-  if (prevFrame) {
-    prevFrame.remove();
-  }
-
-  const frame = document.createElement("iframe");
-  Object.assign(frame, {
-    id: frameID,
-    title: "User Frame",
-    hidden: true,
-  });
-
-  document.body.append(frame);
+  const frame = document.getElementById("userFrame");
   bindConsole(frame, logger);
 
   return frame;
