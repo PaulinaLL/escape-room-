@@ -23,7 +23,7 @@
     },
     "5": {
       "id": 5,
-      "text": "RIDDLE 5 Battleship game. Looks like before death the skeleton was trying to solve this code challenge... better be faster than him and create a function that checks if you could shoot a ship of the opponent in the Battleship game. If you succeed the skeleton will give you a hand..."
+      "text": "RIDDLE 5 Battleship game. Looks like before death the skeleton was trying to solve this code challenge... better be faster than him and create a function that checks if you could shoot an opponents ship in the battleship game. If you succeed the skeleton will give you a hand..."
     },
     "6": {
       "id": 6,
@@ -39,7 +39,7 @@
     },
     "10": {
       "id": 10,
-      "text": "JDoor - There is something worth to check behind this door... but where is the key?"
+      "text": "JDoor - There is something worth checking behind this door... but where is the key?"
     },
     "11": {
       "id": 11,
@@ -49,11 +49,11 @@
   "Descripton": {
     "escapeDoorClosed": {
       "id": 1,
-      "text": "The Solid Door is closed, there is no Doorknob and it does not budge"
+      "text": "The solid door is closed, there is no doorknob and it does not budge"
     },
     "needCode": {
       "id": 1,
-      "text": "There are 6 Numbers on the Safe. You could test around but it will take too long, better find another way to open it."
+      "text": "There are numbers on the safe. You could test around but it will take you too long, better find another way to open it."
     }
   }
 }
