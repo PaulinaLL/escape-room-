@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js";
 export function createUserInterface(arrowSheet, app) {
   const left = new PIXI.Sprite(arrowSheet.left[0]);
   const right = new PIXI.Sprite(arrowSheet.right[0]);
+  const down = new PIXI.Sprite(arrowSheet.down[0]);
 
   left.interactive = true;
   left.buttonMode = true;
@@ -13,12 +14,18 @@ export function createUserInterface(arrowSheet, app) {
   right.buttonMode = true;
   right.scale.set(-1);
 
+  down.interactive = true;
+  down. buttonMode = true;
+  down.rotation -= 1.61;
+
   right.x = 730;
   right.y = 785;
   left.x = 70;
   left.y = 660;
+  down.x = 340;
+  down.y = 800;
 
-  return [left, right];
+  return [left, right, down];
 }
 export function setItems(items, app) {
   //Visible Objects
@@ -239,7 +246,7 @@ export function setItems(items, app) {
     lightSwitchRiddle,
     escapeDoor,
     escapeDoorScreen,
-    safe,
+    safe, // 15
     skeletonPc,
     skeletonFinger,
     extraDrawer,

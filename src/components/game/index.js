@@ -57,8 +57,9 @@ export default function Game(props) {
 
   // Defining all Variables of Objects/Inventory and UI for better work.
   // UserInterface
-  var leftArrow = props.app.stage.children[4];
+  let leftArrow = props.app.stage.children[4];
   let rightArrow = props.app.stage.children[5];
+  let downArrow = props.app.stage.children[11];
 
   let greenCard = "";
   let yellowCard = "";
@@ -134,6 +135,9 @@ export default function Game(props) {
   }
   function turnRight() {
     dispatch({ type: "SWITCH_RIGHT" });
+  }
+  function goBack() {
+    dispatch({type: "GO_BACK"});
   }
   function displayFirstRiddle() {
     dispatch({ type: "SELECT_PC" });
@@ -398,6 +402,7 @@ export default function Game(props) {
     let box = createBox(boxSheet, props.app);
     let left = ui[0];
     let right = ui[1];
+    let down = ui[2];
     let boxClosed = box[0];
     // let boxOpened = box[1];
     let innerCellScreen = box[2];
@@ -405,6 +410,7 @@ export default function Game(props) {
     // Preparing Eventhandler for Items, Objects and Interface
     left.on("pointerdown", turnLeft);
     right.on("pointerdown", turnRight);
+    down.on("pointerdown", goBack);
     pc.on("pointerdown", displayFirstRiddle);
     drawer.on("pointerdown", displayThirdRiddle);
     // objects.escapeDoor.on("pointerdown", displayFirstRiddle);
@@ -520,13 +526,14 @@ export default function Game(props) {
 
     left.visible = false;
     right.visible = false;
+    down.visible = false;
 
     //4 = left, 5 = right, 6 = objects.lightSwitch?
     //Preparing FlashLight and DarkRoom
     props.app.stage.addChild(focus1, pc);
     props.app.stage.children[7].visible = false;
     props.app.stage.addChild(objects.lightSwitchRiddle);
-    props.app.stage.addChild(ending); //10
+    props.app.stage.addChild(ending, down); //10
     props.app.stage.children[10].visible = false;
     // props.app.stage.children[6].visible = false;
     // props.app.stage.children[8].visible = false;
@@ -573,6 +580,9 @@ export default function Game(props) {
         //RoomBack
         roomBackField.visible = true;
         props.app.stage.children[8].visible = false;
+        leftArrow.visible = true;
+        rightArrow.visible = true;
+        downArrow.visible = false;
         break;
       case 2:
         //FrontDoor
@@ -584,6 +594,9 @@ export default function Game(props) {
         break;
       case 3:
         //InnerCell
+        leftArrow.visible = false;
+        rightArrow.visible = false;
+        downArrow.visible = true;
         innerCellField.visible = true;
         props.app.stage.children[8].visible = false;
         break;
@@ -653,6 +666,9 @@ export default function Game(props) {
       new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height)),
     ];
     arrowSheet["right"] = [
+      new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height)),
+    ];
+    arrowSheet["down"] = [
       new PIXI.Texture(asheet, new PIXI.Rectangle(0, 0, 130, height)),
     ];
   }
