@@ -12,7 +12,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "greet",
         startCode: `
   function greet(person) {
-      if (person.name ==  "${userCTX.userName}"  ) {
+      if (person.name =  "${userCTX.userName}"  ) {
         return "hey ${userCTX.userName}";
       } else {
         return "hey stranger";

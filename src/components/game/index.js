@@ -166,10 +166,11 @@ export default function Game(props) {
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
     // //    frontDoor.children[2]
   }
-
+//Yellow
   function useBlueCard() {
     dispatch({ type: "SELECT_BLUE_SLOT" });
     // sets displayLastRiddle on the escapeDoorScreen
+    frontDoor.children[6].visible = true;
     frontDoor.children[4].on("pointerdown", displayLastRiddle);
   }
 
@@ -242,15 +243,18 @@ export default function Game(props) {
     dispatch({ type: "TAKE_FLASHLIGHT" });
     //4 is FlashLightObject
     focus1.anchor.set(0.1);
-    // roomBack.children[4].visible = false;
     // innerCell.children[4].visible = false; - closed box
     // innerCell.children[5].visible = false; -opened box
-    innerCell.children[6].visible = false;
+    innerCell.children[7].visible = false;
     props.app.stage.children[7].visible = false;
     props.app.stage.children[6].off("pointerdown", lightOn);
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
     //GreenCardSlot gets deacivated:
     innerCell.children[1].interactive = false;
+
+    innerCell.children[8].visible = false;
+    innerCell.children[9].visible = false;
+
   }
 
   function takeFinger() {
@@ -335,15 +339,19 @@ export default function Game(props) {
     }
   };
 
+  //Use GreenCard
   function openBox() {
     dispatch({ type: "OPEN_BOX" });
     let box = createBox(boxSheet, props.app);
-    let boxOpened = box[1];
-    innerCell.addChild(boxOpened);
     let objects = setItems(items, props.app);
-    objects.flashLight.on("pointerdown", takeFlashLight);
-    innerCell.addChild(objects.flashLight);
+    // objects.flashLight.on("pointerdown", takeFlashLight);
+    // innerCell.addChild(boxOpened); // 8
+    // innerCell.addChild(objects.flashLight); //9
+    innerCell.children[8].visible = true;
+    innerCell.children[9].visible = true;
+    // //Ok, this needs
   }
+
   function openExtraDrawer() {
     dispatch({ type: "OPEN_EXTRA_DRAWER" });
     //make yellow card visible:
@@ -493,20 +501,34 @@ export default function Game(props) {
     objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
+     objects.flashLight.on("pointerdown", takeFlashLight);
+    // innerCell.addChild(boxOpened); // 8
+    // innerCell.addChild(objects.flashLight); //9
+  
+    let boxOpened = box[1];
+   
+
     innerCell.addChild(
       objects.greenCardSlot, // 1
       objects.orangeCardSlot, // 2
-      objects.blueCardSlot,
-      boxClosed,
+      objects.blueCardSlot, // 3
+      boxClosed, // 4
       roomParts[9], // 5
       innerCellScreen, // 6
-      objects.uvHint //
+      objects.uvHint, // 7
+      boxOpened,
+      objects.flashLight
     );
+
+
 
     innerCell.children[5].visible = false;
     //uv hint = 6:
     innerCell.children[6].visible = false;
     innerCell.children[7].visible = false;
+    innerCell.children[8].visible = false;
+    innerCell.children[9].visible = false;
+
 
     corner.visible = true;
     innerCell.visible = false;
@@ -784,6 +806,8 @@ export default function Game(props) {
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
     //or 2.  sets escape door on the door
     // frontDoor.children[1].on("pointerdown", escape); -doesnt work
+    props.app.stage.children[2].children[6].visible = false;
+    props.app.stage.children[2].children[7].visible = true;
     props.app.stage.children[2].children[1].on("pointerdown", escape);
   }
   return (
