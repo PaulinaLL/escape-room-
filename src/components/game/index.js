@@ -24,7 +24,7 @@ export default function Game(props) {
   useLayoutEffect(() => {
     if (!assetReducer.loaded) {
       const hoverIcon = `url(require(../../assets/objects/EyeFocused.png)), auto`;
- 
+
       props.app.renderer.plugins.interaction.cursorStyles.pointer = hoverIcon;
       props.app.loader
         .reset()
@@ -106,16 +106,16 @@ export default function Game(props) {
   focus1.y = 660;
 
   const roomParts = [
-    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")), 
+    PIXI.Sprite.from(require("../../assets/rooms/Corner.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Roomback.png")),
     PIXI.Sprite.from(require("../../assets/rooms/Frontdoor.png")),
     PIXI.Sprite.from(require("../../assets/rooms/RoombackJDO.png")),
     PIXI.Sprite.from(require("../../assets/rooms/innercell.png")),
     PIXI.Sprite.from(require("../../assets/start-screen/EndScreen.png")),
     PIXI.Sprite.from(require("../../assets/messages/messageCorner.png")), //6
-    PIXI.Sprite.from(require("../../assets/messages/RoomBackMessage.png")), 
-    PIXI.Sprite.from(require("../../assets/messages/FrontDoorMessage.png")), 
-    PIXI.Sprite.from(require("../../assets/messages/InnerCellMessage.png")) 
+    PIXI.Sprite.from(require("../../assets/messages/RoomBackMessage.png")),
+    PIXI.Sprite.from(require("../../assets/messages/FrontDoorMessage.png")),
+    PIXI.Sprite.from(require("../../assets/messages/InnerCellMessage.png")),
   ];
 
   corner.addChild(roomParts[0]);
@@ -159,10 +159,18 @@ export default function Game(props) {
   }
 
   function displayLastRiddle() {
-    frontDoor.children[4].on("pointerdown", openEscapeDoor);
-    frontDoor.children[6].visible = true;
+//    frontDoor.children[4].on("pointerdown", openEscapeDoor);
+//    frontDoor.children[6].visible = true;
 //    frontDoor.children[2]
+    dispatch({ type: "SELECT_ESCAPE_SCREEN" });
+    // frontDoor.children[4].on("pointerdown", openEscapeDoor);
+    // //    frontDoor.children[2]
+  }
+
+  function useBlueCard() {
     dispatch({ type: "SELECT_BLUE_SLOT" });
+    // sets displayLastRiddle on the escapeDoorScreen
+    frontDoor.children[4].on("pointerdown", displayLastRiddle);
   }
 
   function openEscapeDoor() {
@@ -202,7 +210,7 @@ export default function Game(props) {
     yellowCard.visible = false;
     dispatch({ type: "TAKE_IDCARD2" });
     innerCell.children[3].off("pointerdown", withoutBlueCard);
-    innerCell.children[3].on("pointerdown", displayLastRiddle);
+    innerCell.children[3].on("pointerdown", useBlueCard);
   }
 
   function takeIDCard3() {
@@ -265,9 +273,9 @@ export default function Game(props) {
   };
 
   let escape = () => {
-    dispatch({type: "ESCAPE"});
+    dispatch({ type: "ESCAPE" });
     console.log("You escaped");
-  }
+  };
 
   let openDoor = () => {
     // dispatch open door, sets the key visibility in the collection to false
@@ -302,12 +310,11 @@ export default function Game(props) {
 
   let lightOnWithFlashLight = () => {
     if (frontDoor.mask === focus1) {
-
       frontDoor.children[5].visible = false;
       roomBack.children[6].visible = false;
       innerCell.children[5].visible = false;
       corner.children[5].visible = false;
- 
+
       frontDoor.mask = false;
       roomBack.mask = false;
       innerCell.mask = false;
@@ -420,7 +427,6 @@ export default function Game(props) {
     //Interactions
     objects.door.on("pointerdown", closedDoor);
 
-
     //FrontDoor
     objects.safe.on("pointerdown", code);
     objects.escapeDoor.on("pointerdown", escapeDoorSealed);
@@ -430,7 +436,7 @@ export default function Game(props) {
     objects.greenCardSlot.on("pointerdown", withoutGreenCard);
     objects.orangeCardSlot.on("pointerdown", withoutOrangeCard);
     objects.blueCardSlot.on("pointerdown", withoutBlueCard);
-    
+
     // in corner
     yellowCard = corner.children[3];
     //roomback
@@ -440,18 +446,19 @@ export default function Game(props) {
     // Setting Visibility of Screens
     // order of objects in the roomback matters (starts from 0)
     // removes key  from drawer from corner for now - to add it when riddle solved
-    
+
     corner.addChild(
-      drawer, 
-      objects.key, 
-      objects.idCard2, 
-      objects.extraDrawer, 
-      roomParts[6]);
-   
-    objects.key.visible = false; 
+      drawer,
+      objects.key,
+      objects.idCard2,
+      objects.extraDrawer,
+      roomParts[6]
+    );
+
+    objects.key.visible = false;
     objects.idCard2.visible = false;
     corner.children[5].visible = false; //5 is message
-   
+
     roomBack.addChild(
       // objects.idCard1,
       objects.door, // Nr 2
@@ -493,13 +500,17 @@ export default function Game(props) {
       objects.blueCardSlot,
       boxClosed,
       roomParts[9], // 5
-      innerCellScreen // 6 
-      );
+      innerCellScreen, // 6 
+      objects.uvHint // 
+    );
 
     
     innerCell.children[5].visible = false;
+    //uv hint = 6:
     innerCell.children[6].visible = false;
+   innerCell.children[7].visible = false;
 
+    
     corner.visible = true;
     innerCell.visible = false;
     roomBack.visible = false;
@@ -731,7 +742,6 @@ export default function Game(props) {
     props.app.stage.children[3].mask = false;
     props.app.stage.children[0].mask = false;
     dispatch({ type: "USE_VOUCHER2" });
-   
   }
 
   // gives the key when the drawer riddle is solved
@@ -758,6 +768,8 @@ export default function Game(props) {
       "pointerdown",
       displayFifthRiddle
     );
+    // uvHint visible after success of riddle4:
+    props.app.stage.children[3].children[6].visible = true;
   }
 
   if (assetReducer.solved.riddle5 === true) {
@@ -770,6 +782,13 @@ export default function Game(props) {
     props.app.stage.children[1].children[5].on("pointerdown", takeFinger);
   }
 
+  if (assetReducer.solved.riddle6 === true) {
+    //1.  sets openEscapeDoor on escapeScreen
+    // frontDoor.children[4].on("pointerdown", openEscapeDoor);
+    //or 2.  sets escape door on the door
+    // frontDoor.children[1].on("pointerdown", escape); -doesnt work
+    props.app.stage.children[2].children[1].on("pointerdown", escape);
+  }
   return (
     <div id="pixi-container">
       {/* {!userName && !wantsToPlay && <GetUserName />} */}

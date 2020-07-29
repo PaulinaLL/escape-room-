@@ -83,9 +83,8 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
         fnName: "extractHint",
         startCode: `
     function extractHint(message) {
-  
+      
     }
-    console.log(extraHint(message))
           `,
       },
       check: {

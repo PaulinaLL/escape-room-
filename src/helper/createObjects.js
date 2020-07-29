@@ -101,7 +101,7 @@ export function setItems(items, app) {
   greenCardSlot.interactive = true;
   greenCardSlot.buttonMode = true;
   greenCardSlot.beginFill(0xffffff, 0.001);
-  greenCardSlot.drawRect(670, 330, 60, 60);
+  greenCardSlot.drawRect(650, 330, 60, 60);
   greenCardSlot.endFill();
   greenCardSlot.lineStyle(0);
 
@@ -136,7 +136,7 @@ export function setItems(items, app) {
   skeletonFinger.interactive = true;
   skeletonFinger.buttonMode = true;
   skeletonFinger.beginFill(0xffffff, 0.001);
-  skeletonFinger.drawRect(565, 490, 45, 30);
+  skeletonFinger.drawRect(565, 490, 45, 40);
   skeletonFinger.endFill();
   skeletonFinger.lineStyle(0);
 
@@ -149,13 +149,22 @@ export function setItems(items, app) {
   extraDrawer.endFill();
   extraDrawer.lineStyle(0);
 
+  const uvHint = new PIXI.Graphics();
+
+  uvHint.interactive = true;
+  uvHint.buttonMode = true;
+  uvHint.beginFill(0x00ff00, 1);
+  uvHint.drawRect(275, 255, 110, 80);
+  uvHint.endFill();
+  uvHint.lineStyle(0);
+
   //Create SwitchLight
   let radius = 32;
   let blurSize = 8;
 
   const circle = new PIXI.Graphics()
     .beginFill(0xffffff, 0.5)
-    .drawCircle(radius + blurSize, radius + blurSize, radius) 
+    .drawCircle(radius + blurSize, radius + blurSize, radius)
     .endFill();
   circle.filters = [new PIXI.filters.BlurFilter(blurSize)];
 
@@ -242,7 +251,8 @@ export function setItems(items, app) {
     skeletonFinger,
     extraDrawer,
     open,
-    lock
+    lock,
+    uvHint,
   };
 }
 

@@ -39,6 +39,7 @@ const initialState = {
     riddle3: false,
     riddle4: false,
     riddle5: false,
+    riddle6: false,
   },
 };
 
@@ -46,11 +47,11 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case "SELECT":
       return state;
-      case "ESCAPE":
-        return{
-          ...state,
-         partNumber: 10, 
-        };
+    case "ESCAPE":
+      return {
+        ...state,
+        partNumber: 10,
+      };
     case "SWITCH_LEFT":
       return {
         ...state,
@@ -90,9 +91,9 @@ function appReducer(state = initialState, action) {
         idCard2: { collected: true, pictureID: "idCard2" },
       };
     case "SELECT_BLUE_SLOT":
-        return {
+      return {
         ...state,
-        idCard2: {collected: false, pictureID: "idCard2"}, 
+        idCard2: { collected: false, pictureID: "idCard2" },
       };
     case "TAKE_IDCARD3":
       return {
@@ -190,14 +191,22 @@ function appReducer(state = initialState, action) {
           riddle5: true,
         },
       };
+    case "SOLVED_RIDDLE_6":
+      return {
+        ...state,
+        solved: {
+          ...state.solved,
+          riddle6: true,
+        },
+      };
     case "USE_VOUCHER2":
       return {
         ...state,
         solved: {
           ...state.solved,
           riddle2Voucher: false,
-        }
-      }
+        },
+      };
     case "LOADED":
       return {
         ...state,
