@@ -465,7 +465,7 @@ export default function Game(props) {
       objects.skeletonPc, // 4
       objects.skeletonFinger,
       roomParts[7],
-      objects.skeletonPcON // check number - 7?
+      objects.skeletonPcON //  7
     );
 
     roomBack.children[6].visible = false;
@@ -500,7 +500,6 @@ export default function Game(props) {
       boxClosed,
       roomParts[9], // 5
       innerCellScreen // 6
-      // objects.uvHint //
     );
 
     innerCell.children[5].visible = false;
@@ -598,6 +597,7 @@ export default function Game(props) {
         break;
       case 10:
         props.app.stage.children[10].visible = true;
+        break;
       case 0:
       default:
         //Corner
