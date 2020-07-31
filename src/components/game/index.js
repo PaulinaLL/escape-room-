@@ -8,9 +8,6 @@ import {
   setItems,
   createBox,
 } from "../../helper/createObjects";
-// import {
-//   takeIDCard2
-// } from "../../helper/gameFunctions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Game(props) {
@@ -35,7 +32,8 @@ export default function Game(props) {
         .add("scope", require("../../assets/objects/scope.png"))
         .add("eyeFocused", require("../../assets/objects/EyeFocused.png"))
         .add("eyeUnfocused", require("../../assets/objects/EyeUnfocused.png"))
-        .add("box", require("../../assets/objects/boxandothers.png"));
+        .add("box", require("../../assets/objects/boxandothers.png"))
+        .add("battleGame", require("../../assets/objects/battleship.png"));
       //  let config =
       props.app.loader.load(setup);
       dispatch({ type: "LOADED" });
@@ -137,7 +135,7 @@ export default function Game(props) {
     dispatch({ type: "SWITCH_RIGHT" });
   }
   function goBack() {
-    dispatch({type: "GO_BACK"});
+    dispatch({ type: "GO_BACK" });
   }
   function displayFirstRiddle() {
     dispatch({ type: "SELECT_PC" });
@@ -251,6 +249,7 @@ export default function Game(props) {
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
     //GreenCardSlot gets deacivated:
     innerCell.children[1].interactive = false;
+    dispatch({ type: "TURN_ON_SKELETONS_PC" });
   }
 
   function takeFinger() {
@@ -463,13 +462,14 @@ export default function Game(props) {
       objects.door, // Nr 2
       // objects.idCard2,
       objects.idCard3,
-      objects.skeletonPc,
+      objects.skeletonPc, // 4
       objects.skeletonFinger,
-      roomParts[7]
-      // objects.flashLight, - bringing it back changes the order of children[]
+      roomParts[7],
+      objects.skeletonPcON //  7
     );
 
     roomBack.children[6].visible = false;
+    roomBack.children[7].visible = false;
 
     frontDoor.addChild(
       objects.escapeDoor,
@@ -499,14 +499,12 @@ export default function Game(props) {
       objects.blueCardSlot,
       boxClosed,
       roomParts[9], // 5
-      innerCellScreen, // 6
-      objects.uvHint //
+      innerCellScreen // 6
     );
 
     innerCell.children[5].visible = false;
-    //uv hint = 6:
+    //innerCellScreen = 6:
     innerCell.children[6].visible = false;
-    innerCell.children[7].visible = false;
 
     corner.visible = true;
     innerCell.visible = false;
@@ -599,6 +597,7 @@ export default function Game(props) {
         break;
       case 10:
         props.app.stage.children[10].visible = true;
+        break;
       case 0:
       default:
         //Corner
@@ -651,6 +650,14 @@ export default function Game(props) {
     ];
     items["lock"] = [
       new PIXI.Texture(itemSheet, new PIXI.Rectangle(440, 100, 130, 100)),
+    ];
+
+    let battleSheet = new PIXI.BaseTexture.from(
+      props.app.loader.resources["battleGame"].url
+    );
+
+    items["battleGame"] = [
+      new PIXI.Texture(battleSheet, new PIXI.Rectangle(0, 0, 108, 108)),
     ];
   }
 
@@ -765,6 +772,8 @@ export default function Game(props) {
       "pointerdown",
       displayFifthRiddle
     );
+    // and turns on the battleGame on skeletonsPC
+    props.app.stage.children[1].children[7].visible = true;
     // uvHint visible after success of riddle4:
     props.app.stage.children[3].children[6].visible = true;
   }
@@ -786,6 +795,7 @@ export default function Game(props) {
     // frontDoor.children[1].on("pointerdown", escape); -doesnt work
     props.app.stage.children[2].children[1].on("pointerdown", escape);
   }
+
   return (
     <div id="pixi-container">
       {!userName && !wantsToPlay && <GetUserName />}
