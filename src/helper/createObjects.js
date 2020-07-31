@@ -15,7 +15,7 @@ export function createUserInterface(arrowSheet, app) {
   right.scale.set(-1);
 
   down.interactive = true;
-  down. buttonMode = true;
+  down.buttonMode = true;
   down.rotation -= 1.61;
 
   right.x = 730;
@@ -36,6 +36,8 @@ export function setItems(items, app) {
   const flashLight = new PIXI.Sprite(items.flashLight[0]);
   const open = new PIXI.Sprite(items.open[0]);
   const lock = new PIXI.Sprite(items.lock[0]);
+  const skeletonPcON = new PIXI.Sprite(items.battleGame[0]);
+
   //green
   idCard1.interactive = true;
   idCard1.buttonMode = true;
@@ -74,8 +76,6 @@ export function setItems(items, app) {
   flashLight.height = 90;
   flashLight.width = 90;
 
-
-
   open.x = 145;
   open.y = 320;
   open.height = 90;
@@ -86,6 +86,10 @@ export function setItems(items, app) {
   lock.height = 90;
   lock.width = 100;
 
+  // skeletonPcON.interactive = true;
+  // skeletonPcON.buttonMode = true;
+  skeletonPcON.x = 645;
+  skeletonPcON.y = 395;
 
   //Interactions Only
   const door = new PIXI.Graphics();
@@ -149,14 +153,14 @@ export function setItems(items, app) {
   extraDrawer.endFill();
   extraDrawer.lineStyle(0);
 
-  const uvHint = new PIXI.Graphics();
+  // const uvHint = new PIXI.Graphics();
 
-  uvHint.interactive = true;
-  uvHint.buttonMode = true;
-  uvHint.beginFill(0x00ff00, 1);
-  uvHint.drawRect(275, 255, 110, 80);
-  uvHint.endFill();
-  uvHint.lineStyle(0);
+  // uvHint.interactive = true;
+  // uvHint.buttonMode = true;
+  // uvHint.beginFill(0x00ff00, 1);
+  // uvHint.drawRect(275, 255, 110, 80);
+  // uvHint.endFill();
+  // uvHint.lineStyle(0);
 
   //Create SwitchLight
   let radius = 32;
@@ -252,7 +256,8 @@ export function setItems(items, app) {
     extraDrawer,
     open,
     lock,
-    uvHint,
+    // uvHint,
+    skeletonPcON,
   };
 }
 
@@ -321,7 +326,7 @@ export function createBox(boxSheet) {
   const boxClosed = new PIXI.Sprite(boxSheet.closed[0]);
   const boxOpened = new PIXI.Sprite(boxSheet.opened[0]);
   const uvlight = new PIXI.Sprite(boxSheet.uvlight[0]);
-  
+
   // position
   boxClosed.x = 450;
   boxClosed.y = 475;
@@ -331,7 +336,6 @@ export function createBox(boxSheet) {
   uvlight.y = 145;
   uvlight.width = 200;
   uvlight.height = 200;
-
 
   return [boxClosed, boxOpened, uvlight];
 }
