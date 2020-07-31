@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import * as PIXI from "pixi.js";
-// import GetUserName from "../promptWindow";
+import GetUserName from "../promptWindow";
 import {
   createDrawer,
   createUserInterface,
@@ -159,9 +159,9 @@ export default function Game(props) {
   }
 
   function displayLastRiddle() {
-//    frontDoor.children[4].on("pointerdown", openEscapeDoor);
-//    frontDoor.children[6].visible = true;
-//    frontDoor.children[2]
+    //    frontDoor.children[4].on("pointerdown", openEscapeDoor);
+    //    frontDoor.children[6].visible = true;
+    //    frontDoor.children[2]
     dispatch({ type: "SELECT_ESCAPE_SCREEN" });
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
     // //    frontDoor.children[2]
@@ -176,7 +176,6 @@ export default function Game(props) {
   function openEscapeDoor() {
     frontDoor.children[6].visible = false;
     frontDoor.children[7].visible = true;
-
 
     frontDoor.children[4].off("pointerdown", openEscapeDoor);
     frontDoor.children[1].off("pointerdown", escapeDoorSealed);
@@ -487,10 +486,10 @@ export default function Game(props) {
       //Message Nr5
     );
 
-    for(let i = 5; i <= 7; i++)
-    {frontDoor.children[i].visible = false;}
- 
-    
+    for (let i = 5; i <= 7; i++) {
+      frontDoor.children[i].visible = false;
+    }
+
     objects.idCard1.visible = false;
     // 350 Define Names for Objects and parts of room.
     //  pc = props.app.stage.children[8];
@@ -500,17 +499,15 @@ export default function Game(props) {
       objects.blueCardSlot,
       boxClosed,
       roomParts[9], // 5
-      innerCellScreen, // 6 
-      objects.uvHint // 
+      innerCellScreen, // 6
+      objects.uvHint //
     );
 
-    
     innerCell.children[5].visible = false;
     //uv hint = 6:
     innerCell.children[6].visible = false;
-   innerCell.children[7].visible = false;
+    innerCell.children[7].visible = false;
 
-    
     corner.visible = true;
     innerCell.visible = false;
     roomBack.visible = false;
@@ -722,8 +719,8 @@ export default function Game(props) {
       new PIXI.Texture(boxsheet, new PIXI.Rectangle(300, 0, width, height)),
     ];
     boxSheet["uvlight"] = [
-      new PIXI.Texture(boxsheet, new PIXI.Rectangle(620, 0, 260, 260)),   
-    ]
+      new PIXI.Texture(boxsheet, new PIXI.Rectangle(620, 0, 260, 260)),
+    ];
   }
 
   //State for Solved riddles
@@ -757,7 +754,7 @@ export default function Game(props) {
     //   displayThirdRiddle
     // );
   }
-  
+
   if (assetReducer.solved.riddle4 === true) {
     // greenCard.visible = true;
     props.app.stage.children[3].children[6].visible = true;
@@ -791,7 +788,7 @@ export default function Game(props) {
   }
   return (
     <div id="pixi-container">
-      {/* {!userName && !wantsToPlay && <GetUserName />} */}
+      {!userName && !wantsToPlay && <GetUserName />}
     </div>
   );
 }

@@ -121,7 +121,7 @@ const getRiddle = (userCTX, { id, addUserAnswer }) => {
     },
     "6": {
       setup: {
-        arg: "12345",
+        arg: "FGCTOEL3TKXL",
         fnName: "writeCode",
         startCode: `
   function writeCode(code) {

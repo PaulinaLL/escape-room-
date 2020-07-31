@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
-import getRiddle from "../../helper/riddles.js";
+import getRiddle from "../../helper/riddles copy.js";
 import RiddleEditor from "./editor";
 
 export default function UserInput() {
