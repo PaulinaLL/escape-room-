@@ -1,3 +1,21 @@
+## escape(room)  - final project of DCI Digital Career Institute Berlin
+
+Escape the room with your JS SKills!
+
+#### Contributors
+Gerald [Gerald](https://github.com/Gercai)
+Paulina [Paulina](https://github.com/PaulinaLL)
+Oliver [Oliver](https://github.com/oliverwebr)
+
+#### Tech Stack
+HTML
+CSS
+React
+Redux
+PIXI.js
+JavaScript
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -27,8 +45,3 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Tech Stack
-React.js
-Redux
-Pixi.js
-SCSS
