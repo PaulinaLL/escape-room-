@@ -11,7 +11,9 @@
   z-index: 99;
   background-image: url("../../assets/start-screen/exitgame.png");
   background-position: center;
-  background-size: cover;
+  background-size: cover/2;
+  background-repeat: no-repeat;
+  background-color: black;
 
   h2 {
     color: rgb(240, 216, 216);
@@ -19,13 +21,19 @@
   }
 
   button {
-    width: 90px;
+      font-weight: bold;
+    background-color: rgba(255,255,255,0.7);
+    border: dotted black 3px;
+    position: absolute;
+    top: 700px;
+    left: 1100px;
+    width: 200px;
     height: 50px;
     font-size: 20px;
-    margin: 40px;
+    margin: 80px;
   }
 
-  div {
+  &>div {
     display: flex;
     justify-content: center;
     align-items: center;

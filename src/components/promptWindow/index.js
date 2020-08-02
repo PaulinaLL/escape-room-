@@ -26,7 +26,7 @@ const GetUserName = () => {
   return modalWindow ? (
     <div className="welcomeScreen">
       <button className="gameStart" onClick={getName}>
-        start
+        Start the game
       </button>
     </div>
   ) : null;
