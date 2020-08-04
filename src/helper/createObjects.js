@@ -88,8 +88,12 @@ export function setItems(items, app) {
 
   // skeletonPcON.interactive = true;
   // skeletonPcON.buttonMode = true;
-  skeletonPcON.x = 645;
-  skeletonPcON.y = 395;
+  skeletonPcON.x = 660;
+  skeletonPcON.y = 405;
+  skeletonPcON.height = 70;
+  skeletonPcON.width = 80;
+  
+  skeletonPcON.rotation = 0.05;
 
   //Interactions Only
   const door = new PIXI.Graphics();
@@ -229,7 +233,7 @@ export function setItems(items, app) {
   setBasics(escapeDoorScreen);
   const safe = new PIXI.Graphics();
 
-  safe.beginFill(0xffffff, 0.001);
+  safe.beginFill(0xffffff, 1);
   //Left, Top,Width,Height,
   safe.drawRect(120, 500, 120, 140);
   setBasics(safe);
@@ -326,16 +330,34 @@ export function createBox(boxSheet) {
   const boxClosed = new PIXI.Sprite(boxSheet.closed[0]);
   const boxOpened = new PIXI.Sprite(boxSheet.opened[0]);
   const uvlight = new PIXI.Sprite(boxSheet.uvlight[0]);
+  const safe = new PIXI.Sprite(boxSheet.safe[0]);
+  const safeOpen = new PIXI.Sprite(boxSheet.safeOpen[0]);
+  const tableOpen = new PIXI.Sprite(boxSheet.tableOpen[0]);
+  
 
   // position
   boxClosed.x = 450;
   boxClosed.y = 475;
-  boxOpened.x = 445;
+  boxOpened.x = 465;
   boxOpened.y = 420;
   uvlight.x = 220;
   uvlight.y = 145;
   uvlight.width = 200;
   uvlight.height = 200;
+  safe.x = 95;
+  safe.y = 430;
+  safe.width = 170;
+  safe.height = 250;
+  safeOpen.x = 20;
+  safeOpen.y = 430;
+  safeOpen.width = 250;
+  safeOpen.height = 250;
+  tableOpen.width = 250;
+  tableOpen.height = 250;
+  tableOpen.x = 130;
+  tableOpen.y = 420;
 
-  return [boxClosed, boxOpened, uvlight];
+//  safe.drawRect(120, 500, 120, 140);
+
+  return [boxClosed, boxOpened, uvlight, safe, safeOpen, tableOpen];
 }
