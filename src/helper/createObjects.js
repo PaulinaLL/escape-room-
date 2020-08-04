@@ -92,7 +92,6 @@ export function setItems(items, app) {
   skeletonPcON.y = 405;
   skeletonPcON.height = 70;
   skeletonPcON.width = 80;
-  
   skeletonPcON.rotation = 0.05;
 
   //Interactions Only

@@ -158,7 +158,7 @@ export default function Game(props) {
 
   function displayLastRiddle() {
     //    frontDoor.children[4].on("pointerdown", openEscapeDoor);
-    //    frontDoor.children[6].visible = true;
+     frontDoor.children[6].visible = true;
     //    frontDoor.children[2]
     dispatch({ type: "SELECT_ESCAPE_SCREEN" });
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
@@ -168,6 +168,7 @@ export default function Game(props) {
   function useBlueCard() {
     dispatch({ type: "SELECT_BLUE_SLOT" });
     // sets displayLastRiddle on the escapeDoorScreen
+    frontDoor.children[6].visible = true;
     frontDoor.children[4].on("pointerdown", displayLastRiddle);
   }
 
@@ -231,20 +232,13 @@ export default function Game(props) {
     // props.app.stage.children[8].visible = true;
     door.off("pointerdown", closedDoor);
     door.on("pointerdown", openDoor);
-    // config.greenCard.visible = false;
-    // config.door.off("pointerdown", closedDoor);
-    // config.door.on("pointerdown", openDoor);
   }
 
   function takeFlashLight() {
     dispatch({ type: "TAKE_FLASHLIGHT" });
     //4 is FlashLightObject
     focus1.anchor.set(0.1);
-    // roomBack.children[4].visible = false;
-    // innerCell.children[4].visible = false; - closed box
-    // innerCell.children[5].visible = false; -opened box
     innerCell.children[8].visible = false;
-   // props.app.stage.children[7].visible = false;
     props.app.stage.children[6].off("pointerdown", lightOn);
     props.app.stage.children[6].on("pointerdown", lightOnWithFlashLight);
     //GreenCardSlot gets deacivated:
@@ -492,8 +486,8 @@ export default function Game(props) {
       safeOpen,
       objects.escapeDoorScreen,
       roomParts[8], //5
-      objects.lock,
-      objects.open,
+      objects.lock, //6
+      objects.open, //7
       objects.idCard1,
         //8
       //FrontDoor Object Nr 1
@@ -823,6 +817,8 @@ export default function Game(props) {
     // frontDoor.children[4].on("pointerdown", openEscapeDoor);
     //or 2.  sets escape door on the door
     // frontDoor.children[1].on("pointerdown", escape); -doesnt work
+    props.app.stage.children[2].children[6].visible = false;
+    props.app.stage.children[2].children[7].visible = true;
     props.app.stage.children[2].children[1].on("pointerdown", escape);
   }
 
