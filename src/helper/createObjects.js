@@ -270,8 +270,8 @@ export function createDrawer(furnitureSheet) {
   const drawer = new PIXI.AnimatedSprite(furnitureSheet.closed);
   drawer.buttonMode = true;
   drawer.interactive = true;
-  drawer.on("pointerover", onPointerOver).on("pointerout", onPointerOut);
-
+  drawer.on("pointerdown", onPointerOver).on("pointermove", onPointerOut);
+ 
   function onPointerOver(event) {
     event.stopPropagation();
     const valueY = Object.values(event.data.global)[1];
@@ -285,7 +285,7 @@ export function createDrawer(furnitureSheet) {
     } else if (valueY >= 640 && valueY <= 699) {
       this.texture = furnitureSheet.open1[0];
     } else return;
-  }
+  } 
 
   function onPointerOut() {
     this.isOver = false;
