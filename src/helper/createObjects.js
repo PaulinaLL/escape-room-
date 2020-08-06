@@ -310,12 +310,15 @@ export function createDrawer(furnitureSheet) {
 // add event listener to PC version 1
 export function createPC(pcSheet) {
   //const pcoff = new PIXI.Sprite(pcSheet.off[0]);
+  
   const pcoff = new PIXI.Graphics();
 
-  pcoff.beginFill(0xffffff, 0.1);
+  pcoff.beginFill(0xffffff, 0.2);
   pcoff.drawRect(20, 80, 200, 180);
   pcoff.endFill();
   pcoff.lineStyle(0);
+  pcoff.filters = [new PIXI.filters.BlurFilter(8)];
+
   pcoff.interactive = true;
   pcoff.buttonMode = true;
 
